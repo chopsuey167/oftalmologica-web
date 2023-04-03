@@ -1,0 +1,32 @@
+<html lang="en" layout:decorate="~{layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+<head>
+  <title>MedicCenter List</title>
+</head>
+<body class="d-flex flex-column h-100">
+<main class="flex-shrink-0">
+  <!-- Page Content-->
+  <section class="py-5" layout:fragment="body">
+    <div class="container px-5 my-5">
+      <div class="text-center mb-5">
+        <h1 class="fw-bolder">Centros médicos</h1>
+      </div>
+      <div class="row gx-5">
+        <div class="col-lg-6 mb-2" th:each="mediccenter: ${medicCenters}">
+          <div class="position-relative mb-3">
+            <img alt="..." class="img-fluid rounded-3 mb-3 w-100" th:src="${mediccenter.photoUrl}"/>
+            <a class="h3 fw-bolder text-decoration-none link-dark stretched-link" href="#!"
+               th:text="${mediccenter.name}">Project name</a>
+          </div>
+          <a class="btn btn-primary"
+             th:href="@{/mediccenters/{medicCenterId}/edit(medicCenterId=${mediccenter.id})}">Edit</a>
+          <a class="btn btn-primary"
+             th:href="@{/mediccenters/{medicCenterId}/delete(medicCenterId=${mediccenter.id})}">Delete</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+</body>
+</html>
