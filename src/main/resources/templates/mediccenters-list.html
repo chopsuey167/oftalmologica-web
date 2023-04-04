@@ -8,27 +8,52 @@
 <main>
   <div class="container-fluid px-4" layout:fragment="body">
     <h1 class="mt-4">Centros médicos</h1>
-    <!-- Page Content-->
-    <section class="py-5">
-      <div class="container px-5 my-5">
-        <a class="btn btn-primary"
-           th:href="@{mediccenters/new}">Agregar nuevo centro</a>
-        <div class="row gx-5">
-          <div class="col-lg-6 mb-2" th:each="mediccenter: ${medicCenters}">
-            <div class="position-relative mb-3">
-              <img alt="..." class="img-fluid rounded-3 mb-3 w-100" th:src="${mediccenter.photoUrl}"/>
-              <a class="h3 fw-bolder text-decoration-none link-dark stretched-link" href="#!"
-                 th:text="${mediccenter.name}">Project name</a>
-            </div>
-            <a class="btn btn-primary"
-               th:href="@{/mediccenters/{medicCenterId}/edit(medicCenterId=${mediccenter.id})}">Edit</a>
-            <a class="btn btn-primary"
-               th:href="@{/mediccenters/{medicCenterId}/delete(medicCenterId=${mediccenter.id})}">Delete</a>
-          </div>
-        </div>
+    <a class="btn btn-primary m-3" th:href="@{mediccenters/new}">Agregar nuevo centro</a>
+    <div class="card mb-4">
+      <div class="card-body">
+        <table id="datatablesSimple">
+          <thead>
+          <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Dirección</th>
+            <th>Email</th>
+            <th>Costo fijo</th>
+            <th>M.</th>
+            <th>E.</th>
+          </tr>
+          </thead>
+          <tfoot>
+          <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Dirección</th>
+            <th>Email</th>
+            <th>Costo fijo</th>
+            <th>M.</th>
+            <th>E.</th>
+          </tr>
+          </tfoot>
+          <tbody>
+          <tr th:each="mediccenter: ${medicCenters}">
+            <td><p th:text="${mediccenter.id}"></p></td>
+            <td><p th:text="${mediccenter.name}"></p></td>
+            <td><p th:text="${mediccenter.address}"></p></td>
+            <td><p th:text="${mediccenter.email}"></p></td>
+            <td><p th:text="${mediccenter.managementFee}"></p></td>
+            <td><a
+                th:href="@{/mediccenters/{medicCenterId}/edit(medicCenterId=${mediccenter.id})}"><i
+                class="fa-solid fa-pen-to-square fa-xl"></i></a></td>
+            <td><a
+                th:href="@{/mediccenters/{medicCenterId}/delete(medicCenterId=${mediccenter.id})}"><i
+                class="fa-solid fa-trash fa-xl"></i></a></td>
+          </tr>
+          </tbody>
+        </table>
       </div>
-    </section>
+    </div>
   </div>
 </main>
 </body>
 </html>
+

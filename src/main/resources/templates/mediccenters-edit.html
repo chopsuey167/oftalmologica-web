@@ -14,7 +14,7 @@
               th:action="@{/mediccenters/{medicCenterId}/edit(medicCenterId=${mediccenter.id})}"
               th:object="${mediccenter}">
           <div class="col-md-6">
-            <label class="form-label" for="inputName">Name</label>
+            <label class="form-label" for="inputName">Nombre</label>
             <input class="form-control" id="inputName" th:field="*{name}" type="text">
           </div>
           <div class="col-md-6">
@@ -22,15 +22,16 @@
             <input class="form-control" id="inputEmail" th:field="*{email}" type="email">
           </div>
           <div class="col-md-6">
-            <label class="form-label" for="inputAddress">Address</label>
-            <input class="form-control" id="inputAddress" placeholder="1234 Main St" th:field="*{address}" type="text">
+            <label class="form-label" for="inputAddress">Dirección</label>
+            <input class="form-control" id="inputAddress" placeholder="Gran via les corts catalanes"
+                   th:field="*{address}" type="text">
           </div>
           <div class="col-md-6">
-            <label class="form-label" for="inputUrl">Image url</label>
-            <input class="form-control" id="inputUrl" th:field="*{photoUrl}" type="text">
+            <label class="form-label" for="managementFee">Costo fijo</label>
+            <input class="form-control" id="managementFee" step="any" th:field="*{managementFee}" type="number">
           </div>
           <div class="col-12">
-            <button class="btn btn-primary" type="submit">Edit</button>
+            <button class="btn btn-primary" type="submit">Editar</button>
           </div>
         </form>
       </div>

@@ -1,15 +1,12 @@
 package com.oftalmologica.web.models;
 
 import java.time.LocalDateTime;
-import java.util.Set;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,25 +20,25 @@ import org.hibernate.annotations.UpdateTimestamp;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "medical_services")
-public class MedicalService {
+@Table(name = "doctor_config")
+public class DoctorConfig {
 
-  @OneToMany(mappedBy = "medicalService")
-  Set<MedicCenterConfig> centerMedicConfigurations;
-  @OneToMany(mappedBy = "doctor")
-  Set<DoctorConfig> doctorConfigurations;
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
-  private String description;
-  @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "service_type_id", referencedColumnName = "id")
-  private ServiceType serviceType;
-  @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "service_category_id", referencedColumnName = "id")
-  private ServiceCategory serviceCategory;
+  Long id;
+  @ManyToOne
+  @JoinColumn(name = "mediccenter_id")
+  MedicCenter medicCenter;
+  @ManyToOne
+  @JoinColumn(name = "medicalservice_id")
+  MedicalService medicalService;
+  @ManyToOne
+  @JoinColumn(name = "doctor_id")
+  Doctor doctor;
   @CreationTimestamp
   private LocalDateTime createdOn;
   @UpdateTimestamp
   private LocalDateTime updatedOn;
+  private Float percentage;
+  private boolean isSelfEmployed;
 }
