@@ -1,0 +1,53 @@
+<html lang="en" layout:decorate="~{layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+<head>
+  <title>Lista de servicios médicos</title>
+</head>
+<body>
+<main>
+  <div class="container-fluid px-4" layout:fragment="body">
+    <h1 class="mt-4">Servicios médicos</h1>
+    <a class="btn btn-primary m-3" th:href="@{medicalservices/new}">Agregar nuevo servicio médico</a>
+    <div class="card mb-4">
+      <div class="card-body">
+        <table id="datatablesSimple">
+          <thead>
+          <tr>
+            <th>Id</th>
+            <th>Descripción</th>
+            <th>Tipo</th>
+            <th>M.</th>
+            <th>E.</th>
+          </tr>
+          </thead>
+          <tfoot>
+          <tr>
+            <th>Id</th>
+            <th>Descripción</th>
+            <th>Tipo</th>
+            <th>M.</th>
+            <th>E.</th>
+          </tr>
+          </tfoot>
+          <tbody>
+          <tr th:each="medicalservice: ${medicalServices}">
+            <td><p th:text="${medicalservice.id}"></p></td>
+            <td><p th:text="${medicalservice.description}"></p></td>
+            <td><p th:text="${medicalservice.serviceType.name}"></p></td>
+            <td><a
+                th:href="@{/medicalservices/{medicalServiceId}/edit(medicalServiceId=${medicalservice.id})}"><i
+                class="fa-solid fa-pen-to-square fa-xl"></i></a></td>
+            <td><a
+                th:href="@{/medicalservices/{medicalServiceId}/delete(medicalServiceId=${medicalservice.id})}"><i
+                class="fa-solid fa-trash fa-xl"></i></a></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>
+</body>
+</html>
+

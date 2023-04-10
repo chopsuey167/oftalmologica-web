@@ -1,8 +1,10 @@
 package com.oftalmologica.web.controller;
 
 import com.oftalmologica.web.dto.MedicalServiceDto;
+import com.oftalmologica.web.dto.ServiceTypeDto;
 import com.oftalmologica.web.models.MedicalService;
 import com.oftalmologica.web.service.MedicalServiceService;
+import com.oftalmologica.web.service.ServiceTypeService;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class MedicalServiceController {
 
   private final MedicalServiceService medicalServiceService;
+  private final ServiceTypeService serviceTypeService;
 
   @GetMapping("/medicalservices")
   public String listMedicalServices(Model model) {
@@ -28,7 +31,9 @@ public class MedicalServiceController {
   @GetMapping("/medicalservices/new")
   public String createMedicalServiceForm(Model model) {
     MedicalService medicalService = new MedicalService();
+    List<ServiceTypeDto> serviceTypes = serviceTypeService.findAll();
     model.addAttribute("medicalservice", medicalService);
+    model.addAttribute("servicetypes", serviceTypes);
     return "medicalservices-create";
   }
 
@@ -41,12 +46,14 @@ public class MedicalServiceController {
   @GetMapping("/medicalservices/{medicalServiceId}/edit")
   public String editMedicalServiceForm(@PathVariable("medicalServiceId") long medicalServiceId, Model model) {
     MedicalServiceDto medicalService = medicalServiceService.findById(medicalServiceId);
+    List<ServiceTypeDto> serviceTypes = serviceTypeService.findAll();
     model.addAttribute("medicalservice", medicalService);
+    model.addAttribute("servicetypes", serviceTypes);
     return "medicalservices-edit";
   }
 
   @PostMapping("/medicalservices/{medicalServiceId}/edit")
-  public String updateMedicalService(@PathVariable("medicCenterId") long medicalServiceId,
+  public String updateMedicalService(@PathVariable("medicalServiceId") long medicalServiceId,
       @ModelAttribute("medicalservice") MedicalServiceDto medicalService) {
     medicalService.setId(medicalServiceId);
     medicalServiceService.update(medicalService);
@@ -54,7 +61,7 @@ public class MedicalServiceController {
   }
 
   @GetMapping("/medicalservices/{medicalServiceId}/delete")
-  public String deleteMedicalService(@PathVariable("medicCenterId") long medicalServiceId) {
+  public String deleteMedicalService(@PathVariable("medicalServiceId") long medicalServiceId) {
     medicalServiceService.delete(medicalServiceId);
     return "redirect:/medicalservices";
   }

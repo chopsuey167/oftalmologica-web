@@ -45,7 +45,7 @@ public class DoctorController {
     return "doctors-edit";
   }
 
-  @PostMapping("/doctors/{medicCenterId}/edit")
+  @PostMapping("/doctors/{doctorId}/edit")
   public String updateDoctor(@PathVariable("doctorId") long doctorId,
       @ModelAttribute("doctor") DoctorDto doctor) {
     doctor.setId(doctorId);

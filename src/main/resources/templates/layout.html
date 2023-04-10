@@ -40,9 +40,18 @@
         <div class="nav">
           <div class="sb-sidenav-menu-heading">Administración</div>
           <a class="nav-link" th:href="@{/mediccenters}">
-            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-            Gestionar centros médicos
+            <div class="sb-nav-link-icon"><i class="fas fa-hospital"></i></div>
+            Centros médicos
           </a>
+          <a class="nav-link" th:href="@{/medicalservices}">
+            <div class="sb-nav-link-icon"><i class="fas fa-suitcase-medical"></i></div>
+            Servicios médicos
+          </a>
+          <a class="nav-link" th:href="@{/doctors}">
+            <div class="sb-nav-link-icon"><i class="fas fa-user-doctor"></i></div>
+            Doctores
+          </a>
+          <div class="sb-sidenav-menu-heading">Informes</div>
         </div>
       </div>
     </nav>

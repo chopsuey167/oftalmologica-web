@@ -2,13 +2,13 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 >
 <head>
-  <title>Lista de centros médicos</title>
+  <title>Lista de doctores</title>
 </head>
 <body>
 <main>
   <div class="container-fluid px-4" layout:fragment="body">
-    <h1 class="mt-4">Centros médicos</h1>
-    <a class="btn btn-primary m-3" th:href="@{mediccenters/new}">Agregar nuevo centro</a>
+    <h1 class="mt-4">Doctores</h1>
+    <a class="btn btn-primary m-3" th:href="@{doctors/new}">Agregar nuevo doctor</a>
     <div class="card mb-4">
       <div class="card-body">
         <table id="datatablesSimple">
@@ -16,9 +16,6 @@
           <tr>
             <th>Id</th>
             <th>Nombre</th>
-            <th>Dirección</th>
-            <th>Email</th>
-            <th>Costo fijo</th>
             <th>M.</th>
             <th>E.</th>
           </tr>
@@ -27,25 +24,19 @@
           <tr>
             <th>Id</th>
             <th>Nombre</th>
-            <th>Dirección</th>
-            <th>Email</th>
-            <th>Costo fijo</th>
             <th>M.</th>
             <th>E.</th>
           </tr>
           </tfoot>
           <tbody>
-          <tr th:each="mediccenter: ${medicCenters}">
-            <td><p th:text="${mediccenter.id}"></p></td>
-            <td><p th:text="${mediccenter.name}"></p></td>
-            <td><p th:text="${mediccenter.address}"></p></td>
-            <td><p th:text="${mediccenter.email}"></p></td>
-            <td><p th:text="${mediccenter.managementFee}"></p></td>
+          <tr th:each="doctor: ${doctors}">
+            <td><p th:text="${doctor.id}"></p></td>
+            <td><p th:text="${doctor.name}"></p></td>
             <td><a
-                th:href="@{/mediccenters/{medicCenterId}/edit(medicCenterId=${mediccenter.id})}"><i
+                th:href="@{/doctors/{doctorId}/edit(doctorId=${doctor.id})}"><i
                 class="fa-solid fa-pen-to-square fa-xl"></i></a></td>
             <td><a
-                th:href="@{/mediccenters/{medicCenterId}/delete(medicCenterId=${mediccenter.id})}"><i
+                th:href="@{/doctors/{doctorId}/delete(doctorId=${doctor.id})}"><i
                 class="fa-solid fa-trash fa-xl"></i></a></td>
           </tr>
           </tbody>

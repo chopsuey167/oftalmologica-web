@@ -45,26 +45,5 @@ public class MedicalServiceServiceImpl implements MedicalServiceService {
   public void delete(Long id) {
     repository.deleteById(id);
   }
-
-  private MedicalService mapToMedicalService(MedicalServiceDto medicalServiceDto) {
-    return MedicalService.builder()
-        .id(medicalServiceDto.getId())
-        .description(medicalServiceDto.getDescription())
-        .serviceType(medicalServiceDto.getServiceType())
-        .serviceCategory(medicalServiceDto.getServiceCategory())
-        .createdOn(medicalServiceDto.getCreatedOn())
-        .updatedOn(medicalServiceDto.getUpdatedOn())
-        .build();
-  }
-
-  private MedicalServiceDto mapToMedicalServiceDto(MedicalService medicalService) {
-    return MedicalServiceDto.builder()
-        .id(medicalService.getId())
-        .description(medicalService.getDescription())
-        .serviceType(medicalService.getServiceType())
-        .serviceCategory(medicalService.getServiceCategory())
-        .createdOn(medicalService.getCreatedOn())
-        .updatedOn(medicalService.getUpdatedOn())
-        .build();
-  }
+  
 }

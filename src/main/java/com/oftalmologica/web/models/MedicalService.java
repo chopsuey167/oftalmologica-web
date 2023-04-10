@@ -37,9 +37,6 @@ public class MedicalService {
   @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "service_type_id", referencedColumnName = "id")
   private ServiceType serviceType;
-  @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "service_category_id", referencedColumnName = "id")
-  private ServiceCategory serviceCategory;
   @CreationTimestamp
   private LocalDateTime createdOn;
   @UpdateTimestamp
