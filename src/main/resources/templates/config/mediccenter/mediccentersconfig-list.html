@@ -1,0 +1,53 @@
+<html lang="en" layout:decorate="~{layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+<head>
+  <title>Lista de configuraciones de centro médico</title>
+</head>
+<body>
+<main>
+  <div class="container-fluid px-4" layout:fragment="body">
+    <h1 class="mt-4">Configuraciones de centro médico</h1>
+    <a class="btn btn-primary m-3" th:href="@{mediccentersconfig/new}">Agregar nueva configuración</a>
+    <div class="card mb-4">
+      <div class="card-body">
+        <table id="datatablesSimple">
+          <thead>
+          <tr>
+            <th>Centro médico</th>
+            <th>Servicio</th>
+            <th>Porcentaje</th>
+            <th>M.</th>
+            <th>E.</th>
+          </tr>
+          </thead>
+          <tfoot>
+          <tr>
+            <th>Centro médico</th>
+            <th>Servicio</th>
+            <th>Porcentaje</th>
+            <th>M.</th>
+            <th>E.</th>
+          </tr>
+          </tfoot>
+          <tbody>
+          <tr th:each="mediccenterconfig: ${medicCentersConfig}">
+            <td><p th:text="${mediccenterconfig.medicCenter.name}"></p></td>
+            <td><p th:text="${mediccenterconfig.medicalService.description}"></p></td>
+            <td><p th:text="${mediccenterconfig.percentage}"></p></td>
+            <td><a
+                th:href="@{/mediccentersconfig/{medicCenterId}/{medicalServiceId}/edit(medicCenterId=${mediccenterconfig.id.medicCenterId},medicalServiceId=${mediccenterconfig.id.medicalServiceId})}"><i
+                class="fa-solid fa-pen-to-square fa-xl"></i></a></td>
+            <td><a
+                th:href="@{/mediccentersconfig/{medicCenterId}/{medicalServiceId}/delete(medicCenterId=${mediccenterconfig.id.medicCenterId},medicalServiceId=${mediccenterconfig.id.medicalServiceId})}"><i
+                class="fa-solid fa-trash fa-xl"></i></a></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>
+</body>
+</html>
+

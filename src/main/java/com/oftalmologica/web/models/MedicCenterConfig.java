@@ -1,42 +1,46 @@
 package com.oftalmologica.web.models;
 
 import java.time.LocalDateTime;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Getter
+@Setter
 @Entity
 @Table(name = "medic_center_config")
 public class MedicCenterConfig {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  Long id;
+  @EmbeddedId
+  private MedicCenterConfigId id;
+
   @ManyToOne
+  @MapsId("medicCenterId")
   @JoinColumn(name = "mediccenter_id")
-  MedicCenter medicCenter;
+  private MedicCenter medicCenter;
   @ManyToOne
+  @MapsId("medicalServiceId")
   @JoinColumn(name = "medicalservice_id")
-  MedicalService medicalService;
+  private MedicalService medicalService;
+  private Float percentage;
   @CreationTimestamp
   private LocalDateTime createdOn;
   @UpdateTimestamp
   private LocalDateTime updatedOn;
-  private Float percentage;
+
 }
 
 

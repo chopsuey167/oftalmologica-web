@@ -24,20 +24,19 @@ import org.hibernate.annotations.UpdateTimestamp;
 public class MedicCenter {
 
 
-  @OneToMany(mappedBy = "medicCenter")
-  Set<MedicCenterConfig> centerMedicConfigurations;
-  @OneToMany(mappedBy = "doctor")
-  Set<DoctorConfig> doctorConfigurations;
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String name;
   private String address;
   private String email;
-  private String photoUrl;
   private Float managementFee;
   @CreationTimestamp
   private LocalDateTime createdOn;
   @UpdateTimestamp
   private LocalDateTime updatedOn;
+  @OneToMany(mappedBy = "doctor")
+  private Set<DoctorConfig> doctorConfigurations;
+  @OneToMany(mappedBy = "medicCenter")
+  private Set<MedicCenterConfig> centerMedicConfigurations;
 }

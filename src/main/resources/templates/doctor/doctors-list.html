@@ -16,6 +16,7 @@
           <tr>
             <th>Id</th>
             <th>Nombre</th>
+            <th>¿Autónomo?</th>
             <th>M.</th>
             <th>E.</th>
           </tr>
@@ -24,6 +25,7 @@
           <tr>
             <th>Id</th>
             <th>Nombre</th>
+            <th>¿Autónomo?</th>
             <th>M.</th>
             <th>E.</th>
           </tr>
@@ -32,6 +34,7 @@
           <tr th:each="doctor: ${doctors}">
             <td><p th:text="${doctor.id}"></p></td>
             <td><p th:text="${doctor.name}"></p></td>
+            <td><p th:text="${doctor.isSelfEmployed} ? 'Si' : 'No'"></p></td>
             <td><a
                 th:href="@{/doctors/{doctorId}/edit(doctorId=${doctor.id})}"><i
                 class="fa-solid fa-pen-to-square fa-xl"></i></a></td>

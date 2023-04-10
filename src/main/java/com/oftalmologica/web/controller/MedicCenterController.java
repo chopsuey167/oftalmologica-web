@@ -22,14 +22,14 @@ public class MedicCenterController {
   public String listMedicCenters(Model model) {
     List<MedicCenterDto> medicCenters = medicCenterService.findAll();
     model.addAttribute("medicCenters", medicCenters);
-    return "mediccenters-list";
+    return "mediccenter/mediccenters-list";
   }
 
   @GetMapping("/mediccenters/new")
   public String createMedicCenterForm(Model model) {
     MedicCenter medicCenter = new MedicCenter();
     model.addAttribute("mediccenter", medicCenter);
-    return "mediccenters-create";
+    return "mediccenter/mediccenters-create";
   }
 
   @PostMapping("/mediccenters/new")
@@ -42,7 +42,7 @@ public class MedicCenterController {
   public String editMedicCenterForm(@PathVariable("medicCenterId") long medicCenterId, Model model) {
     MedicCenterDto medicCenter = medicCenterService.findById(medicCenterId);
     model.addAttribute("mediccenter", medicCenter);
-    return "mediccenters-edit";
+    return "mediccenter/mediccenters-edit";
   }
 
   @PostMapping("/mediccenters/{medicCenterId}/edit")

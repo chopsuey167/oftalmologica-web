@@ -25,20 +25,19 @@ public class DoctorConfig {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  Long id;
+  private Long id;
   @ManyToOne
   @JoinColumn(name = "mediccenter_id")
-  MedicCenter medicCenter;
+  private MedicCenter medicCenter;
   @ManyToOne
   @JoinColumn(name = "medicalservice_id")
-  MedicalService medicalService;
+  private MedicalService medicalService;
   @ManyToOne
   @JoinColumn(name = "doctor_id")
-  Doctor doctor;
+  private Doctor doctor;
   @CreationTimestamp
   private LocalDateTime createdOn;
   @UpdateTimestamp
   private LocalDateTime updatedOn;
   private Float percentage;
-  private boolean isSelfEmployed;
 }

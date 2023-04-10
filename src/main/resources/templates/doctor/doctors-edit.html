@@ -2,24 +2,29 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 >
 <head>
-  <title>Crear nuevo doctor</title>
+  <title>Editar doctor</title>
 </head>
 <body>
 <main>
   <div class="container-fluid px-4" layout:fragment="body">
-    <h1 class="mt-4">Crear doctor</h1>
+    <h1 class="mt-4">Editar doctor</h1>
     <section class="py-5">
       <div class="container">
         <form class="row g-3" method="post" role="form"
-              th:action="@{/doctors/new}"
+              th:action="@{/doctors/{doctorId}/edit(doctorId=${doctor.id})}"
               th:object="${doctor}">
-          <input th:field="*{id}" type="hidden">
-          <div class="col-md-12">
+          <div class="col-md-6">
             <label class="form-label" for="inputName">Nombre</label>
             <input class="form-control" id="inputName" th:field="*{name}" type="text">
           </div>
+          <div class="col-md-6">
+            <label class="form-label" for="inputIsSelfEmployed">¿Es autónomo?</label>
+            <input class="form-check-input form-check form-switch" id="inputIsSelfEmployed" role="switch"
+                   th:field="*{isSelfEmployed}"
+                   type="checkbox">
+          </div>
           <div class="col-12">
-            <button class="btn btn-primary" type="submit">Crear</button>
+            <button class="btn btn-primary" type="submit">Editar</button>
           </div>
         </form>
       </div>

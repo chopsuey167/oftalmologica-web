@@ -22,14 +22,14 @@ public class DoctorController {
   public String listDoctors(Model model) {
     List<DoctorDto> doctors = doctorService.findAll();
     model.addAttribute("doctors", doctors);
-    return "doctors-list";
+    return "doctor/doctors-list";
   }
 
   @GetMapping("/doctors/new")
   public String createDoctorForm(Model model) {
     Doctor doctor = new Doctor();
     model.addAttribute("doctor", doctor);
-    return "doctors-create";
+    return "doctor/doctors-create";
   }
 
   @PostMapping("/doctors/new")
@@ -42,7 +42,7 @@ public class DoctorController {
   public String editDoctorForm(@PathVariable("doctorId") long doctorId, Model model) {
     DoctorDto doctor = doctorService.findById(doctorId);
     model.addAttribute("doctor", doctor);
-    return "doctors-edit";
+    return "doctor/doctors-edit";
   }
 
   @PostMapping("/doctors/{doctorId}/edit")

@@ -10,6 +10,7 @@ public class DoctorDto {
 
   private Long id;
   private String name;
+  private Boolean isSelfEmployed;
   private LocalDateTime createdOn;
   private LocalDateTime updatedOn;
 }

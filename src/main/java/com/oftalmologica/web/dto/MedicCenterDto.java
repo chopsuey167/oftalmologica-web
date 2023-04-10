@@ -12,7 +12,6 @@ public class MedicCenterDto {
   private String name;
   private String address;
   private String email;
-  private String photoUrl;
   private Float managementFee;
   private LocalDateTime createdOn;
   private LocalDateTime updatedOn;

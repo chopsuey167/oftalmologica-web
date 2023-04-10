@@ -23,14 +23,16 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Table(name = "doctors")
 public class Doctor {
 
-  @OneToMany(mappedBy = "doctor")
-  Set<DoctorConfig> doctorConfigurations;
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String name;
+  private Boolean isSelfEmployed = true;
   @CreationTimestamp
   private LocalDateTime createdOn;
   @UpdateTimestamp
   private LocalDateTime updatedOn;
+  @OneToMany(mappedBy = "doctor")
+  private Set<DoctorConfig> doctorConfigurations;
 }

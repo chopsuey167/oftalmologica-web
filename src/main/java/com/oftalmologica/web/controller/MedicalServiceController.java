@@ -25,7 +25,7 @@ public class MedicalServiceController {
   public String listMedicalServices(Model model) {
     List<MedicalServiceDto> medicalServices = medicalServiceService.findAll();
     model.addAttribute("medicalServices", medicalServices);
-    return "medicalservices-list";
+    return "medicalservice/medicalservices-list";
   }
 
   @GetMapping("/medicalservices/new")
@@ -34,7 +34,7 @@ public class MedicalServiceController {
     List<ServiceTypeDto> serviceTypes = serviceTypeService.findAll();
     model.addAttribute("medicalservice", medicalService);
     model.addAttribute("servicetypes", serviceTypes);
-    return "medicalservices-create";
+    return "medicalservice/medicalservices-create";
   }
 
   @PostMapping("/medicalservices/new")
@@ -49,7 +49,7 @@ public class MedicalServiceController {
     List<ServiceTypeDto> serviceTypes = serviceTypeService.findAll();
     model.addAttribute("medicalservice", medicalService);
     model.addAttribute("servicetypes", serviceTypes);
-    return "medicalservices-edit";
+    return "medicalservice/medicalservices-edit";
   }
 
   @PostMapping("/medicalservices/{medicalServiceId}/edit")
