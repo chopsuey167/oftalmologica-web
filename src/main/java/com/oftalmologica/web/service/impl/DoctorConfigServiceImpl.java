@@ -3,6 +3,7 @@ package com.oftalmologica.web.service.impl;
 import com.oftalmologica.web.dto.DoctorConfigDto;
 import com.oftalmologica.web.mapper.DoctorConfigDtoMapper;
 import com.oftalmologica.web.models.DoctorConfig;
+import com.oftalmologica.web.models.DoctorConfigId;
 import com.oftalmologica.web.repository.DoctorConfigRepository;
 import com.oftalmologica.web.service.DoctorConfigService;
 import java.util.List;
@@ -30,8 +31,8 @@ public class DoctorConfigServiceImpl implements DoctorConfigService {
   }
 
   @Override
-  public DoctorConfigDto findById(Long id) {
-    DoctorConfig doctorConfig = repository.findById(id).get();
+  public DoctorConfigDto findById(DoctorConfigId doctorConfigId) {
+    DoctorConfig doctorConfig = repository.findById(doctorConfigId).get();
 
     return mapper.toDoctorConfigDto(doctorConfig);
   }
@@ -43,8 +44,8 @@ public class DoctorConfigServiceImpl implements DoctorConfigService {
   }
 
   @Override
-  public void delete(Long id) {
-    repository.deleteById(id);
+  public void delete(DoctorConfigId doctorConfigId) {
+    repository.deleteById(doctorConfigId);
   }
 
 }

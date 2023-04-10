@@ -2,6 +2,7 @@ package com.oftalmologica.web.service;
 
 import com.oftalmologica.web.dto.DoctorConfigDto;
 import com.oftalmologica.web.models.DoctorConfig;
+import com.oftalmologica.web.models.DoctorConfigId;
 import java.util.List;
 
 public interface DoctorConfigService {
@@ -10,9 +11,9 @@ public interface DoctorConfigService {
 
   DoctorConfig save(DoctorConfig doctorConfig);
 
-  DoctorConfigDto findById(Long id);
+  DoctorConfigDto findById(DoctorConfigId doctorConfigId);
 
   void update(DoctorConfigDto doctorConfigDto);
 
-  void delete(Long id);
+  void delete(DoctorConfigId doctorConfigId);
 }
