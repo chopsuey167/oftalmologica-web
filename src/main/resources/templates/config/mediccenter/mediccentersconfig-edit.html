@@ -13,25 +13,30 @@
         <form class="row g-3" method="post" role="form"
               th:action="@{/mediccentersconfig/{medicCenterId}/{medicalServiceId}/edit(medicCenterId=${mediccenterconfig.id.medicCenterId},medicalServiceId=${mediccenterconfig.id.medicalServiceId})}"
               th:object="${mediccenterconfig}">
+          <input th:field="*{id.medicCenterId}" type="hidden">
+          <input th:field="*{id.medicalServiceId}" type="hidden">
           <div class="col-md-12">
             <label class="form-label" for="inputMedicCenter">Centro médico</label>
-            <select class="form-select" disabled id="inputMedicCenter" th:field="*{medicCenter}">
+            <select class="form-select" id="inputMedicCenter" th:field="*{medicCenter}">
               <option selected value="">Seleccione centro médico</option>
               <option th:each="mediccenter: ${mediccenters}" th:selected="${mediccenter.id}"
                       th:text="${mediccenter.name}" th:value="${mediccenter.id}"></option>
             </select>
+            <p class="text-danger" th:errors="*{medicCenter}" th:if="${#fields.hasErrors('medicCenter')}"></p>
           </div>
           <div class="col-md-12">
             <label class="form-label" for="inputMedicalService">Servicio</label>
-            <select class="form-select" disabled id="inputMedicalService" th:field="*{medicalService}">
+            <select class="form-select" id="inputMedicalService" th:field="*{medicalService}">
               <option selected value="">Seleccione servicio</option>
               <option th:each="medicalservice: ${medicalservices}" th:selected="${medicalservice.id}"
                       th:text="${medicalservice.description}" th:value="${medicalservice.id}"></option>
             </select>
+            <p class="text-danger" th:errors="*{medicalService}" th:if="${#fields.hasErrors('medicalService')}"></p>
           </div>
           <div class="col-md-6">
             <label class="form-label" for="inputPercentage">Porcentaje</label>
             <input class="form-control" id="inputPercentage" step="any" th:field="*{percentage}" type="number">
+            <p class="text-danger" th:errors="*{percentage}" th:if="${#fields.hasErrors('percentage')}">
           </div>
           <div class="col-12">
             <button class="btn btn-primary" type="submit">Editar</button>

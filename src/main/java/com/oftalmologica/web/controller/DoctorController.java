@@ -4,9 +4,11 @@ import com.oftalmologica.web.dto.DoctorDto;
 import com.oftalmologica.web.models.Doctor;
 import com.oftalmologica.web.service.DoctorService;
 import java.util.List;
+import javax.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,7 +35,12 @@ public class DoctorController {
   }
 
   @PostMapping("/doctors/new")
-  public String saveDoctor(@ModelAttribute("doctor") DoctorDto doctor) {
+  public String saveDoctor(@Valid @ModelAttribute("doctor") DoctorDto doctor, BindingResult result,
+      Model model) {
+    if (result.hasErrors()) {
+      model.addAttribute("doctor", doctor);
+      return "doctor/doctors-create";
+    }
     doctorService.save(doctor);
     return "redirect:/doctors";
   }
@@ -47,7 +54,12 @@ public class DoctorController {
 
   @PostMapping("/doctors/{doctorId}/edit")
   public String updateDoctor(@PathVariable("doctorId") Long doctorId,
-      @ModelAttribute("doctor") DoctorDto doctor) {
+      @Valid @ModelAttribute("doctor") DoctorDto doctor,
+      BindingResult result, Model model) {
+    if (result.hasErrors()) {
+      model.addAttribute("doctor", doctor);
+      return "doctor/doctors-edit";
+    }
     doctor.setId(doctorId);
     doctorService.update(doctor);
     return "redirect:/doctors";

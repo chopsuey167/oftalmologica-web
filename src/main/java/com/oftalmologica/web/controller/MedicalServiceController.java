@@ -6,9 +6,11 @@ import com.oftalmologica.web.models.MedicalService;
 import com.oftalmologica.web.service.MedicalServiceService;
 import com.oftalmologica.web.service.ServiceTypeService;
 import java.util.List;
+import javax.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,7 +40,15 @@ public class MedicalServiceController {
   }
 
   @PostMapping("/medicalservices/new")
-  public String saveMedicalService(@ModelAttribute("medicalservice") MedicalServiceDto medicalService) {
+  public String saveMedicalService(@Valid @ModelAttribute("medicalservice") MedicalServiceDto medicalService,
+      BindingResult result,
+      Model model) {
+    if (result.hasErrors()) {
+      List<ServiceTypeDto> serviceTypes = serviceTypeService.findAll();
+      model.addAttribute("medicalservice", medicalService);
+      model.addAttribute("servicetypes", serviceTypes);
+      return "medicalservice/medicalservices-create";
+    }
     medicalServiceService.save(medicalService);
     return "redirect:/medicalservices";
   }
@@ -54,7 +64,14 @@ public class MedicalServiceController {
 
   @PostMapping("/medicalservices/{medicalServiceId}/edit")
   public String updateMedicalService(@PathVariable("medicalServiceId") Long medicalServiceId,
-      @ModelAttribute("medicalservice") MedicalServiceDto medicalService) {
+      @Valid @ModelAttribute("medicalservice") MedicalServiceDto medicalService,
+      BindingResult result, Model model) {
+    if (result.hasErrors()) {
+      List<ServiceTypeDto> serviceTypes = serviceTypeService.findAll();
+      model.addAttribute("medicalservice", medicalService);
+      model.addAttribute("servicetypes", serviceTypes);
+      return "medicalservice/medicalservices-edit";
+    }
     medicalService.setId(medicalServiceId);
     medicalServiceService.update(medicalService);
     return "redirect:/medicalservices";

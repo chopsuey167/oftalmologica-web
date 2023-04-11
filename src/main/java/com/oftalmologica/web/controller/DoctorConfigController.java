@@ -11,9 +11,11 @@ import com.oftalmologica.web.service.DoctorService;
 import com.oftalmologica.web.service.MedicCenterService;
 import com.oftalmologica.web.service.MedicalServiceService;
 import java.util.List;
+import javax.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,7 +50,19 @@ public class DoctorConfigController {
   }
 
   @PostMapping("/doctorsconfig/new")
-  public String saveDoctorConfig(@ModelAttribute("doctorconfig") DoctorConfigDto doctorConfig) {
+  public String saveDoctorConfig(@Valid @ModelAttribute("doctorconfig") DoctorConfigDto doctorConfig,
+      BindingResult result,
+      Model model) {
+    if (result.hasErrors()) {
+      List<DoctorDto> doctors = doctorService.findAll();
+      List<MedicCenterDto> medicCenters = medicCenterService.findAll();
+      List<MedicalServiceDto> medicalServices = medicalServiceService.findAll();
+      model.addAttribute("doctorconfig", doctorConfig);
+      model.addAttribute("doctors", doctors);
+      model.addAttribute("mediccenters", medicCenters);
+      model.addAttribute("medicalservices", medicalServices);
+      return "config/doctor/doctorsconfig-create";
+    }
     DoctorConfigId doctorConfigId = new DoctorConfigId();
     doctorConfigId.setMedicCenterId(doctorConfig.getMedicCenter().getId());
     doctorConfigId.setMedicalServiceId(doctorConfig.getMedicalService().getId());
@@ -73,7 +87,18 @@ public class DoctorConfigController {
 
   @PostMapping("/doctorsconfig/{doctorId}/{medicCenterId}/{medicalServiceId}/edit")
   public String updateDoctorConfig(DoctorConfigId doctorConfigId,
-      @ModelAttribute("doctor") DoctorConfigDto doctorConfig) {
+      @Valid @ModelAttribute("doctorconfig") DoctorConfigDto doctorConfig,
+      BindingResult result, Model model) {
+    if (result.hasErrors()) {
+      List<DoctorDto> doctors = doctorService.findAll();
+      List<MedicCenterDto> medicCenters = medicCenterService.findAll();
+      List<MedicalServiceDto> medicalServices = medicalServiceService.findAll();
+      model.addAttribute("doctorconfig", doctorConfig);
+      model.addAttribute("doctors", doctors);
+      model.addAttribute("mediccenters", medicCenters);
+      model.addAttribute("medicalservices", medicalServices);
+      return "config/doctor/doctorsconfig-edit";
+    }
     doctorConfig.setId(doctorConfigId);
     doctorConfigService.update(doctorConfig);
     return "redirect:/doctorsconfig";

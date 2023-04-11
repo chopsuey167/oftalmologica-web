@@ -17,15 +17,16 @@
           <div class="col-md-12">
             <label class="form-label" for="inputName">Descripción</label>
             <input class="form-control" id="inputName" th:field="*{description}" type="text">
+            <p class="text-danger" th:errors="*{description}" th:if="${#fields.hasErrors('description')}"></p>
           </div>
           <div class="col-md-12">
             <label class="form-label" for="inputName">Tipo</label>
-
             <select class="form-select" th:field="*{serviceType}">
               <option selected value="">Seleccione tipo de servicio</option>
               <option th:each="servicetype: ${servicetypes}" th:selected="${servicetype.id}"
                       th:text="${servicetype.name}" th:value="${servicetype.id}"></option>
             </select>
+            <p class="text-danger" th:errors="*{serviceType}" th:if="${#fields.hasErrors('serviceType')}"></p>
           </div>
           <div class="col-12">
             <button class="btn btn-primary" type="submit">Editar</button>

@@ -18,31 +18,35 @@
           <input th:field="*{id.medicalServiceId}" type="hidden">
           <div class="col-md-12">
             <label class="form-label" for="inputDoctor">Doctor</label>
-            <select class="form-select" disabled id="inputDoctor" th:field="*{doctor}">
+            <select class="form-select" id="inputDoctor" th:field="*{doctor}">
               <option selected value="">Seleccione doctor</option>
               <option th:each="doctor: ${doctors}" th:selected="${doctor.id}" th:text="${doctor.name}"
                       th:value="${doctor.id}"></option>
             </select>
+            <p class="text-danger" th:errors="*{doctor}" th:if="${#fields.hasErrors('doctor')}"></p>
           </div>
           <div class="col-md-12">
             <label class="form-label" for="inputMedicCenter">Centro médico</label>
-            <select class="form-select" disabled id="inputMedicCenter" th:field="*{medicCenter}">
+            <select class="form-select" id="inputMedicCenter" th:field="*{medicCenter}">
               <option selected value="">Seleccione centro médico</option>
               <option th:each="mediccenter: ${mediccenters}" th:selected="${mediccenter.id}"
                       th:text="${mediccenter.name}" th:value="${mediccenter.id}"></option>
             </select>
+            <p class="text-danger" th:errors="*{medicCenter}" th:if="${#fields.hasErrors('medicCenter')}"></p>
           </div>
           <div class="col-md-12">
             <label class="form-label" for="inputMedicalService">Servicio</label>
-            <select class="form-select" disabled id="inputMedicalService" th:field="*{medicalService}">
+            <select class="form-select" id="inputMedicalService" th:field="*{medicalService}">
               <option selected value="">Seleccione servicio</option>
               <option th:each="medicalservice: ${medicalservices}" th:selected="${medicalservice.id}"
                       th:text="${medicalservice.description}" th:value="${medicalservice.id}"></option>
             </select>
+            <p class="text-danger" th:errors="*{medicalService}" th:if="${#fields.hasErrors('medicalService')}"></p>
           </div>
           <div class="col-md-6">
             <label class="form-label" for="inputPercentage">Porcentaje</label>
             <input class="form-control" id="inputPercentage" step="any" th:field="*{percentage}" type="number">
+            <p class="text-danger" th:errors="*{percentage}" th:if="${#fields.hasErrors('percentage')}"></p>
           </div>
           <div class="col-12">
             <button class="btn btn-primary" type="submit">Editar</button>

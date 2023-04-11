@@ -9,9 +9,11 @@ import com.oftalmologica.web.service.MedicCenterConfigService;
 import com.oftalmologica.web.service.MedicCenterService;
 import com.oftalmologica.web.service.MedicalServiceService;
 import java.util.List;
+import javax.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,7 +45,18 @@ public class MedicCenterConfigController {
   }
 
   @PostMapping("/mediccentersconfig/new")
-  public String saveMedicCenterConfig(@ModelAttribute("mediccenterconfig") MedicCenterConfigDto medicCenterConfig) {
+  public String saveMedicCenterConfig(
+      @Valid @ModelAttribute("mediccenterconfig") MedicCenterConfigDto medicCenterConfig,
+      BindingResult result,
+      Model model) {
+    if (result.hasErrors()) {
+      List<MedicCenterDto> medicCenters = medicCenterService.findAll();
+      List<MedicalServiceDto> medicalServices = medicalServiceService.findAll();
+      model.addAttribute("mediccenterconfig", medicCenterConfig);
+      model.addAttribute("mediccenters", medicCenters);
+      model.addAttribute("medicalservices", medicalServices);
+      return "config/mediccenter/mediccentersconfig-create";
+    }
     MedicCenterConfigId medicCenterConfigId = new MedicCenterConfigId();
     medicCenterConfigId.setMedicCenterId(medicCenterConfig.getMedicCenter().getId());
     medicCenterConfigId.setMedicalServiceId(medicCenterConfig.getMedicalService().getId());
@@ -66,7 +79,16 @@ public class MedicCenterConfigController {
 
   @PostMapping("/mediccentersconfig/{medicCenterId}/{medicalServiceId}/edit")
   public String updateMedicCenterConfig(MedicCenterConfigId medicCenterConfigId,
-      @ModelAttribute("medicenter") MedicCenterConfigDto medicCenterConfig) {
+      @Valid @ModelAttribute("mediccenterconfig") MedicCenterConfigDto medicCenterConfig,
+      BindingResult result, Model model) {
+    if (result.hasErrors()) {
+      List<MedicCenterDto> medicCenters = medicCenterService.findAll();
+      List<MedicalServiceDto> medicalServices = medicalServiceService.findAll();
+      model.addAttribute("mediccenterconfig", medicCenterConfig);
+      model.addAttribute("mediccenters", medicCenters);
+      model.addAttribute("medicalservices", medicalServices);
+      return "config/mediccenter/mediccentersconfig-edit";
+    }
     medicCenterConfig.setId(medicCenterConfigId);
     medicCenterConfigService.update(medicCenterConfig);
     return "redirect:/mediccentersconfig";

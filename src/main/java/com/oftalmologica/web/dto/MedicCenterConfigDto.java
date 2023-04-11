@@ -5,7 +5,6 @@ import com.oftalmologica.web.models.MedicCenterConfigId;
 import com.oftalmologica.web.models.MedicalService;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
@@ -15,9 +14,9 @@ import lombok.Data;
 public class MedicCenterConfigDto {
 
   private MedicCenterConfigId id;
-  @NotEmpty(message = "Seleccione centro médico")
+  @NotNull(message = "Seleccione centro médico")
   private MedicCenter medicCenter;
-  @NotEmpty(message = "Seleccione servicio médico")
+  @NotNull(message = "Seleccione servicio médico")
   private MedicalService medicalService;
   @DecimalMin(value = "1.00", message = "Porcentaje no debe ser menor a 1")
   @DecimalMax(value = "100.00", message = "Porcentaje no debe ser mayo a 100")
