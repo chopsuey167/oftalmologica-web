@@ -25,8 +25,8 @@ public class ServiceTypeServiceImpl implements ServiceTypeService {
   }
 
   @Override
-  public ServiceType save(ServiceType serviceType) {
-    return repository.save(serviceType);
+  public ServiceType save(ServiceTypeDto serviceTypeDto) {
+    return repository.save(mapper.toServiceType(serviceTypeDto));
   }
 
   @Override

@@ -25,8 +25,8 @@ public class MedicalServiceServiceImpl implements MedicalServiceService {
   }
 
   @Override
-  public MedicalService save(MedicalService medicalService) {
-    return repository.save(medicalService);
+  public MedicalService save(MedicalServiceDto medicalServiceDto) {
+    return repository.save(mapper.toMedicalService(medicalServiceDto));
   }
 
   @Override
@@ -45,5 +45,5 @@ public class MedicalServiceServiceImpl implements MedicalServiceService {
   public void delete(Long id) {
     repository.deleteById(id);
   }
-  
+
 }

@@ -48,7 +48,7 @@ public class DoctorConfigController {
   }
 
   @PostMapping("/doctorsconfig/new")
-  public String saveDoctorConfig(@ModelAttribute("doctorconfig") DoctorConfig doctorConfig) {
+  public String saveDoctorConfig(@ModelAttribute("doctorconfig") DoctorConfigDto doctorConfig) {
     DoctorConfigId doctorConfigId = new DoctorConfigId();
     doctorConfigId.setMedicCenterId(doctorConfig.getMedicCenter().getId());
     doctorConfigId.setMedicalServiceId(doctorConfig.getMedicalService().getId());

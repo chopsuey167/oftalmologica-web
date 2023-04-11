@@ -8,7 +8,7 @@ public interface MedicCenterService {
 
   List<MedicCenterDto> findAll();
 
-  MedicCenter save(MedicCenter medicCenter);
+  MedicCenter save(MedicCenterDto medicCenterDto);
 
   MedicCenterDto findById(Long id);
 

@@ -8,7 +8,7 @@ public interface ServiceTypeService {
 
   List<ServiceTypeDto> findAll();
 
-  ServiceType save(ServiceType serviceType);
+  ServiceType save(ServiceTypeDto serviceTypeDto);
 
   ServiceTypeDto findById(Long id);
 

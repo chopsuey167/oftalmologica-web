@@ -13,6 +13,7 @@
         <form class="row g-3" method="post" role="form"
               th:action="@{/doctors/{doctorId}/edit(doctorId=${doctor.id})}"
               th:object="${doctor}">
+          <input th:field="*{id}" type="hidden">
           <div class="col-md-6">
             <label class="form-label" for="inputName">Nombre</label>
             <input class="form-control" id="inputName" th:field="*{name}" type="text">

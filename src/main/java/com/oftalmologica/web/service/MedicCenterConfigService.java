@@ -9,7 +9,7 @@ public interface MedicCenterConfigService {
 
   List<MedicCenterConfigDto> findAll();
 
-  MedicCenterConfig save(MedicCenterConfig medicCenterConfig);
+  MedicCenterConfig save(MedicCenterConfigDto medicCenterConfigDto);
 
   MedicCenterConfigDto findById(MedicCenterConfigId medicCenterConfigId);
 

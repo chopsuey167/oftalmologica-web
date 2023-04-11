@@ -4,9 +4,11 @@ import com.oftalmologica.web.dto.MedicCenterDto;
 import com.oftalmologica.web.models.MedicCenter;
 import com.oftalmologica.web.service.MedicCenterService;
 import java.util.List;
+import javax.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,28 +35,38 @@ public class MedicCenterController {
   }
 
   @PostMapping("/mediccenters/new")
-  public String saveMedicCenter(@ModelAttribute("medicenter") MedicCenter medicCenter) {
+  public String saveMedicCenter(@Valid @ModelAttribute("mediccenter") MedicCenterDto medicCenter, BindingResult result,
+      Model model) {
+    if (result.hasErrors()) {
+      model.addAttribute("mediccenter", medicCenter);
+      return "mediccenter/mediccenters-create";
+    }
     medicCenterService.save(medicCenter);
     return "redirect:/mediccenters";
   }
 
   @GetMapping("/mediccenters/{medicCenterId}/edit")
-  public String editMedicCenterForm(@PathVariable("medicCenterId") long medicCenterId, Model model) {
+  public String editMedicCenterForm(@PathVariable("medicCenterId") Long medicCenterId, Model model) {
     MedicCenterDto medicCenter = medicCenterService.findById(medicCenterId);
     model.addAttribute("mediccenter", medicCenter);
     return "mediccenter/mediccenters-edit";
   }
 
   @PostMapping("/mediccenters/{medicCenterId}/edit")
-  public String updateMedicCenter(@PathVariable("medicCenterId") long medicCenterId,
-      @ModelAttribute("medicenter") MedicCenterDto medicCenter) {
+  public String updateMedicCenter(@PathVariable("medicCenterId") Long medicCenterId,
+      @Valid @ModelAttribute("mediccenter") MedicCenterDto medicCenter,
+      BindingResult result, Model model) {
+    if (result.hasErrors()) {
+      model.addAttribute("mediccenter", medicCenter);
+      return "mediccenter/mediccenters-edit";
+    }
     medicCenter.setId(medicCenterId);
     medicCenterService.update(medicCenter);
     return "redirect:/mediccenters";
   }
 
   @GetMapping("/mediccenters/{medicCenterId}/delete")
-  public String deleteMedicCenter(@PathVariable("medicCenterId") long medicCenterId) {
+  public String deleteMedicCenter(@PathVariable("medicCenterId") Long medicCenterId) {
     medicCenterService.delete(medicCenterId);
     return "redirect:/mediccenters";
   }

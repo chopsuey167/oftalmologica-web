@@ -33,20 +33,20 @@ public class DoctorController {
   }
 
   @PostMapping("/doctors/new")
-  public String saveDoctor(@ModelAttribute("doctor") Doctor doctor) {
+  public String saveDoctor(@ModelAttribute("doctor") DoctorDto doctor) {
     doctorService.save(doctor);
     return "redirect:/doctors";
   }
 
   @GetMapping("/doctors/{doctorId}/edit")
-  public String editDoctorForm(@PathVariable("doctorId") long doctorId, Model model) {
+  public String editDoctorForm(@PathVariable("doctorId") Long doctorId, Model model) {
     DoctorDto doctor = doctorService.findById(doctorId);
     model.addAttribute("doctor", doctor);
     return "doctor/doctors-edit";
   }
 
   @PostMapping("/doctors/{doctorId}/edit")
-  public String updateDoctor(@PathVariable("doctorId") long doctorId,
+  public String updateDoctor(@PathVariable("doctorId") Long doctorId,
       @ModelAttribute("doctor") DoctorDto doctor) {
     doctor.setId(doctorId);
     doctorService.update(doctor);
@@ -54,7 +54,7 @@ public class DoctorController {
   }
 
   @GetMapping("/doctors/{doctorId}/delete")
-  public String deleteDoctor(@PathVariable("doctorId") long doctorId) {
+  public String deleteDoctor(@PathVariable("doctorId") Long doctorId) {
     doctorService.delete(doctorId);
     return "redirect:/doctors";
   }

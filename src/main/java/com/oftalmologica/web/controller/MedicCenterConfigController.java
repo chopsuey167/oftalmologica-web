@@ -43,7 +43,7 @@ public class MedicCenterConfigController {
   }
 
   @PostMapping("/mediccentersconfig/new")
-  public String saveMedicCenterConfig(@ModelAttribute("mediccenterconfig") MedicCenterConfig medicCenterConfig) {
+  public String saveMedicCenterConfig(@ModelAttribute("mediccenterconfig") MedicCenterConfigDto medicCenterConfig) {
     MedicCenterConfigId medicCenterConfigId = new MedicCenterConfigId();
     medicCenterConfigId.setMedicCenterId(medicCenterConfig.getMedicCenter().getId());
     medicCenterConfigId.setMedicalServiceId(medicCenterConfig.getMedicalService().getId());

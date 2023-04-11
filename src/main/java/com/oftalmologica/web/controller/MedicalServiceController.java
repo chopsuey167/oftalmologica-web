@@ -38,13 +38,13 @@ public class MedicalServiceController {
   }
 
   @PostMapping("/medicalservices/new")
-  public String saveMedicalService(@ModelAttribute("medicalservice") MedicalService medicalService) {
+  public String saveMedicalService(@ModelAttribute("medicalservice") MedicalServiceDto medicalService) {
     medicalServiceService.save(medicalService);
     return "redirect:/medicalservices";
   }
 
   @GetMapping("/medicalservices/{medicalServiceId}/edit")
-  public String editMedicalServiceForm(@PathVariable("medicalServiceId") long medicalServiceId, Model model) {
+  public String editMedicalServiceForm(@PathVariable("medicalServiceId") Long medicalServiceId, Model model) {
     MedicalServiceDto medicalService = medicalServiceService.findById(medicalServiceId);
     List<ServiceTypeDto> serviceTypes = serviceTypeService.findAll();
     model.addAttribute("medicalservice", medicalService);
@@ -53,7 +53,7 @@ public class MedicalServiceController {
   }
 
   @PostMapping("/medicalservices/{medicalServiceId}/edit")
-  public String updateMedicalService(@PathVariable("medicalServiceId") long medicalServiceId,
+  public String updateMedicalService(@PathVariable("medicalServiceId") Long medicalServiceId,
       @ModelAttribute("medicalservice") MedicalServiceDto medicalService) {
     medicalService.setId(medicalServiceId);
     medicalServiceService.update(medicalService);
@@ -61,7 +61,7 @@ public class MedicalServiceController {
   }
 
   @GetMapping("/medicalservices/{medicalServiceId}/delete")
-  public String deleteMedicalService(@PathVariable("medicalServiceId") long medicalServiceId) {
+  public String deleteMedicalService(@PathVariable("medicalServiceId") Long medicalServiceId) {
     medicalServiceService.delete(medicalServiceId);
     return "redirect:/medicalservices";
   }

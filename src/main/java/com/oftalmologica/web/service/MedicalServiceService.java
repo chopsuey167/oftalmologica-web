@@ -8,7 +8,7 @@ public interface MedicalServiceService {
 
   List<MedicalServiceDto> findAll();
 
-  MedicalService save(MedicalService medicalService);
+  MedicalService save(MedicalServiceDto medicalServiceDto);
 
   MedicalServiceDto findById(Long id);
 

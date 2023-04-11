@@ -9,7 +9,7 @@ public interface DoctorConfigService {
 
   List<DoctorConfigDto> findAll();
 
-  DoctorConfig save(DoctorConfig doctorConfig);
+  DoctorConfig save(DoctorConfigDto doctorConfigDto);
 
   DoctorConfigDto findById(DoctorConfigId doctorConfigId);
 

@@ -26,8 +26,8 @@ public class MedicCenterConfigServiceImpl implements MedicCenterConfigService {
   }
 
   @Override
-  public MedicCenterConfig save(MedicCenterConfig medicCenterConfig) {
-    return repository.save(medicCenterConfig);
+  public MedicCenterConfig save(MedicCenterConfigDto medicCenterConfigDto) {
+    return repository.save(mapper.toMedicCenterConfig(medicCenterConfigDto));
   }
 
   @Override

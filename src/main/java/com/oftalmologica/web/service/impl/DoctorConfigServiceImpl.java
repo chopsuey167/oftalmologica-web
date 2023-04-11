@@ -26,8 +26,8 @@ public class DoctorConfigServiceImpl implements DoctorConfigService {
   }
 
   @Override
-  public DoctorConfig save(DoctorConfig doctorConfig) {
-    return repository.save(doctorConfig);
+  public DoctorConfig save(DoctorConfigDto doctorConfigDto) {
+    return repository.save(mapper.toDoctorConfig(doctorConfigDto));
   }
 
   @Override

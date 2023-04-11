@@ -8,7 +8,7 @@ public interface DoctorService {
 
   List<DoctorDto> findAll();
 
-  Doctor save(Doctor doctor);
+  Doctor save(DoctorDto doctorDto);
 
   DoctorDto findById(Long id);
 

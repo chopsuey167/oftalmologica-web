@@ -13,9 +13,6 @@
         <form class="row g-3" method="post" role="form"
               th:action="@{/doctorsconfig/new}"
               th:object="${doctorconfig}">
-          <input th:field="*{id.doctorId}" type="hidden">
-          <input th:field="*{id.medicCenterId}" type="hidden">
-          <input th:field="*{id.medicalServiceId}" type="hidden">
           <div class="col-md-12">
             <label class="form-label" for="inputDoctor">Doctor</label>
             <select class="form-select" id="inputDoctor" th:field="*{doctor}">
