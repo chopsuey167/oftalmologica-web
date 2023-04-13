@@ -19,7 +19,9 @@
     <mapstruct.version>1.5.2.Final</mapstruct.version>
     <mapstruct-lombok.version>0.2.0</mapstruct-lombok.version>
     <jackson.version>2.12.2</jackson.version>
+    <start-class>com.oftalmologica.web.WebApplication</start-class>
   </properties>
+
   <dependencies>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -81,6 +83,21 @@
   <build>
     <pluginManagement>
       <plugins>
+        <plugin>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-maven-plugin</artifactId>
+          <configuration>
+            <mainClass>com.oftalmologica.web.WebApplication</mainClass>
+            <layout>JAR</layout>
+          </configuration>
+          <executions>
+            <execution>
+              <goals>
+                <goal>repackage</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
