@@ -1,4 +1,16 @@
 services:
+  web:
+    image: chopsuey167/web:latest
+    container_name: oculisweb
+    ports:
+      - "8082:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - postgres
+    depends_on:
+      - postgres
+
   postgres:
     container_name: postgres
     image: postgres
