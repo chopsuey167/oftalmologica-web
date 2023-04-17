@@ -13,7 +13,7 @@ public class AuthController {
 
   @GetMapping("/")
   public String homePage() {
-    return "redirect:/login";
+    return "redirect:/mediccenters";
   }
 
   @GetMapping("/login")
