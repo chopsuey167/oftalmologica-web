@@ -35,6 +35,10 @@ public class MedicCenterConfig {
   @MapsId("medicalServiceId")
   @JoinColumn(name = "medicalservice_id")
   private MedicalService medicalService;
+  @ManyToOne
+  @MapsId("healthInsuranceId")
+  @JoinColumn(name = "healthinsurance_id")
+  private HealthInsurance healthInsurance;
   private Float percentage;
   @CreationTimestamp
   private LocalDateTime createdOn;

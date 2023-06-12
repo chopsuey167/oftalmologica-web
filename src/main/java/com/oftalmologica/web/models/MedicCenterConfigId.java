@@ -21,5 +21,7 @@ public class MedicCenterConfigId implements Serializable {
   private Long medicCenterId;
   @Column(name = "medicalservice_id")
   private Long medicalServiceId;
+  @Column(name = "healthinsurance_id")
+  private Long healthInsuranceId;
 }
 
