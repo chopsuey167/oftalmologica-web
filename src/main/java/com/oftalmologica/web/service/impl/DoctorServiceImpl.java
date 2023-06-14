@@ -31,7 +31,7 @@ public class DoctorServiceImpl implements DoctorService {
 
   @Override
   public DoctorDto findById(Long id) {
-    Doctor doctor = repository.findById(id).get();
+    Doctor doctor = repository.findById(id).orElse(null);
 
     return mapper.toDoctorDto(doctor);
   }

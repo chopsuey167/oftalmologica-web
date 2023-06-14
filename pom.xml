@@ -19,6 +19,7 @@
     <mapstruct.version>1.5.2.Final</mapstruct.version>
     <mapstruct-lombok.version>0.2.0</mapstruct-lombok.version>
     <jackson.version>2.12.2</jackson.version>
+    <commons-fileupload.version>1.5</commons-fileupload.version>
     <image>chopsuey167/${project.artifactId}:${project.version}</image>
     <start-class>com.oftalmologica.web.WebApplication</start-class>
   </properties>
@@ -78,6 +79,26 @@
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-annotations</artifactId>
       <version>${jackson.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>2.11.0</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-fileupload</groupId>
+      <artifactId>commons-fileupload</artifactId>
+      <version>${commons-fileupload.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi</artifactId>
+      <version>4.1.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi-ooxml</artifactId>
+      <version>4.1.2</version>
     </dependency>
   </dependencies>
 

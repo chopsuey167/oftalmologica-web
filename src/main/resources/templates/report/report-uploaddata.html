@@ -1,0 +1,37 @@
+<html lang="en" layout:decorate="~{layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+<head>
+  <title>Informes</title>
+</head>
+<body>
+<main>
+  <div class="container-fluid px-4" layout:fragment="body">
+    <h1 class="mt-4">Informes</h1>
+    <section class="py-5">
+      <div class="alert alert-danger d-flex align-items-center" role="alert" th:if="${error != null}">
+        <div th:text="${error}"></div>
+      </div>
+      <div class="alert alert-danger align-items-center" role="alert" th:if="${errorList != null}">
+        <div>Carga con observaciones:</div>
+        <div th:each="error : ${errorList}">[[${error}]]</div>
+      </div>
+      <div class="alert alert-success d-flex align-items-center" role="alert" th:if="${success != null}">
+        <div th:text="${success}"></div>
+      </div>
+      <div class="container">
+        <form class="row g-3" enctype="multipart/form-data" method="post"
+              role="form" th:action="@{/report/upload}">
+          <div class="input-group">
+            <input aria-describedby="inputGroupFileAddon04" aria-label="Upload" class="form-control" id="file"
+                   name="file"
+                   type="file">
+            <button class="btn btn-outline-secondary" id="inputGroupFileAddon04" type="submit">Subir archivo</button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </div>
+</main>
+</body>
+</html>

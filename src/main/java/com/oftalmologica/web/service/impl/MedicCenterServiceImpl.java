@@ -31,7 +31,7 @@ public class MedicCenterServiceImpl implements MedicCenterService {
 
   @Override
   public MedicCenterDto findById(Long id) {
-    MedicCenter medicCenter = repository.findById(id).get();
+    MedicCenter medicCenter = repository.findById(id).orElse(null);
 
     return mapper.toMedicCenterDto(medicCenter);
   }
