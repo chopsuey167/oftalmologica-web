@@ -23,11 +23,11 @@ VALUES (1, 'Consulta', null, null);
 INSERT INTO service_types (id, name, created_on, updated_on)
 VALUES (2, 'Prueba', null, null);
 INSERT INTO service_types (id, name, created_on, updated_on)
-VALUES (3, 'urgencia', null, null);
+VALUES (3, 'Urgencia', null, null);
 INSERT INTO service_types (id, name, created_on, updated_on)
 VALUES (4, 'Cirugía', null, null);
 INSERT INTO service_types (id, name, created_on, updated_on)
-VALUES (5, 'ayudantia', null, null);
+VALUES (5, 'Ayudantia', null, null);
 INSERT INTO service_types (id, name, created_on, updated_on)
 VALUES (6, 'Terapia', null, null);
 INSERT INTO service_types (id, name, created_on, updated_on)

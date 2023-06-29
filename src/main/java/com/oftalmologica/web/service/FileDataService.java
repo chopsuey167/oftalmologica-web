@@ -5,7 +5,7 @@ import com.oftalmologica.web.exception.FileUploadIdsNotFoundException;
 import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
-public interface UploadFileService {
+public interface FileDataService {
 
-  List<ImportedDataDto> processExcelFile(MultipartFile file) throws FileUploadIdsNotFoundException;
+  List<ImportedDataDto> processData(MultipartFile file) throws FileUploadIdsNotFoundException;
 }

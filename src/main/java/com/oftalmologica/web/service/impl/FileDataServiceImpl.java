@@ -8,10 +8,10 @@ import com.oftalmologica.web.dto.MedicCenterDto;
 import com.oftalmologica.web.dto.MedicalServiceDto;
 import com.oftalmologica.web.exception.FileUploadIdsNotFoundException;
 import com.oftalmologica.web.service.DoctorService;
+import com.oftalmologica.web.service.FileDataService;
 import com.oftalmologica.web.service.HealthInsuranceService;
 import com.oftalmologica.web.service.MedicCenterService;
 import com.oftalmologica.web.service.MedicalServiceService;
-import com.oftalmologica.web.service.UploadFileService;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 @AllArgsConstructor
 @Slf4j
-public class UploadFileServiceImpl implements UploadFileService {
+public class FileDataServiceImpl implements FileDataService {
 
   private final MedicCenterService medicCenterService;
   private final DoctorService doctorService;
@@ -36,7 +36,7 @@ public class UploadFileServiceImpl implements UploadFileService {
   private final HealthInsuranceService healthInsuranceService;
 
   @Override
-  public List<ImportedDataDto> processExcelFile(MultipartFile file) throws FileUploadIdsNotFoundException {
+  public List<ImportedDataDto> processData(MultipartFile file) throws FileUploadIdsNotFoundException {
     List<String> issuesList = new ArrayList<>();
     List<ImportedDataDto> importedDataDtoList = new ArrayList<>();
     DataFormatter formatter = new DataFormatter();

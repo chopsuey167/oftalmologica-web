@@ -1,7 +1,7 @@
 package com.oftalmologica.web.controller;
 
 import com.oftalmologica.web.exception.FileUploadIdsNotFoundException;
-import com.oftalmologica.web.service.UploadFileService;
+import com.oftalmologica.web.service.FileDataService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Slf4j
 public class ReportController {
 
-  private final UploadFileService uploadFileService;
+  private final FileDataService fileDataService;
 
   @GetMapping("/report")
   public String uploadDataForm(Model model) {
@@ -28,7 +28,7 @@ public class ReportController {
 
     if (!file.isEmpty()) {
       try {
-        uploadFileService.processExcelFile(file);
+        fileDataService.processData(file);
         model.addAttribute("success", "Cargado exitosamente");
       } catch (FileUploadIdsNotFoundException e) {
         model.addAttribute("errorList", e.getErrorDetails());
