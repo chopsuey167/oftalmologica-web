@@ -1,0 +1,48 @@
+[
+  {
+    "id": 1,
+    "medicCenterReport": {
+      "id": 1,
+      "medicCenter": {
+        "id": 1,
+        "name": "HM Delfos",
+        "address": null,
+        "email": null,
+        "managementFee": 970.2,
+        "createdOn": null,
+        "updatedOn": null
+      },
+      "period": "202306"
+    },
+    "doctor": {
+      "id": 1,
+      "name": "DR. BITRAN ",
+      "isSelfEmployed": false,
+      "createdOn": null,
+      "updatedOn": null
+    },
+    "medicalService": {
+      "id": 1,
+      "description": "1/V OFTALMOLOGIA",
+      "serviceType": {
+        "id": 1,
+        "name": "Consulta",
+        "createdOn": null,
+        "updatedOn": null
+      },
+      "createdOn": null,
+      "updatedOn": null
+    },
+    "healthInsurance": {
+      "id": 1,
+      "name": "Mutua"
+    },
+    "healthInsuranceDescription": "TEST1",
+    "patientName": "PACIENTE1",
+    "issueDate": "2023-06-14T00:00",
+    "basePrice": 100.0,
+    "oculisIncome": 30.0,
+    "doctorIncome": null,
+    "reportGroup": null
+  }
+]

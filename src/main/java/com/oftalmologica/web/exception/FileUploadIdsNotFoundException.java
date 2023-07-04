@@ -2,7 +2,7 @@ package com.oftalmologica.web.exception;
 
 import java.util.List;
 
-public class FileUploadIdsNotFoundException extends Exception {
+public class FileUploadIdsNotFoundException extends RuntimeException {
 
   private List<String> errorDetails;
 

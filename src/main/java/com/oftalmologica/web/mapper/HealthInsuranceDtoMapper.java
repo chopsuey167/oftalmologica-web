@@ -9,4 +9,5 @@ public interface HealthInsuranceDtoMapper {
 
   HealthInsuranceDto toHealthInsuranceDto(HealthInsurance healthInsurance);
 
+  HealthInsurance toHeathInsurance(HealthInsuranceDto healthInsuranceDto);
 }

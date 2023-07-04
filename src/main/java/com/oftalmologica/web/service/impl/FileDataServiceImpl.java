@@ -36,7 +36,7 @@ public class FileDataServiceImpl implements FileDataService {
   private final HealthInsuranceService healthInsuranceService;
 
   @Override
-  public List<ImportedDataDto> processData(MultipartFile file) throws FileUploadIdsNotFoundException {
+  public List<ImportedDataDto> processData(MultipartFile file) {
     List<String> issuesList = new ArrayList<>();
     List<ImportedDataDto> importedDataDtoList = new ArrayList<>();
     DataFormatter formatter = new DataFormatter();

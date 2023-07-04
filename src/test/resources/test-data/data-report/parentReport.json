@@ -1,0 +1,13 @@
+{
+  "id": 1,
+  "medicCenter": {
+    "id": 1,
+    "name": "HM Delfos",
+    "address": null,
+    "email": null,
+    "managementFee": 970.2,
+    "createdOn": null,
+    "updatedOn": null
+  },
+  "period": "202306"
+}
