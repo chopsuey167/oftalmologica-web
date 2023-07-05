@@ -22,4 +22,5 @@ public class MedicalServiceDto {
   private ServiceType serviceType;
   private LocalDateTime createdOn;
   private LocalDateTime updatedOn;
+
 }

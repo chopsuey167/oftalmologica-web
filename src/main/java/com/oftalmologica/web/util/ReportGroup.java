@@ -9,7 +9,7 @@ public enum ReportGroup {
 
   public final Integer code;
 
-  private ReportGroup(Integer code) {
+  ReportGroup(Integer code) {
     this.code = code;
   }
 }

@@ -6,7 +6,8 @@ import java.util.List;
 
 public interface ReportService {
 
-  List<List<MedicCenterReportDetail>> generateMedicalReportData(List<ImportedDataDto> data, String period);
+  List<MedicCenterReportDetail> generateMedicalReportData(List<ImportedDataDto> data, Long medicCenterId,
+      String period);
 
   void generateDoctorReportData(List<ImportedDataDto> data);
 

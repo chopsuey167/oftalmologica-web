@@ -1,5 +1,6 @@
 package com.oftalmologica.web.models;
 
+import com.oftalmologica.web.util.ReportGroup;
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,6 +26,7 @@ public class ServiceType {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String name;
+  private ReportGroup reportGroup;
   @CreationTimestamp
   private LocalDateTime createdOn;
   @UpdateTimestamp

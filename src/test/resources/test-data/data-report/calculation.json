@@ -42,7 +42,7 @@
     "issueDate": "2023-06-14T00:00",
     "basePrice": 100.0,
     "oculisIncome": 30.0,
-    "doctorIncome": null,
+    "doctorIncome": 60.0,
     "reportGroup": null
   }
 ]

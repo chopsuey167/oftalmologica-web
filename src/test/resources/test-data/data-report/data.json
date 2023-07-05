@@ -1,15 +1,6 @@
 [
   {
     "issueDate": "2023-06-14T00:00",
-    "medicCenter": {
-      "id": 1,
-      "name": "HM Delfos",
-      "address": null,
-      "email": null,
-      "managementFee": 970.2,
-      "createdOn": null,
-      "updatedOn": null
-    },
     "doctor": {
       "id": 1,
       "name": "DR. BITRAN ",

@@ -14,10 +14,11 @@ import com.oftalmologica.web.mapper.MedicCenterDtoMapper;
 import com.oftalmologica.web.mapper.MedicCenterDtoMapperImpl;
 import com.oftalmologica.web.mapper.MedicalServiceDtoMapper;
 import com.oftalmologica.web.mapper.MedicalServiceDtoMapperImpl;
+import com.oftalmologica.web.repository.DoctorConfigRepository;
 import com.oftalmologica.web.repository.MedicCenterConfigRepository;
 import com.oftalmologica.web.repository.MedicCenterReportDetailRepository;
 import com.oftalmologica.web.repository.MedicCenterReportRepository;
-import java.util.List;
+import com.oftalmologica.web.service.MedicCenterService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -33,11 +34,15 @@ class ReportServiceImplTest extends AbstractUtilsTest {
   @InjectMocks
   private ReportServiceImpl reportService;
   @Mock
+  private MedicCenterService medicCenterService;
+  @Mock
   private MedicCenterReportRepository medicCenterReportRepository;
   @Mock
   private MedicCenterReportDetailRepository medicCenterReportDetailRepository;
   @Mock
   private MedicCenterConfigRepository medicCenterConfigRepository;
+  @Mock
+  private DoctorConfigRepository doctorConfigRepository;
 
   @Spy
   private MedicCenterDtoMapper medicCenterDtoMapper = new MedicCenterDtoMapperImpl();
@@ -55,21 +60,25 @@ class ReportServiceImplTest extends AbstractUtilsTest {
     var listImportData = getImporteData("data");
     var medicCenterReport = getMedicCenterReport("parentReport");
     var medicCenter = getMedicCenter("medicCenter");
+    var medicCenterDto = getMedicCenterDto("medicCenterDto");
     var medicCenterConfig = getListMedicCenterConfig("medicCenterConfig");
+    var doctorConfig = getListDoctorConfig("doctorConfig");
     var medicCenterReportDetails = getListMedicCenterReportDetail("detailReport");
     var expected = getListMedicCenterReportDetail("calculation");
 
+    when(medicCenterService.findById(1L)).thenReturn(medicCenterDto);
     when(medicCenterReportRepository.save(any())).thenReturn(medicCenterReport);
     when(medicCenterConfigRepository.findByMedicCenter(medicCenter)).thenReturn(medicCenterConfig);
+    when(doctorConfigRepository.findAll()).thenReturn(doctorConfig);
     when(medicCenterReportDetailRepository.saveAll(any())).thenReturn(medicCenterReportDetails);
 
     // when
 
-    var actual = reportService.generateMedicalReportData(listImportData, "202306");
+    var actual = reportService.generateMedicalReportData(listImportData, 1L, "202306");
 
     // then
 
     assertNotNull(actual);
-    assertEquals(List.of(expected), actual);
+    assertEquals(expected, actual);
   }
 }

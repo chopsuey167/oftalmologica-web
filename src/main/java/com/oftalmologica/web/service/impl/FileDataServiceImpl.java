@@ -4,13 +4,11 @@ import com.oftalmologica.web.dto.DoctorDto;
 import com.oftalmologica.web.dto.HealthInsuranceDto;
 import com.oftalmologica.web.dto.ImportedDataDto;
 import com.oftalmologica.web.dto.ImportedDataDto.ImportedDataDtoBuilder;
-import com.oftalmologica.web.dto.MedicCenterDto;
 import com.oftalmologica.web.dto.MedicalServiceDto;
 import com.oftalmologica.web.exception.FileUploadIdsNotFoundException;
 import com.oftalmologica.web.service.DoctorService;
 import com.oftalmologica.web.service.FileDataService;
 import com.oftalmologica.web.service.HealthInsuranceService;
-import com.oftalmologica.web.service.MedicCenterService;
 import com.oftalmologica.web.service.MedicalServiceService;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,7 +28,6 @@ import org.springframework.web.multipart.MultipartFile;
 @Slf4j
 public class FileDataServiceImpl implements FileDataService {
 
-  private final MedicCenterService medicCenterService;
   private final DoctorService doctorService;
   private final MedicalServiceService medicalService;
   private final HealthInsuranceService healthInsuranceService;
@@ -51,15 +48,7 @@ public class FileDataServiceImpl implements FileDataService {
         ImportedDataDtoBuilder importedDataDto = ImportedDataDto.builder();
         importedDataDto.issueDate(row.getCell(0).getLocalDateTimeCellValue());
 
-        MedicCenterDto medicCenterDto = medicCenterService.findById(
-            Long.valueOf(formatter.formatCellValue(row.getCell(1))));
-        if (Objects.nonNull(medicCenterDto)) {
-          importedDataDto.medicCenter(medicCenterDto);
-        } else {
-          issuesList.add("Fila " + i + ": Centro médico de fila no existe");
-        }
-
-        DoctorDto doctorDto = doctorService.findById(Long.valueOf(formatter.formatCellValue(row.getCell(2))));
+        DoctorDto doctorDto = doctorService.findById(Long.valueOf(formatter.formatCellValue(row.getCell(1))));
         if (Objects.nonNull(doctorDto)) {
           importedDataDto.doctor(doctorDto);
         } else {
@@ -67,7 +56,7 @@ public class FileDataServiceImpl implements FileDataService {
         }
 
         MedicalServiceDto medicalServiceDto = medicalService.findById(
-            Long.valueOf(formatter.formatCellValue(row.getCell(3))));
+            Long.valueOf(formatter.formatCellValue(row.getCell(2))));
 
         if (Objects.nonNull(medicalServiceDto)) {
           importedDataDto.medicalService(medicalServiceDto);
@@ -76,7 +65,7 @@ public class FileDataServiceImpl implements FileDataService {
         }
 
         HealthInsuranceDto healthInsuranceDto = healthInsuranceService.findById(
-            Long.valueOf(formatter.formatCellValue(row.getCell(4))));
+            Long.valueOf(formatter.formatCellValue(row.getCell(3))));
 
         if (Objects.nonNull(healthInsuranceDto)) {
           importedDataDto.healthInsurance(healthInsuranceDto);
@@ -84,9 +73,9 @@ public class FileDataServiceImpl implements FileDataService {
           issuesList.add("Fila " + i + ": Mutua/privado no existe");
         }
 
-        importedDataDto.healthInsuranceDescription(formatter.formatCellValue(row.getCell(5)));
-        importedDataDto.patientName(formatter.formatCellValue(row.getCell(6)));
-        importedDataDto.basePrice((float) row.getCell(7).getNumericCellValue());
+        importedDataDto.healthInsuranceDescription(formatter.formatCellValue(row.getCell(4)));
+        importedDataDto.patientName(formatter.formatCellValue(row.getCell(5)));
+        importedDataDto.basePrice((float) row.getCell(6).getNumericCellValue());
 
         importedDataDtoList.add(importedDataDto.build());
       }

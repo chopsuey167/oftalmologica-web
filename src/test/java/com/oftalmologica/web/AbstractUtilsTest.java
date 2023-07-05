@@ -3,6 +3,8 @@ package com.oftalmologica.web;
 import static java.lang.String.format;
 
 import com.oftalmologica.web.dto.ImportedDataDto;
+import com.oftalmologica.web.dto.MedicCenterDto;
+import com.oftalmologica.web.models.DoctorConfig;
 import com.oftalmologica.web.models.MedicCenter;
 import com.oftalmologica.web.models.MedicCenterConfig;
 import com.oftalmologica.web.models.MedicCenterReport;
@@ -28,8 +30,17 @@ public abstract class AbstractUtilsTest {
     return TestFactory.getObject(format(DATA_REPORT_FOLDER, fileName), MedicCenter.class);
   }
 
+  protected MedicCenterDto getMedicCenterDto(String fileName) throws Exception {
+    return TestFactory.getObject(format(DATA_REPORT_FOLDER, fileName), MedicCenterDto.class);
+  }
+
+
   protected List<MedicCenterConfig> getListMedicCenterConfig(String fileName) throws Exception {
     return TestFactory.getListObject(format(DATA_REPORT_FOLDER, fileName), MedicCenterConfig.class);
+  }
+
+  protected List<DoctorConfig> getListDoctorConfig(String fileName) throws Exception {
+    return TestFactory.getListObject(format(DATA_REPORT_FOLDER, fileName), DoctorConfig.class);
   }
 
   protected List<MedicCenterReportDetail> getListMedicCenterReportDetail(String fileName) throws Exception {

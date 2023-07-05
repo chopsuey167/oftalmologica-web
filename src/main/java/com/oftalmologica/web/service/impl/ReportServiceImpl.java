@@ -6,16 +6,21 @@ import com.oftalmologica.web.mapper.DoctorDtoMapper;
 import com.oftalmologica.web.mapper.HealthInsuranceDtoMapper;
 import com.oftalmologica.web.mapper.MedicCenterDtoMapper;
 import com.oftalmologica.web.mapper.MedicalServiceDtoMapper;
+import com.oftalmologica.web.models.Doctor;
+import com.oftalmologica.web.models.DoctorConfig;
 import com.oftalmologica.web.models.HealthInsurance;
 import com.oftalmologica.web.models.MedicCenter;
 import com.oftalmologica.web.models.MedicCenterConfig;
 import com.oftalmologica.web.models.MedicCenterReport;
 import com.oftalmologica.web.models.MedicCenterReportDetail;
 import com.oftalmologica.web.models.MedicalService;
+import com.oftalmologica.web.repository.DoctorConfigRepository;
 import com.oftalmologica.web.repository.MedicCenterConfigRepository;
 import com.oftalmologica.web.repository.MedicCenterReportDetailRepository;
 import com.oftalmologica.web.repository.MedicCenterReportRepository;
+import com.oftalmologica.web.service.MedicCenterService;
 import com.oftalmologica.web.service.ReportService;
+import com.oftalmologica.web.util.MedicalServiceDoctor;
 import com.oftalmologica.web.util.MedicalServiceHealthInsurance;
 import java.util.List;
 import java.util.Map;
@@ -31,9 +36,11 @@ public class ReportServiceImpl implements ReportService {
   private final DoctorDtoMapper doctorDtoMapper;
   private final MedicalServiceDtoMapper medicalServiceDtoMapper;
   private final HealthInsuranceDtoMapper healthInsuranceDtoMapper;
+  private final MedicCenterService medicCenterService;
   private final MedicCenterReportRepository medicCenterReportRepository;
   private final MedicCenterReportDetailRepository medicCenterReportDetailRepository;
   private final MedicCenterConfigRepository medicCenterConfigRepository;
+  private final DoctorConfigRepository doctorConfigRepository;
 
   private static MedicalServiceHealthInsurance buildMedicalServiceHealthInsurance(MedicCenterConfig medicCenterConfig) {
     return MedicalServiceHealthInsurance.builder()
@@ -42,14 +49,21 @@ public class ReportServiceImpl implements ReportService {
         .build();
   }
 
+  private static MedicalServiceDoctor buildMedicalServiceDoctor(DoctorConfig doctorConfig) {
+    return MedicalServiceDoctor.builder()
+        .medicalService(doctorConfig.getMedicalService())
+        .doctor(doctorConfig.getDoctor())
+        .build();
+  }
+
+
   @Override
-  public List<List<MedicCenterReportDetail>> generateMedicalReportData(List<ImportedDataDto> data, String period) {
+  public List<MedicCenterReportDetail> generateMedicalReportData(List<ImportedDataDto> data, Long medicCenterId,
+      String period) {
 
-    List<MedicCenterDto> medicCenters = data.stream().map(ImportedDataDto::getMedicCenter).distinct()
-        .toList();
+    MedicCenterDto medicCenterDto = medicCenterService.findById(medicCenterId);
 
-    return medicCenters.stream()
-        .map(medicCenterDto -> createMedicCenterReportParent(medicCenterDto, period, data)).toList();
+    return createMedicCenterReportParent(medicCenterDto, period, data);
   }
 
   @Override
@@ -82,8 +96,12 @@ public class ReportServiceImpl implements ReportService {
         .collect(Collectors.toMap(ReportServiceImpl::buildMedicalServiceHealthInsurance,
             MedicCenterConfig::getPercentage));
 
+    List<DoctorConfig> doctorConfigs = doctorConfigRepository.findAll();
+
+    Map<MedicalServiceDoctor, Float> medicalServiceConfigByDoctor = doctorConfigs.stream()
+        .collect(Collectors.toMap(ReportServiceImpl::buildMedicalServiceDoctor, DoctorConfig::getPercentage));
+
     List<MedicCenterReportDetail> medicCenterReportDetails = data.stream()
-        .filter(d -> d.getMedicCenter().getId().equals(medicCenterReport.getMedicCenter().getId()))
         .map(
             d ->
                 MedicCenterReportDetail.builder()
@@ -100,8 +118,11 @@ public class ReportServiceImpl implements ReportService {
                         d.getBasePrice(),
                         medicalServiceConfigByMedicCenter
                     ))
-                    .doctorIncome(null)
-                    .reportGroup(null)
+                    .doctorIncome(calculateDoctorIncome(medicalServiceDtoMapper.toMedicalService(d.getMedicalService()),
+                        doctorDtoMapper.toDoctor(d.getDoctor()),
+                        d.getBasePrice(),
+                        medicalServiceConfigByDoctor))
+                    .reportGroup(d.getMedicalService().getServiceType().getReportGroup())
                     .build()
 
         ).toList();
@@ -118,5 +139,15 @@ public class ReportServiceImpl implements ReportService {
         .build());
 
     return percentageMedicCenter * basePrice / 100;
+  }
+
+  private Float calculateDoctorIncome(MedicalService medicalService, Doctor doctor, Float basePrice,
+      Map<MedicalServiceDoctor, Float> medicalServiceConfigByDoctor) {
+    Float percentageDoctor = medicalServiceConfigByDoctor.get(MedicalServiceDoctor.builder()
+        .medicalService(medicalService)
+        .doctor(doctor)
+        .build());
+
+    return percentageDoctor * basePrice / 100;
   }
 }

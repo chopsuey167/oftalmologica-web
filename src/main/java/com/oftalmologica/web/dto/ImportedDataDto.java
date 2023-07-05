@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 public class ImportedDataDto {
 
   private LocalDateTime issueDate;
-  private MedicCenterDto medicCenter;
   private DoctorDto doctor;
   private MedicalServiceDto medicalService;
   private HealthInsuranceDto healthInsurance;
