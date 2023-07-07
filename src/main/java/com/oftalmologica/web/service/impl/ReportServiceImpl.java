@@ -1,7 +1,8 @@
 package com.oftalmologica.web.service.impl;
 
 import com.oftalmologica.web.dto.ImportedDataDto;
-import com.oftalmologica.web.dto.MedicCenterDto;
+import com.oftalmologica.web.exception.DoctorConfigNotFoundException;
+import com.oftalmologica.web.exception.MedicCenterConfigNotFoundException;
 import com.oftalmologica.web.mapper.DoctorDtoMapper;
 import com.oftalmologica.web.mapper.HealthInsuranceDtoMapper;
 import com.oftalmologica.web.mapper.MedicCenterDtoMapper;
@@ -24,12 +25,15 @@ import com.oftalmologica.web.util.MedicalServiceDoctor;
 import com.oftalmologica.web.util.MedicalServiceHealthInsurance;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class ReportServiceImpl implements ReportService {
 
   private final MedicCenterDtoMapper medicCenterDtoMapper;
@@ -58,23 +62,8 @@ public class ReportServiceImpl implements ReportService {
 
 
   @Override
-  public List<MedicCenterReportDetail> generateMedicalReportData(List<ImportedDataDto> data, Long medicCenterId,
+  public List<MedicCenterReportDetail> generateMedicalReportData(List<ImportedDataDto> data, MedicCenter medicCenter,
       String period) {
-
-    MedicCenterDto medicCenterDto = medicCenterService.findById(medicCenterId);
-
-    return createMedicCenterReportParent(medicCenterDto, period, data);
-  }
-
-  @Override
-  public void generateDoctorReportData(List<ImportedDataDto> data) {
-
-  }
-
-  private List<MedicCenterReportDetail> createMedicCenterReportParent(MedicCenterDto medicCenterDto, String period,
-      List<ImportedDataDto> data) {
-
-    MedicCenter medicCenter = medicCenterDtoMapper.toMedicCenter(medicCenterDto);
 
     MedicCenterReport medicCenterReport = MedicCenterReport.builder()
         .medicCenter(medicCenter)
@@ -86,6 +75,7 @@ public class ReportServiceImpl implements ReportService {
     return createMedicCenterReportDetail(medicCenterReportSaved, data);
   }
 
+
   private List<MedicCenterReportDetail> createMedicCenterReportDetail(MedicCenterReport medicCenterReport,
       List<ImportedDataDto> data) {
 
@@ -96,7 +86,7 @@ public class ReportServiceImpl implements ReportService {
         .collect(Collectors.toMap(ReportServiceImpl::buildMedicalServiceHealthInsurance,
             MedicCenterConfig::getPercentage));
 
-    List<DoctorConfig> doctorConfigs = doctorConfigRepository.findAll();
+    List<DoctorConfig> doctorConfigs = doctorConfigRepository.findByMedicCenter(medicCenterReport.getMedicCenter());
 
     Map<MedicalServiceDoctor, Float> medicalServiceConfigByDoctor = doctorConfigs.stream()
         .collect(Collectors.toMap(ReportServiceImpl::buildMedicalServiceDoctor, DoctorConfig::getPercentage));
@@ -133,10 +123,19 @@ public class ReportServiceImpl implements ReportService {
 
   private Float calculateOculisIncome(MedicalService medicalService, HealthInsurance healthInsurance, Float basePrice,
       Map<MedicalServiceHealthInsurance, Float> medicalServiceConfigByMedicCenter) {
+
     Float percentageMedicCenter = medicalServiceConfigByMedicCenter.get(MedicalServiceHealthInsurance.builder()
         .medicalService(medicalService)
         .healthInsurance(healthInsurance)
         .build());
+
+    if (Objects.isNull(percentageMedicCenter)) {
+      throw new MedicCenterConfigNotFoundException(
+          "Seguro: " + healthInsurance.getName() + "(" + healthInsurance.getId() + ") - Servicio: "
+              + medicalService.getDescription()
+              + "(" + medicalService.getId() + ")");
+
+    }
 
     return percentageMedicCenter * basePrice / 100;
   }
@@ -147,6 +146,13 @@ public class ReportServiceImpl implements ReportService {
         .medicalService(medicalService)
         .doctor(doctor)
         .build());
+
+    if (Objects.isNull(percentageDoctor)) {
+      throw new DoctorConfigNotFoundException(
+          "Doctor: " + doctor.getName() + "(" + doctor.getId() + ") - Servicio: " + medicalService.getDescription()
+              + "(" + medicalService.getId() + ")");
+
+    }
 
     return percentageDoctor * basePrice / 100;
   }

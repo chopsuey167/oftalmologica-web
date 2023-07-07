@@ -21,12 +21,29 @@
       </div>
       <div class="container">
         <form class="row g-3" enctype="multipart/form-data" method="post"
-              role="form" th:action="@{/report/upload}">
+              role="form"
+              th:action="@{/report/upload}"
+              th:object="${report}">
+          <div class="col-md-6">
+            <label class="form-label" for="inputPeriod">Periodo</label>
+            <input class="form-control" id="inputPeriod" placeholder="Periodo"
+                   th:field="*{period}" type="text">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label" for="inputMedicCenter">Centro médico</label>
+            <select class="form-select" id="inputMedicCenter" th:field="*{medicCenter}">
+              <option selected value="">Seleccione centro médico</option>
+              <option th:each="mediccenter: ${mediccenters}" th:text="${mediccenter.name}"
+                      th:value="${mediccenter.id}"></option>
+            </select>
+          </div>
           <div class="input-group">
             <input aria-describedby="inputGroupFileAddon04" aria-label="Upload" class="form-control" id="file"
                    name="file"
-                   type="file">
-            <button class="btn btn-outline-secondary" id="inputGroupFileAddon04" type="submit">Subir archivo</button>
+                   th:field="*{file}" type="file">
+          </div>
+          <div class="col-12 text-center">
+            <button class="btn btn-primary" type="submit">Crear periodo</button>
           </div>
         </form>
       </div>

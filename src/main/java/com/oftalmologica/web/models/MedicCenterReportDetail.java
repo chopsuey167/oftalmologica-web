@@ -2,7 +2,6 @@ package com.oftalmologica.web.models;
 
 import com.oftalmologica.web.util.ReportGroup;
 import java.time.LocalDateTime;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,16 +25,16 @@ public class MedicCenterReportDetail {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  @OneToOne(cascade = CascadeType.ALL)
+  @OneToOne
   @JoinColumn(name = "medic_center_report_id", referencedColumnName = "id")
   private MedicCenterReport medicCenterReport;
-  @OneToOne(cascade = CascadeType.ALL)
+  @OneToOne
   @JoinColumn(name = "doctor_id", referencedColumnName = "id")
   private Doctor doctor;
-  @OneToOne(cascade = CascadeType.ALL)
+  @OneToOne
   @JoinColumn(name = "medical_service_id", referencedColumnName = "id")
   private MedicalService medicalService;
-  @OneToOne(cascade = CascadeType.ALL)
+  @OneToOne
   @JoinColumn(name = "health_insurance_id", referencedColumnName = "id")
   private HealthInsurance healthInsurance;
   private String healthInsuranceDescription;

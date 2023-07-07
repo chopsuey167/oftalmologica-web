@@ -1,0 +1,33 @@
+[
+  {
+    "medicCenter": {
+      "id": 1,
+      "name": "HM Delfos",
+      "address": null,
+      "email": null,
+      "managementFee": 970.2,
+      "createdOn": null,
+      "updatedOn": null
+    },
+    "medicalService": {
+      "id": 1,
+      "description": "1/V OFTALMOLOGIA",
+      "serviceType": {
+        "id": 1,
+        "name": "Consulta",
+        "createdOn": null,
+        "updatedOn": null
+      },
+      "createdOn": null,
+      "updatedOn": null
+    },
+    "doctor": {
+      "id": 1,
+      "name": "DR. BITRAN ",
+      "isSelfEmployed": false,
+      "createdOn": null,
+      "updatedOn": null
+    },
+    "percentage": 60.0
+  }
+]

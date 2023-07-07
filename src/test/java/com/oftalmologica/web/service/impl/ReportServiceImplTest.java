@@ -74,7 +74,7 @@ class ReportServiceImplTest extends AbstractUtilsTest {
 
     // when
 
-    var actual = reportService.generateMedicalReportData(listImportData, 1L, "202306");
+    var actual = reportService.generateMedicalReportData(listImportData, medicCenter, "202306");
 
     // then
 

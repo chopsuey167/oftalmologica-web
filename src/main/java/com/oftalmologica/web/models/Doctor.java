@@ -3,6 +3,7 @@ package com.oftalmologica.web.models;
 import java.time.LocalDateTime;
 import java.util.Set;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,6 +34,6 @@ public class Doctor {
   private LocalDateTime createdOn;
   @UpdateTimestamp
   private LocalDateTime updatedOn;
-  @OneToMany(mappedBy = "doctor")
+  @OneToMany(mappedBy = "doctor", fetch = FetchType.EAGER)
   private Set<DoctorConfig> doctorConfigurations;
 }

@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -25,7 +24,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @AllArgsConstructor
-@Slf4j
 public class FileDataServiceImpl implements FileDataService {
 
   private final DoctorService doctorService;
@@ -87,8 +85,6 @@ public class FileDataServiceImpl implements FileDataService {
       //TODO: Agregar exception handler para que muestre en vista el error
       throw new RuntimeException(e);
     }
-
-    log.info(importedDataDtoList.toString());
     return importedDataDtoList;
   }
 }
