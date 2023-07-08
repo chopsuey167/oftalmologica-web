@@ -2,10 +2,12 @@ package com.oftalmologica.web.service.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 import com.oftalmologica.web.AbstractUtilsTest;
+import com.oftalmologica.web.exception.DoctorConfigNotFoundException;
 import com.oftalmologica.web.mapper.DoctorDtoMapper;
 import com.oftalmologica.web.mapper.DoctorDtoMapperImpl;
 import com.oftalmologica.web.mapper.HealthInsuranceDtoMapper;
@@ -22,6 +24,7 @@ import com.oftalmologica.web.service.MedicCenterService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.function.Executable;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
@@ -31,6 +34,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class ReportServiceImplTest extends AbstractUtilsTest {
 
+  public static final String PERIOD = "202306";
   @InjectMocks
   private ReportServiceImpl reportService;
   @Mock
@@ -56,29 +60,46 @@ class ReportServiceImplTest extends AbstractUtilsTest {
   @Test
   void generateReportDetailData_importedDataAndPeriod_returnReportDetail() throws Exception {
     // given
-
     var listImportData = getImporteData("data");
     var medicCenterReport = getMedicCenterReport("parentReport");
     var medicCenter = getMedicCenter("medicCenter");
-    var medicCenterDto = getMedicCenterDto("medicCenterDto");
     var medicCenterConfig = getListMedicCenterConfig("medicCenterConfig");
     var doctorConfig = getListDoctorConfig("doctorConfig");
     var medicCenterReportDetails = getListMedicCenterReportDetail("detailReport");
     var expected = getListMedicCenterReportDetail("calculation");
 
-    when(medicCenterService.findById(1L)).thenReturn(medicCenterDto);
     when(medicCenterReportRepository.save(any())).thenReturn(medicCenterReport);
     when(medicCenterConfigRepository.findByMedicCenter(medicCenter)).thenReturn(medicCenterConfig);
-    when(doctorConfigRepository.findAll()).thenReturn(doctorConfig);
+    when(doctorConfigRepository.findByMedicCenter(medicCenter)).thenReturn(doctorConfig);
     when(medicCenterReportDetailRepository.saveAll(any())).thenReturn(medicCenterReportDetails);
 
     // when
-
-    var actual = reportService.generateMedicalReportData(listImportData, medicCenter, "202306");
+    var actual = reportService.generateMedicalReportData(listImportData, medicCenter, PERIOD);
 
     // then
-
     assertNotNull(actual);
     assertEquals(expected, actual);
+  }
+
+  @Test
+  void generateReportDetailData_importedDataAndPeriod_doctorConfigNotFoundException() throws Exception {
+    // given
+    var listImportData = getImporteData("data");
+    var medicCenterReport = getMedicCenterReport("parentReport");
+    var medicCenter = getMedicCenter("medicCenter");
+    var medicCenterConfig = getListMedicCenterConfig("medicCenterConfig");
+    var doctorConfig = getListDoctorConfig("doctorConfig_invalid");
+    var medicCenterReportDetails = getListMedicCenterReportDetail("detailReport");
+    var expected = getListMedicCenterReportDetail("calculation");
+
+    when(medicCenterReportRepository.save(any())).thenReturn(medicCenterReport);
+    when(medicCenterConfigRepository.findByMedicCenter(medicCenter)).thenReturn(medicCenterConfig);
+    when(doctorConfigRepository.findByMedicCenter(medicCenter)).thenReturn(doctorConfig);
+
+    // when
+    Executable executable = () -> reportService.generateMedicalReportData(listImportData, medicCenter, PERIOD);
+
+    // then
+    assertThrows(DoctorConfigNotFoundException.class, executable);
   }
 }
