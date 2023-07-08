@@ -1,0 +1,59 @@
+<html lang="en" layout:decorate="~{layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+<head>
+  <title>Lista de informes</title>
+</head>
+<body>
+<main>
+  <div class="container-fluid px-4" layout:fragment="body">
+    <h1 class="mt-4">Informes</h1>
+    <div class="alert alert-success d-flex align-items-center" role="alert" th:if="${success != null}">
+      <div th:text="${success}"></div>
+    </div>
+    <a class="btn btn-primary m-3" th:href="@{reports/new}">Generar nuevo informe</a>
+    <div class="card mb-4">
+      <div class="card-body">
+        <table id="datatablesSimple">
+          <thead>
+          <tr>
+            <th>Id</th>
+            <th>Centro médico</th>
+            <th>Periodo</th>
+            <th>Fecha de creación</th>
+            <!--            <th>M.</th>-->
+            <!--            <th>E.</th>-->
+          </tr>
+          </thead>
+          <tfoot>
+          <tr>
+            <th>Id</th>
+            <th>Centro médico</th>
+            <th>Periodo</th>
+            <th>Fecha de creación</th>
+            <!--            <th>Informe general.</th>-->
+            <!--            <th>Informe doctor</th>-->
+          </tr>
+          </tfoot>
+          <tbody>
+          <tr th:each="report: ${reports}">
+            <td><p th:text="${report.id}"></p></td>
+            <td><p th:text="${report.medicCenter.name}"></p></td>
+            <td><p th:text="${report.period}"></p></td>
+            <td><p th:text="${report.createdOn}"></p></td>
+            <!--            <td><a-->
+            <!--                th:href="@{/reports/{reportId}/edit(medicCenterId=${mediccenter.id})}"><i-->
+            <!--                class="fa-solid fa-pen-to-square fa-xl"></i></a></td>-->
+            <!--            <td><a-->
+            <!--                th:href="@{/mediccenters/{medicCenterId}/delete(medicCenterId=${mediccenter.id})}"><i-->
+            <!--                class="fa-solid fa-trash fa-xl"></i></a></td>-->
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>
+</body>
+</html>
+

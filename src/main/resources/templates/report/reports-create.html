@@ -16,13 +16,10 @@
         <div>Carga con observaciones:</div>
         <div th:each="error : ${errorList}">[[${error}]]</div>
       </div>
-      <div class="alert alert-success d-flex align-items-center" role="alert" th:if="${success != null}">
-        <div th:text="${success}"></div>
-      </div>
       <div class="container">
         <form class="row g-3" enctype="multipart/form-data" method="post"
               role="form"
-              th:action="@{/report/upload}"
+              th:action="@{/reports/new}"
               th:object="${report}">
           <div class="col-md-6">
             <label class="form-label" for="inputPeriod">Periodo</label>
