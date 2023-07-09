@@ -2,7 +2,6 @@ package com.oftalmologica.web.models;
 
 import java.time.LocalDateTime;
 import java.util.Set;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -34,7 +33,7 @@ public class MedicalService {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String description;
-  @OneToOne(cascade = CascadeType.ALL)
+  @OneToOne
   @JoinColumn(name = "service_type_id", referencedColumnName = "id")
   private ServiceType serviceType;
   @CreationTimestamp

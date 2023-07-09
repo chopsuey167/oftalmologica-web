@@ -5,7 +5,6 @@ import com.oftalmologica.web.exception.DoctorConfigNotFoundException;
 import com.oftalmologica.web.exception.MedicCenterConfigNotFoundException;
 import com.oftalmologica.web.mapper.DoctorDtoMapper;
 import com.oftalmologica.web.mapper.HealthInsuranceDtoMapper;
-import com.oftalmologica.web.mapper.MedicCenterDtoMapper;
 import com.oftalmologica.web.mapper.MedicalServiceDtoMapper;
 import com.oftalmologica.web.models.Doctor;
 import com.oftalmologica.web.models.DoctorConfig;
@@ -19,7 +18,6 @@ import com.oftalmologica.web.repository.DoctorConfigRepository;
 import com.oftalmologica.web.repository.MedicCenterConfigRepository;
 import com.oftalmologica.web.repository.MedicCenterReportDetailRepository;
 import com.oftalmologica.web.repository.MedicCenterReportRepository;
-import com.oftalmologica.web.service.MedicCenterService;
 import com.oftalmologica.web.service.ReportService;
 import com.oftalmologica.web.util.MedicalServiceDoctor;
 import com.oftalmologica.web.util.MedicalServiceHealthInsurance;
@@ -30,17 +28,17 @@ import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @AllArgsConstructor
+@Transactional
 @Slf4j
 public class ReportServiceImpl implements ReportService {
 
-  private final MedicCenterDtoMapper medicCenterDtoMapper;
   private final DoctorDtoMapper doctorDtoMapper;
   private final MedicalServiceDtoMapper medicalServiceDtoMapper;
   private final HealthInsuranceDtoMapper healthInsuranceDtoMapper;
-  private final MedicCenterService medicCenterService;
   private final MedicCenterReportRepository medicCenterReportRepository;
   private final MedicCenterReportDetailRepository medicCenterReportDetailRepository;
   private final MedicCenterConfigRepository medicCenterConfigRepository;

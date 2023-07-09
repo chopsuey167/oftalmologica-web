@@ -53,7 +53,7 @@ public class ReportController {
         List<MedicCenterReportDto> reports = medicCenterReportService.findAll();
         model.addAttribute("success", "Se ha creado correctamente el periodo");
         model.addAttribute("reports", reports);
-        return "redirect:/reports";
+        return "report/reports-list";
       } catch (FileUploadIdsNotFoundException e) {
         model.addAttribute("errorList", e.getErrorDetails());
       } catch (Exception e) {
