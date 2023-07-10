@@ -5,10 +5,9 @@ import com.oftalmologica.web.models.MedicCenter;
 import com.oftalmologica.web.models.MedicCenterReportDetail;
 import java.util.List;
 
-public interface ReportService {
+public interface ReportDataService {
 
-  List<MedicCenterReportDetail> generateMedicalReportData(List<ImportedDataDto> data, MedicCenter medicCenter,
+  List<MedicCenterReportDetail> generateMedicCenterReportData(List<ImportedDataDto> data, MedicCenter medicCenter,
       String period);
-
 
 }

@@ -32,11 +32,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 @Slf4j
 @ExtendWith(MockitoExtension.class)
-class ReportServiceImplTest extends AbstractUtilsTest {
+class ReportDataServiceImplTest extends AbstractUtilsTest {
 
   public static final String PERIOD = "202306";
   @InjectMocks
-  private ReportServiceImpl reportService;
+  private ReportDataServiceImpl reportService;
   @Mock
   private MedicCenterService medicCenterService;
   @Mock
@@ -74,7 +74,7 @@ class ReportServiceImplTest extends AbstractUtilsTest {
     when(medicCenterReportDetailRepository.saveAll(any())).thenReturn(medicCenterReportDetails);
 
     // when
-    var actual = reportService.generateMedicalReportData(listImportData, medicCenter, PERIOD);
+    var actual = reportService.generateMedicCenterReportData(listImportData, medicCenter, PERIOD);
 
     // then
     assertNotNull(actual);
@@ -97,7 +97,7 @@ class ReportServiceImplTest extends AbstractUtilsTest {
     when(doctorConfigRepository.findByMedicCenter(medicCenter)).thenReturn(doctorConfig);
 
     // when
-    Executable executable = () -> reportService.generateMedicalReportData(listImportData, medicCenter, PERIOD);
+    Executable executable = () -> reportService.generateMedicCenterReportData(listImportData, medicCenter, PERIOD);
 
     // then
     assertThrows(DoctorConfigNotFoundException.class, executable);

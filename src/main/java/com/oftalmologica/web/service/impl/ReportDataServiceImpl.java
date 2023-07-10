@@ -18,7 +18,7 @@ import com.oftalmologica.web.repository.DoctorConfigRepository;
 import com.oftalmologica.web.repository.MedicCenterConfigRepository;
 import com.oftalmologica.web.repository.MedicCenterReportDetailRepository;
 import com.oftalmologica.web.repository.MedicCenterReportRepository;
-import com.oftalmologica.web.service.ReportService;
+import com.oftalmologica.web.service.ReportDataService;
 import com.oftalmologica.web.util.MedicalServiceDoctor;
 import com.oftalmologica.web.util.MedicalServiceHealthInsurance;
 import java.util.List;
@@ -34,7 +34,7 @@ import org.springframework.transaction.annotation.Transactional;
 @AllArgsConstructor
 @Transactional
 @Slf4j
-public class ReportServiceImpl implements ReportService {
+public class ReportDataServiceImpl implements ReportDataService {
 
   private final DoctorDtoMapper doctorDtoMapper;
   private final MedicalServiceDtoMapper medicalServiceDtoMapper;
@@ -60,7 +60,8 @@ public class ReportServiceImpl implements ReportService {
 
 
   @Override
-  public List<MedicCenterReportDetail> generateMedicalReportData(List<ImportedDataDto> data, MedicCenter medicCenter,
+  public List<MedicCenterReportDetail> generateMedicCenterReportData(List<ImportedDataDto> data,
+      MedicCenter medicCenter,
       String period) {
 
     MedicCenterReport medicCenterReport = MedicCenterReport.builder()
@@ -81,13 +82,13 @@ public class ReportServiceImpl implements ReportService {
         medicCenterReport.getMedicCenter());
 
     Map<MedicalServiceHealthInsurance, Float> medicalServiceConfigByMedicCenter = medicCenterConfigs.stream()
-        .collect(Collectors.toMap(ReportServiceImpl::buildMedicalServiceHealthInsurance,
+        .collect(Collectors.toMap(ReportDataServiceImpl::buildMedicalServiceHealthInsurance,
             MedicCenterConfig::getPercentage));
 
     List<DoctorConfig> doctorConfigs = doctorConfigRepository.findByMedicCenter(medicCenterReport.getMedicCenter());
 
     Map<MedicalServiceDoctor, Float> medicalServiceConfigByDoctor = doctorConfigs.stream()
-        .collect(Collectors.toMap(ReportServiceImpl::buildMedicalServiceDoctor, DoctorConfig::getPercentage));
+        .collect(Collectors.toMap(ReportDataServiceImpl::buildMedicalServiceDoctor, DoctorConfig::getPercentage));
 
     List<MedicCenterReportDetail> medicCenterReportDetails = data.stream()
         .map(
