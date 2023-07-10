@@ -113,7 +113,7 @@ public class ReportDataServiceImpl implements ReportDataService {
                         medicalServiceConfigByDoctor))
                     .reportGroup(d.getMedicalService().getServiceType().getReportGroup())
                     .build()
-
+            //TODO: Agregar porcentajes de centro y de doctor
         ).toList();
 
     return medicCenterReportDetailRepository.saveAll(

@@ -18,20 +18,20 @@ COMMIT;
 
 /* SERVICE TYPE */
 
-INSERT INTO service_types (name, created_on, updated_on)
-VALUES ('Consulta', null, null);
-INSERT INTO service_types (name, created_on, updated_on)
-VALUES ('Prueba', null, null);
-INSERT INTO service_types (name, created_on, updated_on)
-VALUES ('Urgencia', null, null);
-INSERT INTO service_types (name, created_on, updated_on)
-VALUES ('Cirugía', null, null);
-INSERT INTO service_types (name, created_on, updated_on)
-VALUES ('Ayudantia', null, null);
-INSERT INTO service_types (name, created_on, updated_on)
-VALUES ('Terapia', null, null);
-INSERT INTO service_types (name, created_on, updated_on)
-VALUES ('Tratamiento', null, null);
+INSERT INTO service_types (name, created_on, updated_on, report_group)
+VALUES ('Consulta', null, null, 2);
+INSERT INTO service_types (name, created_on, updated_on, report_group)
+VALUES ('Prueba', null, null, 2);
+INSERT INTO service_types (name, created_on, updated_on, report_group)
+VALUES ('Urgencia', null, null, 1);
+INSERT INTO service_types (name, created_on, updated_on, report_group)
+VALUES ('Cirugía', null, null, 3);
+INSERT INTO service_types (name, created_on, updated_on, report_group)
+VALUES ('Ayudantia', null, null, 2);
+INSERT INTO service_types (name, created_on, updated_on, report_group)
+VALUES ('Terapia', null, null, 2);
+INSERT INTO service_types (name, created_on, updated_on, report_group)
+VALUES ('Tratamiento', null, null, 2);
 COMMIT;
 
 
@@ -149,7 +149,7 @@ VALUES (null, '1ª Visita Terapia Visual', null, 6);
 INSERT INTO medical_services (created_on, description, updated_on, service_type_id)
 VALUES (null, '1ªVisita de Terapia Visual', null, 6);
 INSERT INTO medical_services (created_on, description, updated_on, service_type_id)
-VALUES (null, '2/V OFTALMOLOGIA', null, 1);
+VALUES (null, '2/V OFTALMOLOGIA', null, 4);
 INSERT INTO medical_services (created_on, description, updated_on, service_type_id)
 VALUES (null, '2/V OFTALMOLOGIA/REVISIÓ', null, 1);
 INSERT INTO medical_services (created_on, description, updated_on, service_type_id)
@@ -1636,6 +1636,8 @@ INSERT INTO doctor_config (doctor_id, mediccenter_id, medicalservice_id, created
 VALUES (23, 12, 273, null, 50, null);
 INSERT INTO doctor_config (doctor_id, mediccenter_id, medicalservice_id, created_on, percentage, updated_on)
 VALUES (23, 12, 258, null, 50, null);
+INSERT INTO doctor_config (doctor_id, mediccenter_id, medicalservice_id, created_on, percentage, updated_on)
+VALUES (17, 1, 7, null, 50, null);
 COMMIT;
 
 /* CONFIG CENTER */
@@ -1740,7 +1742,7 @@ INSERT INTO medic_center_config (healthinsurance_id, mediccenter_id, medicalserv
 VALUES (1, 13, 2, null, 75, null);
 INSERT INTO medic_center_config (healthinsurance_id, mediccenter_id, medicalservice_id, created_on, percentage,
                                  updated_on)
-VALUES (1, 1, 3, null, 100, null);
+VALUES (1, 1, 3, null, 65, null);
 INSERT INTO medic_center_config (healthinsurance_id, mediccenter_id, medicalservice_id, created_on, percentage,
                                  updated_on)
 VALUES (1, 2, 3, null, 100, null);

@@ -35,6 +35,12 @@ public class ExportDataServiceImpl implements ExportDataService {
     SimpleXlsxReportConfiguration reportConfig
         = new SimpleXlsxReportConfiguration();
     reportConfig.setSheetNames(new String[]{"Informe centro médico"});
+    reportConfig.setWhitePageBackground(false);
+    reportConfig.setRemoveEmptySpaceBetweenRows(true);
+    reportConfig.setIgnorePageMargins(true);
+    reportConfig.setRemoveEmptySpaceBetweenColumns(true);
+    reportConfig.setOnePagePerSheet(false);
+    reportConfig.setDetectCellType(true);
     exporter.setConfiguration(reportConfig);
     exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
     exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(outStream));
@@ -62,6 +68,7 @@ public class ExportDataServiceImpl implements ExportDataService {
     response.setContentType("application/vnd.ms-excel");
     response.setHeader("Content-Disposition", "attachment; filename=reportcentromedico.xlsx");
     exportToXlsFile(jasperPrint, outStream);
+    outStream.close();
   }
 
   private JasperReport loadReportTemplate(String templateFileName) throws JRException {

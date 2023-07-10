@@ -1,33 +1,248 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.20.5.final using JasperReports Library version 6.20.5-3efcf2e67f959db3888d79f73dde2dbd7acb4f8e  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="medic_center_report" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ddd4337e-8bf6-42c5-af32-cfdabbb7e648">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="medic_center_report" pageWidth="1200" pageHeight="595" orientation="Landscape" columnWidth="1200" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="ddd4337e-8bf6-42c5-af32-cfdabbb7e648">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="net.sf.jasperreports.print.create.bookmarks" value="true"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<parameter name="reportParent" class="com.oftalmologica.web.models.MedicCenterReport"/>
 	<queryString language="SQL">
 		<![CDATA[]]>
 	</queryString>
+	<field name="doctor" class="com.oftalmologica.web.models.Doctor"/>
+	<field name="healthInsuranceDescription" class="java.lang.String"/>
+	<field name="patientName" class="java.lang.String"/>
+	<field name="issueDate" class="java.time.LocalDateTime"/>
+	<field name="medicalService" class="com.oftalmologica.web.models.MedicalService"/>
+	<field name="basePrice" class="java.lang.Float"/>
+	<field name="oculisIncome" class="java.lang.Float"/>
+	<field name="reportGroup" class="com.oftalmologica.web.util.ReportGroup"/>
+	<variable name="totalIncome" class="java.lang.Float" resetType="Group" resetGroup="Category" calculation="Sum">
+		<variableExpression><![CDATA[$F{oculisIncome}]]></variableExpression>
+	</variable>
+	<group name="Category">
+		<groupExpression><![CDATA[$F{reportGroup}.code]]></groupExpression>
+		<groupHeader>
+			<band height="40">
+				<staticText>
+					<reportElement x="0" y="20" width="200" height="20" uuid="bd1b05e6-536f-4bae-9aaf-3cbaadfdac05">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="30ffd2d8-593f-4ae6-9ded-2e1fcc5b6e4f"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Doctor]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="200" y="20" width="200" height="20" uuid="195eefb6-ee5b-4ed2-96d4-62de9c6905cc">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="30ffd2d8-593f-4ae6-9ded-2e1fcc5b6e4f"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Mutua]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="400" y="20" width="200" height="20" uuid="c6bee218-4f62-4d56-854d-19b3238d7067">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="30ffd2d8-593f-4ae6-9ded-2e1fcc5b6e4f"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Paciente]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="600" y="20" width="100" height="20" uuid="50236169-a94d-4a48-a9f7-a03f0f34ec40">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="30ffd2d8-593f-4ae6-9ded-2e1fcc5b6e4f"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Fecha]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="700" y="20" width="100" height="20" uuid="19a84fa4-08fb-4ebd-ace0-992683d763b4">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="30ffd2d8-593f-4ae6-9ded-2e1fcc5b6e4f"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Servicio]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="800" y="20" width="100" height="20" uuid="cbe1c3ce-2be9-4249-8208-77bd08a2ee7e">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="30ffd2d8-593f-4ae6-9ded-2e1fcc5b6e4f"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Tipo Serv]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="900" y="20" width="100" height="20" uuid="5cd1eeef-83b5-40e7-987e-112d8f0adae1">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="30ffd2d8-593f-4ae6-9ded-2e1fcc5b6e4f"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Base acto]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1000" y="20" width="100" height="20" uuid="236f8926-c43a-4643-ac1d-2699d0d41c45">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="30ffd2d8-593f-4ae6-9ded-2e1fcc5b6e4f"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[%oculis]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1100" y="20" width="100" height="20" uuid="ec909093-32d7-4974-bbb9-833941809e1e">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="30ffd2d8-593f-4ae6-9ded-2e1fcc5b6e4f"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="0" y="0" width="200" height="20" uuid="71b1f264-b309-487a-a04a-2e22c2d41a2b"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[($F{reportGroup}.code)+" " +$F{reportGroup}.description]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="20">
+				<textField pattern=",##0.00">
+					<reportElement x="1100" y="0" width="100" height="20" uuid="69fb4f11-37e1-4005-98f8-c0796f48f3ce">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$V{totalIncome}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch"/>
-	</title>
-	<pageHeader>
-		<band height="35" splitType="Stretch"/>
-	</pageHeader>
-	<columnHeader>
-		<band height="61" splitType="Stretch">
+		<band height="79" splitType="Stretch">
 			<textField>
-				<reportElement x="-10" y="0" width="305" height="30" uuid="1e1840d0-cd2c-49be-a95d-bb8bca63bd76"/>
+				<reportElement x="0" y="0" width="200" height="30" uuid="1e1840d0-cd2c-49be-a95d-bb8bca63bd76"/>
+				<textElement verticalAlignment="Middle">
+					<font size="13" isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{reportParent}.getMedicCenter().getName()]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="0" y="30" width="200" height="30" uuid="03fdb376-343d-4a27-92bc-d7fda6a82ab2"/>
+				<textElement verticalAlignment="Middle">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{reportParent}.getPeriod()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch"/>
+		<band height="20" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField>
+				<reportElement x="0" y="0" width="200" height="20" uuid="64127bb1-9707-4220-94c2-98105fca0a03">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="30ffd2d8-593f-4ae6-9ded-2e1fcc5b6e4f"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{doctor}.getName()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="0" width="200" height="20" uuid="2fbe6faf-1cad-4b4b-bcbd-191b65301ef3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="30ffd2d8-593f-4ae6-9ded-2e1fcc5b6e4f"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{healthInsuranceDescription}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="400" y="0" width="200" height="20" uuid="b6c28b9a-4ecd-4fbb-bb33-80fba3d053a6">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="30ffd2d8-593f-4ae6-9ded-2e1fcc5b6e4f"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{patientName}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="600" y="0" width="100" height="20" uuid="ce27633b-a8da-4c90-aea8-590b9d1ea202">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="30ffd2d8-593f-4ae6-9ded-2e1fcc5b6e4f"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[java.util.Date.from($F{issueDate}.atZone(java.time.ZoneId.systemDefault()).toInstant())]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="700" y="0" width="100" height="20" uuid="92bd6f25-c256-40c0-bb56-96a48c83eaac">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="30ffd2d8-593f-4ae6-9ded-2e1fcc5b6e4f"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{medicalService}.getDescription()]]></textFieldExpression>
+			</textField>
+			<textField pattern=",##0.00">
+				<reportElement x="900" y="0" width="100" height="20" uuid="f57fbfdf-50cd-41cc-bf16-4dee0733df3d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="30ffd2d8-593f-4ae6-9ded-2e1fcc5b6e4f"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{basePrice}]]></textFieldExpression>
+			</textField>
+			<textField pattern=",##0.00">
+				<reportElement x="1100" y="0" width="100" height="20" uuid="115cc963-22d4-45e6-af20-647f404f1d93">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="30ffd2d8-593f-4ae6-9ded-2e1fcc5b6e4f"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{oculisIncome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="800" y="0" width="100" height="20" uuid="af1354d8-1c5e-483c-83de-a36c218a4640">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="30ffd2d8-593f-4ae6-9ded-2e1fcc5b6e4f"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{medicalService}.getServiceType().getName()]]></textFieldExpression>
+			</textField>
+		</band>
 	</detail>
 	<columnFooter>
-		<band height="45" splitType="Stretch"/>
+		<band height="20" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
 		<band height="54" splitType="Stretch"/>
