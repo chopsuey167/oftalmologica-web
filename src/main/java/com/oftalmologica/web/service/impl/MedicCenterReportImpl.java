@@ -16,12 +16,17 @@ public class MedicCenterReportImpl implements MedicCenterReportService {
 
   private final MedicCenterReportRepository repository;
   private final MedicCenterReportDtoMapper mapper;
-  
+
   @Override
   public List<MedicCenterReportDto> findAll() {
     List<MedicCenterReport> medicCenterReports = repository.findAll();
 
     return medicCenterReports.stream().map(mapper::toMedicCenterReportDto).collect(Collectors.toList());
+  }
+
+  @Override
+  public MedicCenterReport findById(Long medicCenterReportId) {
+    return repository.findById(medicCenterReportId).orElseThrow(null);
   }
 
 

@@ -1,13 +1,17 @@
 package com.oftalmologica.web.controller;
 
 import com.oftalmologica.web.dto.CreateReportFormDto;
+import com.oftalmologica.web.dto.DoctorDetailReportDto;
 import com.oftalmologica.web.dto.ImportedDataDto;
 import com.oftalmologica.web.dto.MedicCenterDto;
 import com.oftalmologica.web.dto.MedicCenterReportDto;
 import com.oftalmologica.web.exception.FileUploadIdsNotFoundException;
-import com.oftalmologica.web.repository.MedicCenterReportRepository;
+import com.oftalmologica.web.mapper.DoctorDtoMapper;
+import com.oftalmologica.web.models.MedicCenterReport;
+import com.oftalmologica.web.service.DoctorService;
 import com.oftalmologica.web.service.ExportDataService;
 import com.oftalmologica.web.service.FileDataService;
+import com.oftalmologica.web.service.MedicCenterReportDetailService;
 import com.oftalmologica.web.service.MedicCenterReportService;
 import com.oftalmologica.web.service.MedicCenterService;
 import com.oftalmologica.web.service.ReportDataService;
@@ -31,10 +35,13 @@ public class ReportController {
 
   private final FileDataService fileDataService;
   private final MedicCenterService medicCenterService;
+  private final DoctorService doctorService;
   private final MedicCenterReportService medicCenterReportService;
+  private final MedicCenterReportDetailService medicCenterReportDetailService;
   private final ReportDataService reportDataService;
   private final ExportDataService exportDataService;
-  private final MedicCenterReportRepository medicCenterReportRepository;
+  private final DoctorDtoMapper doctorDtoMapper;
+
 
   @GetMapping("/reports")
   public String listReports(Model model) {
@@ -78,9 +85,34 @@ public class ReportController {
 
   @GetMapping("/reports/{medicCenterReportId}/exportGeneral")
   public void generateMedicCenterReport(@PathVariable("medicCenterReportId") Long medicCenterReportId,
-      Model model, HttpServletResponse response) throws JRException, IOException {
+      HttpServletResponse response) throws JRException, IOException {
 
-    exportDataService.generateMedicCenterReport(medicCenterReportRepository.findById(medicCenterReportId).get(),
+    exportDataService.generateMedicCenterReport(
+        medicCenterReportService.findById(medicCenterReportId),
+        response);
+  }
+
+  @GetMapping("/reports/{medicCenterReportId}/doctors")
+  public String listDoctorReport(@PathVariable("medicCenterReportId") Long medicCenterReportId,
+      Model model) {
+
+    MedicCenterReport medicCenterReport = medicCenterReportService.findById(medicCenterReportId);
+
+    List<DoctorDetailReportDto> doctors = medicCenterReportDetailService.getDoctorsListByReport(medicCenterReport);
+
+    model.addAttribute("doctors", doctors);
+
+    return "report/reports-doctors-list";
+  }
+
+  @GetMapping("/reports/{medicCenterReportId}/doctors/{doctorId}/exportReport")
+  public void generateDoctorReport(@PathVariable("medicCenterReportId") Long medicCenterReportId,
+      @PathVariable("doctorId") Long doctorId,
+      HttpServletResponse response) throws JRException, IOException {
+
+    exportDataService.generateDoctorReport(
+        medicCenterReportService.findById(medicCenterReportId),
+        doctorDtoMapper.toDoctor(doctorService.findById(doctorId)),
         response);
   }
 }

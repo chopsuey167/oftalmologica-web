@@ -21,8 +21,8 @@
             <th>Centro médico</th>
             <th>Periodo</th>
             <th>Fecha de creación</th>
-            <th>M.</th>
-            <!--            <th>E.</th>-->
+            <th>Informe general</th>
+            <th>Doctores</th>
           </tr>
           </thead>
           <tfoot>
@@ -31,8 +31,8 @@
             <th>Centro médico</th>
             <th>Periodo</th>
             <th>Fecha de creación</th>
-            <th>Informe general.</th>
-            <!--            <th>Informe doctor</th>-->
+            <th>Informe general</th>
+            <th>Doctores</th>
           </tr>
           </tfoot>
           <tbody>
@@ -43,10 +43,10 @@
             <td><p th:text="${report.createdOn}"></p></td>
             <td><a
                 th:href="@{/reports/{medicCenterReportId}/exportGeneral(medicCenterReportId=${report.id})}"><i
-                class="fa-solid fa-pen-to-square fa-xl"></i></a></td>
-            <!--            <td><a-->
-            <!--                th:href="@{/mediccenters/{medicCenterId}/delete(medicCenterId=${mediccenter.id})}"><i-->
-            <!--                class="fa-solid fa-trash fa-xl"></i></a></td>-->
+                class="fa-solid fa-file-excel fa-xl"></i></a></td>
+            <td><a
+                th:href="@{/reports/{medicCenterReportId}/doctors(medicCenterReportId=${report.id})}"><i
+                class="fa-solid fa-people-group fa-xl"></i></a></td>
           </tr>
           </tbody>
         </table>

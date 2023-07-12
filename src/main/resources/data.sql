@@ -1658,6 +1658,10 @@ INSERT INTO doctor_config (doctor_id, mediccenter_id, medicalservice_id, created
 VALUES (23, 12, 258, null, 50, null);
 INSERT INTO doctor_config (doctor_id, mediccenter_id, medicalservice_id, created_on, percentage, updated_on)
 VALUES (17, 1, 7, null, 50, null);
+INSERT INTO doctor_config (doctor_id, mediccenter_id, medicalservice_id, created_on, percentage, updated_on)
+VALUES (23, 1, 7, null, 35, null);
+INSERT INTO doctor_config (doctor_id, mediccenter_id, medicalservice_id, created_on, percentage, updated_on)
+VALUES (20, 1, 7, null, 20, null);
 COMMIT;
 
 /* CONFIG CENTER */

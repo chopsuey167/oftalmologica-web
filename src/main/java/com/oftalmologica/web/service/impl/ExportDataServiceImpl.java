@@ -1,5 +1,6 @@
 package com.oftalmologica.web.service.impl;
 
+import com.oftalmologica.web.models.Doctor;
 import com.oftalmologica.web.models.MedicCenterReport;
 import com.oftalmologica.web.models.MedicCenterReportDetail;
 import com.oftalmologica.web.repository.MedicCenterReportDetailRepository;
@@ -30,11 +31,12 @@ public class ExportDataServiceImpl implements ExportDataService {
 
   private final MedicCenterReportDetailRepository medicCenterReportDetailRepository;
 
-  private static void exportToXlsFile(JasperPrint jasperPrint, OutputStream outStream) throws JRException {
+  private static void exportToXlsFile(JasperPrint jasperPrint, OutputStream outStream, String sheetName)
+      throws JRException {
     JRXlsxExporter exporter = new JRXlsxExporter();
     SimpleXlsxReportConfiguration reportConfig
         = new SimpleXlsxReportConfiguration();
-    reportConfig.setSheetNames(new String[]{"Informe centro médico"});
+    reportConfig.setSheetNames(new String[]{sheetName});
     reportConfig.setWhitePageBackground(false);
 //    reportConfig.setRemoveEmptySpaceBetweenRows(true);
     reportConfig.setIgnorePageMargins(true);
@@ -66,8 +68,37 @@ public class ExportDataServiceImpl implements ExportDataService {
     JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, datasource);
     OutputStream outStream = response.getOutputStream();
     response.setContentType("application/vnd.ms-excel");
-    response.setHeader("Content-Disposition", "attachment; filename=reportcentromedico.xlsx");
-    exportToXlsFile(jasperPrint, outStream);
+    response.setHeader("Content-Disposition",
+        "attachment; filename=Informe " + medicCenterReport.getMedicCenter().getName() + " - "
+            + medicCenterReport.getPeriod() + ".xlsx");
+    exportToXlsFile(jasperPrint, outStream, medicCenterReport.getMedicCenter().getName());
+    outStream.close();
+  }
+
+  @Override
+  public void generateDoctorReport(MedicCenterReport medicCenterReport, Doctor doctor, HttpServletResponse response)
+      throws JRException, IOException {
+
+    // get report template file
+    JasperReport jasperReport = loadReportTemplate("doctor_report");
+
+    // set report parameter variables
+    Map<String, Object> parameters = new HashMap<>();
+    parameters.put("reportParent", medicCenterReport);
+    parameters.put("doctorInfo", doctor);
+
+    // set report datasource
+    List<MedicCenterReportDetail> medicCenterReportDetails = medicCenterReportDetailRepository.findByMedicCenterReportAndDoctor(
+        medicCenterReport, doctor);
+    JRBeanCollectionDataSource datasource = new JRBeanCollectionDataSource(medicCenterReportDetails);
+
+    // fill report with inputs
+    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, datasource);
+    OutputStream outStream = response.getOutputStream();
+    response.setContentType("application/vnd.ms-excel");
+    response.setHeader("Content-Disposition",
+        "attachment; filename=Informe " + doctor.getName() + " - " + medicCenterReport.getPeriod() + " .xlsx");
+    exportToXlsFile(jasperPrint, outStream, doctor.getName());
     outStream.close();
   }
 
