@@ -13,6 +13,7 @@ import com.oftalmologica.web.models.MedicCenter;
 import com.oftalmologica.web.models.MedicCenterConfig;
 import com.oftalmologica.web.models.MedicCenterReport;
 import com.oftalmologica.web.models.MedicCenterReportDetail;
+import com.oftalmologica.web.models.MedicCenterReportDetail.MedicCenterReportDetailBuilder;
 import com.oftalmologica.web.models.MedicalService;
 import com.oftalmologica.web.repository.DoctorConfigRepository;
 import com.oftalmologica.web.repository.MedicCenterConfigRepository;
@@ -92,36 +93,45 @@ public class ReportDataServiceImpl implements ReportDataService {
 
     List<MedicCenterReportDetail> medicCenterReportDetails = data.stream()
         .map(
-            d ->
-                MedicCenterReportDetail.builder()
-                    .medicCenterReport(medicCenterReport)
-                    .doctor(doctorDtoMapper.toDoctor(d.getDoctor()))
-                    .medicalService(medicalServiceDtoMapper.toMedicalService(d.getMedicalService()))
-                    .healthInsurance(healthInsuranceDtoMapper.toHeathInsurance(d.getHealthInsurance()))
-                    .healthInsuranceDescription(d.getHealthInsuranceDescription())
-                    .patientName(d.getPatientName())
-                    .issueDate(d.getIssueDate())
-                    .basePrice(d.getBasePrice())
-                    .oculisIncome(calculateOculisIncome(medicalServiceDtoMapper.toMedicalService(d.getMedicalService()),
-                        healthInsuranceDtoMapper.toHeathInsurance(d.getHealthInsurance()),
-                        d.getBasePrice(),
-                        medicalServiceConfigByMedicCenter
-                    ))
-                    .doctorIncome(calculateDoctorIncome(medicalServiceDtoMapper.toMedicalService(d.getMedicalService()),
-                        doctorDtoMapper.toDoctor(d.getDoctor()),
-                        d.getBasePrice(),
-                        medicalServiceConfigByDoctor))
-                    .reportGroup(d.getMedicalService().getServiceType().getReportGroup())
-                    .build()
-            //TODO: Agregar porcentajes de centro y de doctor
+            d -> {
+              MedicCenterReportDetailBuilder medicCenterReportDetailBuilder = MedicCenterReportDetail.builder();
+
+              medicCenterReportDetailBuilder.medicCenterReport(medicCenterReport);
+              medicCenterReportDetailBuilder.doctor(doctorDtoMapper.toDoctor(d.getDoctor()));
+              medicCenterReportDetailBuilder.medicalService(
+                  medicalServiceDtoMapper.toMedicalService(d.getMedicalService()));
+              medicCenterReportDetailBuilder.healthInsurance(
+                  healthInsuranceDtoMapper.toHeathInsurance(d.getHealthInsurance()));
+              medicCenterReportDetailBuilder.healthInsuranceDescription(d.getHealthInsuranceDescription());
+              medicCenterReportDetailBuilder.patientName(d.getPatientName());
+              medicCenterReportDetailBuilder.issueDate(d.getIssueDate());
+              medicCenterReportDetailBuilder.basePrice(d.getBasePrice());
+
+              setOculisIncomeValues(medicalServiceDtoMapper.toMedicalService(d.getMedicalService()),
+                  healthInsuranceDtoMapper.toHeathInsurance(d.getHealthInsurance()),
+                  d.getBasePrice(),
+                  medicalServiceConfigByMedicCenter,
+                  medicCenterReportDetailBuilder);
+
+              setDoctorIncomeValues(medicalServiceDtoMapper.toMedicalService(d.getMedicalService()),
+                  doctorDtoMapper.toDoctor(d.getDoctor()),
+                  d.getBasePrice(),
+                  medicalServiceConfigByDoctor,
+                  medicCenterReportDetailBuilder);
+
+              medicCenterReportDetailBuilder.reportGroup(d.getMedicalService().getServiceType().getReportGroup());
+
+              return medicCenterReportDetailBuilder.build();
+            }
         ).toList();
 
     return medicCenterReportDetailRepository.saveAll(
         medicCenterReportDetails);
   }
 
-  private Float calculateOculisIncome(MedicalService medicalService, HealthInsurance healthInsurance, Float basePrice,
-      Map<MedicalServiceHealthInsurance, Float> medicalServiceConfigByMedicCenter) {
+  private void setOculisIncomeValues(MedicalService medicalService, HealthInsurance healthInsurance, Float basePrice,
+      Map<MedicalServiceHealthInsurance, Float> medicalServiceConfigByMedicCenter,
+      MedicCenterReportDetailBuilder medicCenterReportDetailBuilder) {
 
     Float percentageMedicCenter = medicalServiceConfigByMedicCenter.get(MedicalServiceHealthInsurance.builder()
         .medicalService(medicalService)
@@ -136,11 +146,14 @@ public class ReportDataServiceImpl implements ReportDataService {
 
     }
 
-    return percentageMedicCenter * basePrice / 100;
+    medicCenterReportDetailBuilder.oculisIncome(percentageMedicCenter * basePrice / 100);
+    medicCenterReportDetailBuilder.oculisPercentage(percentageMedicCenter);
+
   }
 
-  private Float calculateDoctorIncome(MedicalService medicalService, Doctor doctor, Float basePrice,
-      Map<MedicalServiceDoctor, Float> medicalServiceConfigByDoctor) {
+  private void setDoctorIncomeValues(MedicalService medicalService, Doctor doctor, Float basePrice,
+      Map<MedicalServiceDoctor, Float> medicalServiceConfigByDoctor,
+      MedicCenterReportDetailBuilder medicCenterReportDetailBuilder) {
     Float percentageDoctor = medicalServiceConfigByDoctor.get(MedicalServiceDoctor.builder()
         .medicalService(medicalService)
         .doctor(doctor)
@@ -152,7 +165,7 @@ public class ReportDataServiceImpl implements ReportDataService {
               + "(" + medicalService.getId() + ")");
 
     }
-
-    return percentageDoctor * basePrice / 100;
+    medicCenterReportDetailBuilder.doctorIncome(percentageDoctor * basePrice / 100);
+    medicCenterReportDetailBuilder.doctorPercentage(percentageDoctor);
   }
 }

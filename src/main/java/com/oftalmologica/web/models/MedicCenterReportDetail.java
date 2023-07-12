@@ -42,7 +42,9 @@ public class MedicCenterReportDetail {
   private LocalDateTime issueDate;
   private Float basePrice;
   private Float oculisIncome;
+  private Float oculisPercentage;
   private Float doctorIncome;
+  private Float doctorPercentage;
   private ReportGroup reportGroup;
 
 

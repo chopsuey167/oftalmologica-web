@@ -36,7 +36,7 @@ public class ExportDataServiceImpl implements ExportDataService {
         = new SimpleXlsxReportConfiguration();
     reportConfig.setSheetNames(new String[]{"Informe centro médico"});
     reportConfig.setWhitePageBackground(false);
-    reportConfig.setRemoveEmptySpaceBetweenRows(true);
+//    reportConfig.setRemoveEmptySpaceBetweenRows(true);
     reportConfig.setIgnorePageMargins(true);
     reportConfig.setRemoveEmptySpaceBetweenColumns(true);
     reportConfig.setOnePagePerSheet(false);

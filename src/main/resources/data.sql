@@ -132,6 +132,26 @@ INSERT INTO doctors (created_on, is_self_employed, name, updated_on)
 VALUES (null, false, 'SONIA PIZARRO', null);
 INSERT INTO doctors (created_on, is_self_employed, name, updated_on)
 VALUES (null, true, 'VERDAGUER', null);
+INSERT INTO doctors (created_on, is_self_employed, name, updated_on)
+VALUES (null, true, 'OCULIS ., _', null);
+INSERT INTO doctors (created_on, is_self_employed, name, updated_on)
+VALUES (null, true, 'PROVES OPTOMETRISTA , ', null);
+INSERT INTO doctors (created_on, is_self_employed, name, updated_on)
+VALUES (null, true, 'CORONADO QUITLLET, ELISABET', null);
+INSERT INTO doctors (created_on, is_self_employed, name, updated_on)
+VALUES (null, true, 'RAGOSTA ., ANDREA', null);
+INSERT INTO doctors (created_on, is_self_employed, name, updated_on)
+VALUES (null, true, 'RUSTULLET OLIVE, MARC', null);
+INSERT INTO doctors (created_on, is_self_employed, name, updated_on)
+VALUES (null, true, 'RODRÍGUEZ HUELTES, DIEGO JOSÉ', null);
+INSERT INTO doctors (created_on, is_self_employed, name, updated_on)
+VALUES (null, true, 'ALONSO ALONSO, TIRSO', null);
+INSERT INTO doctors (created_on, is_self_employed, name, updated_on)
+VALUES (null, true, ' DF_DR. MEROÑO, PEDRO', null);
+INSERT INTO doctors (created_on, is_self_employed, name, updated_on)
+VALUES (null, true, 'DRA. LENCZEWSKA', null);
+INSERT INTO doctors (created_on, is_self_employed, name, updated_on)
+VALUES (null, true, 'DR. DUARTE', null);
 COMMIT;
 
 /* MEDICAL SERVICE */
