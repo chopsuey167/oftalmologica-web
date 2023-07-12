@@ -1,0 +1,44 @@
+<html lang="en" layout:decorate="~{layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+<head>
+  <title>Lista de doctores por informe</title>
+</head>
+<body>
+<main>
+  <div class="container-fluid px-4" layout:fragment="body">
+    <h1 class="mt-4">Doctores</h1>
+    <div class="card mb-4">
+      <div class="card-body">
+        <table id="datatablesSimple">
+          <thead>
+          <tr>
+            <th>Id</th>
+            <th>Doctor</th>
+            <th>Informe</th>
+          </tr>
+          </thead>
+          <tfoot>
+          <tr>
+            <th>Id</th>
+            <th>Doctor</th>
+            <th>Informe</th>
+          </tr>
+          </tfoot>
+          <tbody>
+          <tr th:each="doctor: ${doctors}">
+            <td><p th:text="${doctor.id}"></p></td>
+            <td><p th:text="${doctor.name}"></p></td>
+            <td><a
+                th:href="@{/reports/{medicCenterReportId}/doctors/{doctorId}/exportReport(medicCenterReportId=${doctor.medicCenterReport.id},doctorId=${doctor.id} )}"><i
+                class="fa-solid fa-file-excel fa-xl"></i></a></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>
+</body>
+</html>
+
