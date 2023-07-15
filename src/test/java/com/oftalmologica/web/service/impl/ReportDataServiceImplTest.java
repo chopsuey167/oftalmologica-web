@@ -89,8 +89,6 @@ class ReportDataServiceImplTest extends AbstractUtilsTest {
     var medicCenter = getMedicCenter("medicCenter");
     var medicCenterConfig = getListMedicCenterConfig("medicCenterConfig");
     var doctorConfig = getListDoctorConfig("doctorConfig_invalid");
-    var medicCenterReportDetails = getListMedicCenterReportDetail("detailReport");
-    var expected = getListMedicCenterReportDetail("calculation");
 
     when(medicCenterReportRepository.save(any())).thenReturn(medicCenterReport);
     when(medicCenterConfigRepository.findByMedicCenter(medicCenter)).thenReturn(medicCenterConfig);
