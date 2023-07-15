@@ -31,6 +31,15 @@
             </select>
             <p class="text-danger" th:errors="*{medicalService}" th:if="${#fields.hasErrors('medicalService')}"></p>
           </div>
+          <div class="col-md-12">
+            <label class="form-label" for="inputHealthInsurance">Servicio</label>
+            <select class="form-select" id="inputHealthInsurance" th:field="*{healthInsurance}">
+              <option selected value="">Seleccione tipo seguro</option>
+              <option th:each="healthinsurance: ${healthinsurances}" th:text="${healthinsurance.name}"
+                      th:value="${healthinsurance.id}"></option>
+            </select>
+            <p class="text-danger" th:errors="*{healthInsurance}" th:if="${#fields.hasErrors('healthInsurance')}"></p>
+          </div>
           <div class="col-md-6">
             <label class="form-label" for="inputPercentage">Porcentaje</label>
             <input class="form-control" id="inputPercentage" step="any" th:field="*{percentage}" type="number">

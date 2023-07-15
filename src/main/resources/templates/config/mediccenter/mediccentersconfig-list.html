@@ -9,6 +9,7 @@
   <div class="container-fluid px-4" layout:fragment="body">
     <h1 class="mt-4">Configuraciones de centro médico</h1>
     <a class="btn btn-primary m-3" th:href="@{mediccentersconfig/new}">Agregar nueva configuración</a>
+    <a class="btn btn-primary m-3 float-end csv">Exportar CSV</a>
     <div class="card mb-4">
       <div class="card-body">
         <table id="datatablesSimple">
@@ -36,10 +37,10 @@
             <td><p th:text="${mediccenterconfig.medicalService.description}"></p></td>
             <td><p th:text="${mediccenterconfig.percentage}"></p></td>
             <td><a
-                th:href="@{/mediccentersconfig/{medicCenterId}/{medicalServiceId}/edit(medicCenterId=${mediccenterconfig.id.medicCenterId},medicalServiceId=${mediccenterconfig.id.medicalServiceId})}"><i
+                th:href="@{/mediccentersconfig/{medicCenterId}/{medicalServiceId}/{healthInsuranceId}/edit(medicCenterId=${mediccenterconfig.id.medicCenterId},medicalServiceId=${mediccenterconfig.id.medicalServiceId}, healthInsuranceId=${mediccenterconfig.id.healthInsuranceId})}"><i
                 class="fa-solid fa-pen-to-square fa-xl"></i></a></td>
             <td><a
-                th:href="@{/mediccentersconfig/{medicCenterId}/{medicalServiceId}/delete(medicCenterId=${mediccenterconfig.id.medicCenterId},medicalServiceId=${mediccenterconfig.id.medicalServiceId})}"><i
+                th:href="@{/mediccentersconfig/{medicCenterId}/{medicalServiceId}/{healthInsuranceId}/delete(medicCenterId=${mediccenterconfig.id.medicCenterId},medicalServiceId=${mediccenterconfig.id.medicalServiceId}, healthInsuranceId=${mediccenterconfig.id.healthInsuranceId})}"><i
                 class="fa-solid fa-trash fa-xl"></i></a></td>
           </tr>
           </tbody>
@@ -48,6 +49,7 @@
     </div>
   </div>
 </main>
+
 </body>
 </html>
 

@@ -21,7 +21,7 @@ public class DoctorConfigDto {
   private MedicalService medicalService;
   @NotNull(message = "Seleccione doctor")
   private Doctor doctor;
-  @DecimalMin(value = "1.00", message = "Porcentaje no debe ser menor a 1")
+  @DecimalMin(value = "0.00", message = "Porcentaje no debe ser menor a 1")
   @DecimalMax(value = "100.00", message = "Porcentaje no debe ser mayo a 100")
   @NotNull(message = "Porcentaje no debe estar vacío")
   private Float percentage;
