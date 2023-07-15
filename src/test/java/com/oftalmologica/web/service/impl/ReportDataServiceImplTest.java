@@ -7,7 +7,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 import com.oftalmologica.web.AbstractUtilsTest;
-import com.oftalmologica.web.exception.DoctorConfigNotFoundException;
+import com.oftalmologica.web.exception.DataProcessConfigNotFoundException;
 import com.oftalmologica.web.mapper.DoctorDtoMapper;
 import com.oftalmologica.web.mapper.DoctorDtoMapperImpl;
 import com.oftalmologica.web.mapper.HealthInsuranceDtoMapper;
@@ -100,6 +100,6 @@ class ReportDataServiceImplTest extends AbstractUtilsTest {
     Executable executable = () -> reportService.generateMedicCenterReportData(listImportData, medicCenter, PERIOD);
 
     // then
-    assertThrows(DoctorConfigNotFoundException.class, executable);
+    assertThrows(DataProcessConfigNotFoundException.class, executable);
   }
 }
