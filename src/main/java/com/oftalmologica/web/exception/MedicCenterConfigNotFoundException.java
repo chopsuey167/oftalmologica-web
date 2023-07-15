@@ -1,9 +1,10 @@
 package com.oftalmologica.web.exception;
 
-public class MedicCenterConfigNotFoundException extends RuntimeException {
+import java.util.List;
 
-  public MedicCenterConfigNotFoundException(String message) {
-    super("Centro médico config no encontrada: " + message);
+public class MedicCenterConfigNotFoundException extends ReportCreationException {
+
+  public MedicCenterConfigNotFoundException(List<String> errorDetails) {
+    super("Configuración no encontrada", errorDetails);
   }
-
 }

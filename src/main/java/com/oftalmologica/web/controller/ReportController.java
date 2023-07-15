@@ -5,7 +5,7 @@ import com.oftalmologica.web.dto.DoctorDetailReportDto;
 import com.oftalmologica.web.dto.ImportedDataDto;
 import com.oftalmologica.web.dto.MedicCenterDto;
 import com.oftalmologica.web.dto.MedicCenterReportDto;
-import com.oftalmologica.web.exception.FileUploadIdsNotFoundException;
+import com.oftalmologica.web.exception.ReportCreationException;
 import com.oftalmologica.web.mapper.DoctorDtoMapper;
 import com.oftalmologica.web.models.MedicCenterReport;
 import com.oftalmologica.web.service.DoctorService;
@@ -69,7 +69,7 @@ public class ReportController {
         model.addAttribute("success", "Se ha creado correctamente el periodo");
         model.addAttribute("reports", reports);
         return "report/reports-list";
-      } catch (FileUploadIdsNotFoundException e) {
+      } catch (ReportCreationException e) {
         model.addAttribute("errorList", e.getErrorDetails());
       } catch (Exception e) {
         model.addAttribute("error", "Ha ocurrido un error: " + e.getMessage());

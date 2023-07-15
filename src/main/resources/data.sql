@@ -1662,6 +1662,28 @@ INSERT INTO doctor_config (doctor_id, mediccenter_id, medicalservice_id, created
 VALUES (23, 1, 7, null, 35, null);
 INSERT INTO doctor_config (doctor_id, mediccenter_id, medicalservice_id, created_on, percentage, updated_on)
 VALUES (20, 1, 7, null, 20, null);
+
+-- DOCTORES OCULIS PORCENTAJE CERO
+INSERT INTO doctor_config (doctor_id, mediccenter_id, medicalservice_id, created_on, percentage, updated_on)
+VALUES (29, 1, 13, null, 0, null);
+INSERT INTO doctor_config (doctor_id, mediccenter_id, medicalservice_id, created_on, percentage, updated_on)
+VALUES (30, 1, 27, null, 0, null);
+INSERT INTO doctor_config (doctor_id, mediccenter_id, medicalservice_id, created_on, percentage, updated_on)
+VALUES (29, 1, 37, null, 0, null);
+INSERT INTO doctor_config (doctor_id, mediccenter_id, medicalservice_id, created_on, percentage, updated_on)
+VALUES (29, 1, 41, null, 0, null);
+INSERT INTO doctor_config (doctor_id, mediccenter_id, medicalservice_id, created_on, percentage, updated_on)
+VALUES (30, 1, 55, null, 0, null);
+INSERT INTO doctor_config (doctor_id, mediccenter_id, medicalservice_id, created_on, percentage, updated_on)
+VALUES (30, 1, 103, null, 0, null);
+INSERT INTO doctor_config (doctor_id, mediccenter_id, medicalservice_id, created_on, percentage, updated_on)
+VALUES (29, 1, 145, null, 0, null);
+INSERT INTO doctor_config (doctor_id, mediccenter_id, medicalservice_id, created_on, percentage, updated_on)
+VALUES (30, 1, 193, null, 0, null);
+INSERT INTO doctor_config (doctor_id, mediccenter_id, medicalservice_id, created_on, percentage, updated_on)
+VALUES (30, 1, 248, null, 0, null);
+
+
 COMMIT;
 
 /* CONFIG CENTER */
