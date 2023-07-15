@@ -1,8 +1,7 @@
 package com.oftalmologica.web.service.impl;
 
 import com.oftalmologica.web.dto.ImportedDataDto;
-import com.oftalmologica.web.exception.DoctorConfigNotFoundException;
-import com.oftalmologica.web.exception.MedicCenterConfigNotFoundException;
+import com.oftalmologica.web.exception.DataProcessConfigNotFoundException;
 import com.oftalmologica.web.mapper.DoctorDtoMapper;
 import com.oftalmologica.web.mapper.HealthInsuranceDtoMapper;
 import com.oftalmologica.web.mapper.MedicalServiceDtoMapper;
@@ -22,6 +21,7 @@ import com.oftalmologica.web.repository.MedicCenterReportRepository;
 import com.oftalmologica.web.service.ReportDataService;
 import com.oftalmologica.web.util.MedicalServiceDoctor;
 import com.oftalmologica.web.util.MedicalServiceHealthInsurance;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -91,6 +91,8 @@ public class ReportDataServiceImpl implements ReportDataService {
     Map<MedicalServiceDoctor, Float> medicalServiceConfigByDoctor = doctorConfigs.stream()
         .collect(Collectors.toMap(ReportDataServiceImpl::buildMedicalServiceDoctor, DoctorConfig::getPercentage));
 
+    List<String> issuesList = new ArrayList<>();
+
     List<MedicCenterReportDetail> medicCenterReportDetails = data.stream()
         .map(
             d -> {
@@ -111,13 +113,15 @@ public class ReportDataServiceImpl implements ReportDataService {
                   healthInsuranceDtoMapper.toHeathInsurance(d.getHealthInsurance()),
                   d.getBasePrice(),
                   medicalServiceConfigByMedicCenter,
-                  medicCenterReportDetailBuilder);
+                  medicCenterReportDetailBuilder,
+                  issuesList);
 
               setDoctorIncomeValues(medicalServiceDtoMapper.toMedicalService(d.getMedicalService()),
                   doctorDtoMapper.toDoctor(d.getDoctor()),
                   d.getBasePrice(),
                   medicalServiceConfigByDoctor,
-                  medicCenterReportDetailBuilder);
+                  medicCenterReportDetailBuilder,
+                  issuesList);
 
               medicCenterReportDetailBuilder.reportGroup(d.getMedicalService().getServiceType().getReportGroup());
 
@@ -125,13 +129,16 @@ public class ReportDataServiceImpl implements ReportDataService {
             }
         ).toList();
 
+    if (!issuesList.isEmpty()) {
+      throw new DataProcessConfigNotFoundException(issuesList);
+    }
     return medicCenterReportDetailRepository.saveAll(
         medicCenterReportDetails);
   }
 
   private void setOculisIncomeValues(MedicalService medicalService, HealthInsurance healthInsurance, Float basePrice,
       Map<MedicalServiceHealthInsurance, Float> medicalServiceConfigByMedicCenter,
-      MedicCenterReportDetailBuilder medicCenterReportDetailBuilder) {
+      MedicCenterReportDetailBuilder medicCenterReportDetailBuilder, List<String> issuesList) {
 
     Float percentageMedicCenter = medicalServiceConfigByMedicCenter.get(MedicalServiceHealthInsurance.builder()
         .medicalService(medicalService)
@@ -139,11 +146,11 @@ public class ReportDataServiceImpl implements ReportDataService {
         .build());
 
     if (Objects.isNull(percentageMedicCenter)) {
-      throw new MedicCenterConfigNotFoundException(
-          "Seguro: " + healthInsurance.getName() + "(" + healthInsurance.getId() + ") - Servicio: "
-              + medicalService.getDescription()
-              + "(" + medicalService.getId() + ")");
-
+      issuesList.add("Config centro médico - Seguro: " + healthInsurance.getName() + "(" + healthInsurance.getId()
+          + ") - Servicio: "
+          + medicalService.getDescription()
+          + "(" + medicalService.getId() + ")");
+      return;
     }
 
     medicCenterReportDetailBuilder.oculisIncome(percentageMedicCenter * basePrice / 100);
@@ -153,17 +160,18 @@ public class ReportDataServiceImpl implements ReportDataService {
 
   private void setDoctorIncomeValues(MedicalService medicalService, Doctor doctor, Float basePrice,
       Map<MedicalServiceDoctor, Float> medicalServiceConfigByDoctor,
-      MedicCenterReportDetailBuilder medicCenterReportDetailBuilder) {
+      MedicCenterReportDetailBuilder medicCenterReportDetailBuilder, List<String> issuesList) {
     Float percentageDoctor = medicalServiceConfigByDoctor.get(MedicalServiceDoctor.builder()
         .medicalService(medicalService)
         .doctor(doctor)
         .build());
 
     if (Objects.isNull(percentageDoctor)) {
-      throw new DoctorConfigNotFoundException(
-          "Doctor: " + doctor.getName() + "(" + doctor.getId() + ") - Servicio: " + medicalService.getDescription()
+      issuesList.add(
+          "Config doctor - Doctor: " + doctor.getName() + "(" + doctor.getId() + ") - Servicio: "
+              + medicalService.getDescription()
               + "(" + medicalService.getId() + ")");
-
+      return;
     }
     medicCenterReportDetailBuilder.doctorIncome(percentageDoctor * basePrice / 100);
     medicCenterReportDetailBuilder.doctorPercentage(percentageDoctor);
