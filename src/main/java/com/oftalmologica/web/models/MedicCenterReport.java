@@ -30,6 +30,7 @@ public class MedicCenterReport {
   @JoinColumn(name = "medic_center_id", referencedColumnName = "id")
   private MedicCenter medicCenter;
   private String period;
+  private Float managementFee;
   @CreationTimestamp
   private LocalDateTime createdOn;
   @UpdateTimestamp

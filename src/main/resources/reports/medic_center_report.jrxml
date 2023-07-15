@@ -28,10 +28,10 @@
 	<field name="oculisIncome" class="java.lang.Float"/>
 	<field name="reportGroup" class="com.oftalmologica.web.util.ReportGroup"/>
 	<variable name="totalIncome" class="java.lang.Float" resetType="Group" resetGroup="Category" calculation="Sum">
-		<variableExpression><![CDATA[$F{oculisIncome}]]></variableExpression>
+		<variableExpression><![CDATA[new BigDecimal($F{oculisIncome}).setScale(2, RoundingMode.HALF_UP)]]></variableExpression>
 	</variable>
 	<variable name="oculisIncomeTotal" class="java.lang.Float" resetType="Column" calculation="Sum">
-		<variableExpression><![CDATA[$F{oculisIncome}]]></variableExpression>
+		<variableExpression><![CDATA[new BigDecimal($F{oculisIncome}).setScale(2, RoundingMode.HALF_UP)]]></variableExpression>
 	</variable>
 	<group name="Category">
 		<groupExpression><![CDATA[$F{reportGroup}.code]]></groupExpression>
@@ -199,8 +199,10 @@
 				</staticText>
 				<textField>
 					<reportElement x="0" y="0" width="200" height="20" uuid="71b1f264-b309-487a-a04a-2e22c2d41a2b"/>
-					<textElement verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[($F{reportGroup}.code)+" " +$F{reportGroup}.description]]></textFieldExpression>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[($F{reportGroup}.code)+") " +$F{reportGroup}.description]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>
@@ -218,7 +220,7 @@
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$V{totalIncome}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[new BigDecimal($V{totalIncome}).setScale(2, RoundingMode.HALF_UP)]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupFooter>
@@ -249,6 +251,33 @@
 			</textField>
 		</band>
 	</title>
+	<columnHeader>
+		<band height="40">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement x="0" y="0" width="200" height="20" uuid="bff702fb-90dc-4a17-a8f6-861d6d731886"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[1) ADMINISTRACIÓN]]></text>
+			</staticText>
+			<textField pattern=",##0.00">
+				<reportElement x="1100" y="0" width="100" height="20" uuid="1a6a6477-8364-43dc-a7d5-bb5b9a043329">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="30ffd2d8-593f-4ae6-9ded-2e1fcc5b6e4f"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new BigDecimal($P{reportParent}.getManagementFee()).setScale(2, RoundingMode.HALF_UP)]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
 	<detail>
 		<band height="20" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -340,7 +369,7 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{basePrice}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new BigDecimal($F{basePrice}).setScale(2, RoundingMode.HALF_UP)]]></textFieldExpression>
 			</textField>
 			<textField pattern=",##0.00">
 				<reportElement x="1100" y="0" width="100" height="20" uuid="115cc963-22d4-45e6-af20-647f404f1d93">
@@ -355,7 +384,7 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{oculisIncome}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new BigDecimal($F{oculisIncome}).setScale(2, RoundingMode.HALF_UP)]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="800" y="0" width="100" height="20" uuid="af1354d8-1c5e-483c-83de-a36c218a4640">
@@ -422,7 +451,7 @@
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{oculisIncomeTotal}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new BigDecimal($V{oculisIncomeTotal}+$P{reportParent}.getManagementFee()).setScale(2, RoundingMode.HALF_UP)]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnFooter>

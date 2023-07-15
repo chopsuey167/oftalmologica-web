@@ -68,6 +68,7 @@ public class ReportDataServiceImpl implements ReportDataService {
     MedicCenterReport medicCenterReport = MedicCenterReport.builder()
         .medicCenter(medicCenter)
         .period(period)
+        .managementFee(medicCenter.getManagementFee())
         .build();
 
     MedicCenterReport medicCenterReportSaved = medicCenterReportRepository.save(medicCenterReport);
