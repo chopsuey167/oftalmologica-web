@@ -200,8 +200,10 @@
 				</staticText>
 				<textField>
 					<reportElement x="0" y="0" width="200" height="20" uuid="71b1f264-b309-487a-a04a-2e22c2d41a2b"/>
-					<textElement verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[($F{reportGroup}.code)+" " +$F{reportGroup}.description]]></textFieldExpression>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{reportGroup}.description]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>
@@ -219,7 +221,7 @@
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$V{totalIncome}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[new BigDecimal($V{totalIncome}).setScale(2, RoundingMode.HALF_UP)]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupFooter>
@@ -350,7 +352,7 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{basePrice}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new BigDecimal($F{basePrice}).setScale(2, RoundingMode.HALF_UP)]]></textFieldExpression>
 			</textField>
 			<textField pattern=",##0.00">
 				<reportElement x="1100" y="0" width="100" height="20" uuid="115cc963-22d4-45e6-af20-647f404f1d93">
@@ -365,7 +367,7 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{doctorIncome}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new BigDecimal($F{doctorIncome}).setScale(2, RoundingMode.HALF_UP)]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="800" y="0" width="100" height="20" uuid="af1354d8-1c5e-483c-83de-a36c218a4640">
@@ -434,7 +436,7 @@
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{doctorIncomeTotal}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new BigDecimal($V{doctorIncomeTotal}).setScale(2, RoundingMode.HALF_UP)]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnFooter>

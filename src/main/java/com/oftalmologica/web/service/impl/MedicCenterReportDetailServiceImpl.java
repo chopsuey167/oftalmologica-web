@@ -20,7 +20,8 @@ public class MedicCenterReportDetailServiceImpl implements MedicCenterReportDeta
   @Override
   public List<DoctorDetailReportDto> getDoctorsListByReport(MedicCenterReport medicCenterReport) {
 
-    List<MedicCenterReportDetail> medicCenterReportDetails = repository.findByMedicCenterReport(medicCenterReport);
+    List<MedicCenterReportDetail> medicCenterReportDetails = repository.findByMedicCenterReportOrderByReportGroup(
+        medicCenterReport);
 
     return medicCenterReportDetails.stream()
         .map(d -> doctorMapper.toDoctorDetailDto(d.getDoctor(), medicCenterReport))

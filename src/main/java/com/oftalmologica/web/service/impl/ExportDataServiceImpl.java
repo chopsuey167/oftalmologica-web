@@ -60,8 +60,9 @@ public class ExportDataServiceImpl implements ExportDataService {
     parameters.put("reportParent", medicCenterReport);
 
     // set report datasource
-    List<MedicCenterReportDetail> medicCenterReportDetails = medicCenterReportDetailRepository.findByMedicCenterReport(
+    List<MedicCenterReportDetail> medicCenterReportDetails = medicCenterReportDetailRepository.findByMedicCenterReportOrderByReportGroup(
         medicCenterReport);
+
     JRBeanCollectionDataSource datasource = new JRBeanCollectionDataSource(medicCenterReportDetails);
 
     // fill report with inputs
@@ -88,7 +89,7 @@ public class ExportDataServiceImpl implements ExportDataService {
     parameters.put("doctorInfo", doctor);
 
     // set report datasource
-    List<MedicCenterReportDetail> medicCenterReportDetails = medicCenterReportDetailRepository.findByMedicCenterReportAndDoctor(
+    List<MedicCenterReportDetail> medicCenterReportDetails = medicCenterReportDetailRepository.findByMedicCenterReportAndDoctorOrderByReportGroup(
         medicCenterReport, doctor);
     JRBeanCollectionDataSource datasource = new JRBeanCollectionDataSource(medicCenterReportDetails);
 
@@ -97,8 +98,9 @@ public class ExportDataServiceImpl implements ExportDataService {
     OutputStream outStream = response.getOutputStream();
     response.setContentType("application/vnd.ms-excel");
     response.setHeader("Content-Disposition",
-        "attachment; filename=Informe " + doctor.getName() + " - " + medicCenterReport.getPeriod() + " .xlsx");
-    exportToXlsFile(jasperPrint, outStream, doctor.getName());
+        "attachment; filename=Informe " + doctor.getName().replace(",", "") + " - " + medicCenterReport.getPeriod()
+            + " .xlsx");
+    exportToXlsFile(jasperPrint, outStream, doctor.getName().replace(",", ""));
     outStream.close();
   }
 

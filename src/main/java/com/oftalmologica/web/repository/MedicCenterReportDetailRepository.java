@@ -8,7 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface MedicCenterReportDetailRepository extends JpaRepository<MedicCenterReportDetail, Long> {
 
-  List<MedicCenterReportDetail> findByMedicCenterReport(MedicCenterReport medicCenterReport);
+  List<MedicCenterReportDetail> findByMedicCenterReportOrderByReportGroup(MedicCenterReport medicCenterReport);
 
-  List<MedicCenterReportDetail> findByMedicCenterReportAndDoctor(MedicCenterReport medicCenterReport, Doctor doctor);
+  List<MedicCenterReportDetail> findByMedicCenterReportAndDoctorOrderByReportGroup(MedicCenterReport medicCenterReport,
+      Doctor doctor);
 }
