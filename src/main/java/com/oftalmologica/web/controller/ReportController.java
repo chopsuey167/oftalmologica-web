@@ -115,4 +115,10 @@ public class ReportController {
         doctorDtoMapper.toDoctor(doctorService.findById(doctorId)),
         response);
   }
+
+  @GetMapping("/reports/{medicCenterReportId}/delete")
+  public String deleteReport(@PathVariable("medicCenterReportId") Long medicCenterReportId) {
+    medicCenterReportService.delete(medicCenterReportId);
+    return "redirect:/reports";
+  }
 }

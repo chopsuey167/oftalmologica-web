@@ -23,6 +23,7 @@
             <th>Fecha de creación</th>
             <th>Informe general</th>
             <th>Doctores</th>
+            <th>E.</th>
           </tr>
           </thead>
           <tfoot>
@@ -33,6 +34,7 @@
             <th>Fecha de creación</th>
             <th>Informe general</th>
             <th>Doctores</th>
+            <th>E.</th>
           </tr>
           </tfoot>
           <tbody>
@@ -47,6 +49,9 @@
             <td><a
                 th:href="@{/reports/{medicCenterReportId}/doctors(medicCenterReportId=${report.id})}"><i
                 class="fa-solid fa-people-group fa-xl"></i></a></td>
+            <td><a
+                th:href="@{/reports/{medicCenterReportId}/delete(medicCenterReportId=${report.id})}"><i
+                class="fa-solid fa-trash fa-xl"></i></a></td>
           </tr>
           </tbody>
         </table>

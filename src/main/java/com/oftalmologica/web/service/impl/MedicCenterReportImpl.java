@@ -29,5 +29,10 @@ public class MedicCenterReportImpl implements MedicCenterReportService {
     return repository.findById(medicCenterReportId).orElseThrow(null);
   }
 
+  @Override
+  public void delete(Long id) {
+    repository.deleteById(id);
+  }
+
 
 }

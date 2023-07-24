@@ -10,4 +10,6 @@ public interface MedicCenterReportService {
 
   MedicCenterReport findById(Long medicCenterReportId);
 
+  void delete(Long id);
+
 }

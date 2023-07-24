@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -25,7 +26,7 @@ public class MedicCenterReportDetail {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  @OneToOne
+  @ManyToOne
   @JoinColumn(name = "medic_center_report_id", referencedColumnName = "id")
   private MedicCenterReport medicCenterReport;
   @OneToOne
