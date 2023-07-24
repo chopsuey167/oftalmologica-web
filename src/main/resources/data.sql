@@ -175,15 +175,15 @@ VALUES (null, '2/V OFTALMOLOGIA/REVISIÓ', null, 1);
 INSERT INTO medical_services (created_on, description, updated_on, service_type_id)
 VALUES (null, 'ABSCESO Y QUISTES DE CEJAS Y PARPADOS. DRENAJE', null, 4);
 INSERT INTO medical_services (created_on, description, updated_on, service_type_id)
-VALUES (null, 'ANGIOFLUORESCEINGRAFIA', null, 4);
+VALUES (null, 'ANGIOFLUORESCEINGRAFIA', null, 2);
 INSERT INTO medical_services (created_on, description, updated_on, service_type_id)
-VALUES (null, 'Angiofluoresceingrafía', null, 4);
+VALUES (null, 'Angiofluoresceingrafía', null, 2);
 INSERT INTO medical_services (created_on, description, updated_on, service_type_id)
 VALUES (null, 'ASISA-LIQ. VISITAS RETENIDAS', null, 1);
 INSERT INTO medical_services (created_on, description, updated_on, service_type_id)
-VALUES (null, 'AYUDANTIA', null, 5);
+VALUES (null, 'AYUDANTIA', null, 4);
 INSERT INTO medical_services (created_on, description, updated_on, service_type_id)
-VALUES (null, 'AYUDANTIA QUIRÚRGICA', null, 5);
+VALUES (null, 'AYUDANTIA QUIRÚRGICA', null, 4);
 INSERT INTO medical_services (created_on, description, updated_on, service_type_id)
 VALUES (null, 'BIOMETRIA', null, 2);
 INSERT INTO medical_services (created_on, description, updated_on, service_type_id)
@@ -233,7 +233,7 @@ INSERT INTO medical_services (created_on, description, updated_on, service_type_
 VALUES (null, 'CAMPO VISUAL COMPUTERIZADO
 ', null, 2);
 INSERT INTO medical_services (created_on, description, updated_on, service_type_id)
-VALUES (null, 'Capsulotomía con Láser, 1 ojo', null, 4);
+VALUES (null, 'Capsulotomía con Láser, 1 ojo', null, 2);
 INSERT INTO medical_services (created_on, description, updated_on, service_type_id)
 VALUES (null, 'CAPSULOTOMIA.  UN OJO CON LASER YAG', null, 4);
 INSERT INTO medical_services (created_on, description, updated_on, service_type_id)
@@ -326,7 +326,7 @@ VALUES (null, 'Cuerpo extraño conjuntival o corneal.  extrac. (Oftalmología)',
 INSERT INTO medical_services (created_on, description, updated_on, service_type_id)
 VALUES (null, 'CUERPO EXTRAÑO CONJUNTIVAL O CORNEAL. EXTRACCION', null, 4);
 INSERT INTO medical_services (created_on, description, updated_on, service_type_id)
-VALUES (null, 'CUERPO EXTRAÑO CONJUNTIVAL.  EXTRACCION', null, 4);
+VALUES (null, 'CUERPO EXTRAÑO CONJUNTIVAL.  EXTRACCION', null, 2);
 INSERT INTO medical_services (created_on, description, updated_on, service_type_id)
 VALUES (null, 'CUERPO EXTRAÑO CORNEAL.  EXTRACCION', null, 4);
 INSERT INTO medical_services (created_on, description, updated_on, service_type_id)
@@ -438,7 +438,7 @@ VALUES (null,
 INSERT INTO medical_services (created_on, description, updated_on, service_type_id)
 VALUES (null, 'EXTIRPACION DE QUISTE', null, 4);
 INSERT INTO medical_services (created_on, description, updated_on, service_type_id)
-VALUES (null, 'EXTRACCION CUERPO EXTRANO', null, 4);
+VALUES (null, 'EXTRACCION CUERPO EXTRANO', null, 2);
 INSERT INTO medical_services (created_on, description, updated_on, service_type_id)
 VALUES (null, 'EXTRACCION CUERPO EXTRAÑO CONJUNTIVAL', null, 4);
 INSERT INTO medical_services (created_on, description, updated_on, service_type_id)
@@ -450,7 +450,7 @@ VALUES (null, 'FONDO DE OJO', null, 4);
 INSERT INTO medical_services (created_on, description, updated_on, service_type_id)
 VALUES (null, 'Forfait consulta oftalmología (Oftalmología)', null, 4);
 INSERT INTO medical_services (created_on, description, updated_on, service_type_id)
-VALUES (null, 'FOTOCOAGULACION CON LASER EN GLAUCOMA. IRIDOTOMIA. TRATAMIENTO COMPLETO', null, 4);
+VALUES (null, 'FOTOCOAGULACION CON LASER EN GLAUCOMA. IRIDOTOMIA. TRATAMIENTO COMPLETO', null, 2);
 INSERT INTO medical_services (created_on, description, updated_on, service_type_id)
 VALUES (null, 'GONIOSCOPIA', null, 2);
 INSERT INTO medical_services (created_on, description, updated_on, service_type_id)
@@ -480,7 +480,7 @@ INSERT INTO medical_services (created_on, description, updated_on, service_type_
 VALUES (null, 'INYECCION INTRAVITREA DE MEDICACION', null, 4);
 INSERT INTO medical_services (created_on, description, updated_on, service_type_id)
 VALUES (null,
-        'IRIDOCAPSULOTOMIA, MEMBRANULECTOMIA O ELIMINACION DE DEPOSITOS SOBRE LENTE INTRAOCULAR. (CON LASER)', null, 4);
+        'IRIDOCAPSULOTOMIA, MEMBRANULECTOMIA O ELIMINACION DE DEPOSITOS SOBRE LENTE INTRAOCULAR. (CON LASER)', null, 2);
 INSERT INTO medical_services (created_on, description, updated_on, service_type_id)
 VALUES (null, 'Iridocapsulotomia, membranulectomia o eliminación de depósitos sobre LIO', null, 4);
 INSERT INTO medical_services (created_on, description, updated_on, service_type_id)
@@ -643,7 +643,7 @@ INSERT INTO medical_services (created_on, description, updated_on, service_type_
 VALUES (null, 'SET 22 ECOGRAFIA OCULAR-BIOMERIA
 ', null, 2);
 INSERT INTO medical_services (created_on, description, updated_on, service_type_id)
-VALUES (null, 'SmartSalus - Capsulotomía con Láser, 1 ojo', null, 4);
+VALUES (null, 'SmartSalus - Capsulotomía con Láser, 1 ojo', null, 2);
 INSERT INTO medical_services (created_on, description, updated_on, service_type_id)
 VALUES (null, 'SmartSalus - Visita Oftalmologica', null, 1);
 INSERT INTO medical_services (created_on, description, updated_on, service_type_id)
