@@ -42,6 +42,6 @@ public class MedicCenterReport {
   @UpdateTimestamp
   private LocalDateTime updatedOn;
 
-  @OneToMany(mappedBy = "medicCenterReport", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  @OneToMany(mappedBy = "medicCenterReport", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private Set<MedicCenterReportDetail> medicCenterReportDetails;
 }
