@@ -1,5 +1,7 @@
 package com.oftalmologica.web.service.impl;
 
+import static com.oftalmologica.web.util.ReportGroup.PRIVADOS;
+
 import com.oftalmologica.web.dto.ImportedDataDto;
 import com.oftalmologica.web.exception.DataProcessConfigNotFoundException;
 import com.oftalmologica.web.mapper.DoctorDtoMapper;
@@ -37,6 +39,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 public class ReportDataServiceImpl implements ReportDataService {
 
+  public static final int HEALTH_INSURANCE_PRIVADO_CODE = 2;
   private final DoctorDtoMapper doctorDtoMapper;
   private final MedicalServiceDtoMapper medicalServiceDtoMapper;
   private final HealthInsuranceDtoMapper healthInsuranceDtoMapper;
@@ -124,7 +127,11 @@ public class ReportDataServiceImpl implements ReportDataService {
                   medicCenterReportDetailBuilder,
                   issuesList);
 
-              medicCenterReportDetailBuilder.reportGroup(d.getMedicalService().getServiceType().getReportGroup());
+              if (d.getHealthInsurance().getId() != HEALTH_INSURANCE_PRIVADO_CODE) {
+                medicCenterReportDetailBuilder.reportGroup(d.getMedicalService().getServiceType().getReportGroup());
+              } else {
+                medicCenterReportDetailBuilder.reportGroup(PRIVADOS);
+              }
 
               return medicCenterReportDetailBuilder.build();
             }
