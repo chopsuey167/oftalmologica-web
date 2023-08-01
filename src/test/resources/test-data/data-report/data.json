@@ -8,22 +8,15 @@
       "createdOn": null,
       "updatedOn": null
     },
-    "medicalService": {
+    "serviceType": {
       "id": 1,
-      "description": "1/V OFTALMOLOGIA",
-      "serviceType": {
-        "id": 1,
-        "name": "Consulta",
-        "createdOn": null,
-        "updatedOn": null
-      },
-      "createdOn": null,
-      "updatedOn": null
+      "name": "Prueba AC"
     },
     "healthInsurance": {
       "id": 1,
       "name": "Mutua"
     },
+    "medicalServiceDescription": "1/V OFTALMOLOGIA",
     "healthInsuranceDescription": "TEST1",
     "patientName": "PACIENTE1",
     "basePrice": 100.0

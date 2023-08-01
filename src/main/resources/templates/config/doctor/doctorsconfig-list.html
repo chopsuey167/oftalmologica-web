@@ -17,7 +17,7 @@
           <tr>
             <th>Doctor</th>
             <th>Centro médico</th>
-            <th>Servicio</th>
+            <th>Tipo de servico</th>
             <th>Porcentaje</th>
             <th>M.</th>
             <th>E.</th>
@@ -27,7 +27,7 @@
           <tr>
             <th>Doctor</th>
             <th>Centro médico</th>
-            <th>Servicio</th>
+            <th>Tipo de servico</th>
             <th>Porcentaje</th>
             <th>M.</th>
             <th>E.</th>
@@ -37,13 +37,13 @@
           <tr th:each="doctorconfig: ${doctorsConfig}">
             <td><p th:text="${doctorconfig.doctor.name}"></p></td>
             <td><p th:text="${doctorconfig.medicCenter.name}"></p></td>
-            <td><p th:text="${doctorconfig.medicalService.description}"></p></td>
+            <td><p th:text="${doctorconfig.serviceType.name}"></p></td>
             <td><p th:text="${doctorconfig.percentage}"></p></td>
             <td><a
-                th:href="@{/doctorsconfig/{doctorId}/{medicCenterId}/{medicalServiceId}/edit(doctorId=${doctorconfig.id.doctorId},medicCenterId=${doctorconfig.id.medicCenterId},medicalServiceId=${doctorconfig.id.medicalServiceId})}"><i
+                th:href="@{/doctorsconfig/{doctorId}/{medicCenterId}/{serviceTypeId}/edit(doctorId=${doctorconfig.id.doctorId},medicCenterId=${doctorconfig.id.medicCenterId},serviceTypeId=${doctorconfig.id.serviceTypeId})}"><i
                 class="fa-solid fa-pen-to-square fa-xl"></i></a></td>
             <td><a
-                th:href="@{/doctorsconfig/{doctorId}/{medicCenterId}/{medicalServiceId}/delete(doctorId=${doctorconfig.id.doctorId},medicCenterId=${doctorconfig.id.medicCenterId},medicalServiceId=${doctorconfig.id.medicalServiceId})}"><i
+                th:href="@{/doctorsconfig/{doctorId}/{medicCenterId}/{serviceTypeId}/delete(doctorId=${doctorconfig.id.doctorId},medicCenterId=${doctorconfig.id.medicCenterId},serviceTypeId=${doctorconfig.id.serviceTypeId})}"><i
                 class="fa-solid fa-trash fa-xl"></i></a></td>
           </tr>
           </tbody>

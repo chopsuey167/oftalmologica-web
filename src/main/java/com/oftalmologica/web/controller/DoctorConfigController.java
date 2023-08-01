@@ -71,7 +71,7 @@ public class DoctorConfigController {
     return "redirect:/doctorsconfig";
   }
 
-  @GetMapping("/doctorsconfig/{doctorId}/{medicCenterId}/{medicalServiceId}/edit")
+  @GetMapping("/doctorsconfig/{doctorId}/{medicCenterId}/{serviceTypeId}/edit")
   public String editDoctorConfigForm(DoctorConfigId doctorConfigId,
       Model model) {
     DoctorConfigDto doctorConfig = doctorConfigService.findById(doctorConfigId);
@@ -85,7 +85,7 @@ public class DoctorConfigController {
     return "config/doctor/doctorsconfig-edit";
   }
 
-  @PostMapping("/doctorsconfig/{doctorId}/{medicCenterId}/{medicalServiceId}/edit")
+  @PostMapping("/doctorsconfig/{doctorId}/{medicCenterId}/{serviceTypeId}/edit")
   public String updateDoctorConfig(DoctorConfigId doctorConfigId,
       @Valid @ModelAttribute("doctorconfig") DoctorConfigDto doctorConfig,
       BindingResult result, Model model) {
@@ -104,7 +104,7 @@ public class DoctorConfigController {
     return "redirect:/doctorsconfig";
   }
 
-  @GetMapping("/doctorsconfig/{doctorId}/{medicCenterId}/{medicalServiceId}/delete")
+  @GetMapping("/doctorsconfig/{doctorId}/{medicCenterId}/{serviceTypeId}/delete")
   public String deleteMedicCenter(DoctorConfigId doctorConfigId) {
     doctorConfigService.delete(doctorConfigId);
     return "redirect:/doctorsconfig";

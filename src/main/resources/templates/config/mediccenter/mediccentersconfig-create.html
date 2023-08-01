@@ -23,13 +23,13 @@
             <p class="text-danger" th:errors="*{medicCenter}" th:if="${#fields.hasErrors('medicCenter')}"></p>
           </div>
           <div class="col-md-12">
-            <label class="form-label" for="inputMedicalService">Servicio</label>
-            <select class="form-select" id="inputMedicalService" th:field="*{medicalService}">
-              <option selected value="">Seleccione servicio</option>
-              <option th:each="medicalservice: ${medicalservices}" th:text="${medicalservice.description}"
-                      th:value="${medicalservice.id}"></option>
+            <label class="form-label" for="inputServiceType">Tipo de servicio</label>
+            <select class="form-select" id="inputServiceType" th:field="*{serviceType}">
+              <option selected value="">Seleccione tipo de servicio</option>
+              <option th:each="servicetype: ${servicetypes}" th:text="${servicetype.name}"
+                      th:value="${servicetype.id}"></option>
             </select>
-            <p class="text-danger" th:errors="*{medicalService}" th:if="${#fields.hasErrors('medicalService')}"></p>
+            <p class="text-danger" th:errors="*{serviceType}" th:if="${#fields.hasErrors('serviceType')}"></p>
           </div>
           <div class="col-md-12">
             <label class="form-label" for="inputHealthInsurance">Servicio</label>

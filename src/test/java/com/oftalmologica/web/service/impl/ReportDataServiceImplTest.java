@@ -14,8 +14,8 @@ import com.oftalmologica.web.mapper.HealthInsuranceDtoMapper;
 import com.oftalmologica.web.mapper.HealthInsuranceDtoMapperImpl;
 import com.oftalmologica.web.mapper.MedicCenterDtoMapper;
 import com.oftalmologica.web.mapper.MedicCenterDtoMapperImpl;
-import com.oftalmologica.web.mapper.MedicalServiceDtoMapper;
-import com.oftalmologica.web.mapper.MedicalServiceDtoMapperImpl;
+import com.oftalmologica.web.mapper.ServiceTypeDtoMapper;
+import com.oftalmologica.web.mapper.ServiceTypeDtoMapperImpl;
 import com.oftalmologica.web.repository.DoctorConfigRepository;
 import com.oftalmologica.web.repository.MedicCenterConfigRepository;
 import com.oftalmologica.web.repository.MedicCenterReportDetailRepository;
@@ -51,7 +51,7 @@ class ReportDataServiceImplTest extends AbstractUtilsTest {
   @Spy
   private MedicCenterDtoMapper medicCenterDtoMapper = new MedicCenterDtoMapperImpl();
   @Spy
-  private MedicalServiceDtoMapper medicalServiceDtoMapper = new MedicalServiceDtoMapperImpl();
+  private ServiceTypeDtoMapper serviceTypeDtoMapper = new ServiceTypeDtoMapperImpl();
   @Spy
   private HealthInsuranceDtoMapper healthInsuranceDtoMapper = new HealthInsuranceDtoMapperImpl();
   @Spy

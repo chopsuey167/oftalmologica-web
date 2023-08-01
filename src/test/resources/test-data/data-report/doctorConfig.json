@@ -9,15 +9,9 @@
       "createdOn": null,
       "updatedOn": null
     },
-    "medicalService": {
+    "serviceType": {
       "id": 1,
-      "description": "1/V OFTALMOLOGIA",
-      "serviceType": {
-        "id": 1,
-        "name": "Consulta",
-        "createdOn": null,
-        "updatedOn": null
-      },
+      "name": "Prueba AC",
       "createdOn": null,
       "updatedOn": null
     },

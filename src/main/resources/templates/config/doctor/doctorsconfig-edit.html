@@ -18,7 +18,7 @@
           <input th:field="*{id.medicalServiceId}" type="hidden">
           <input th:field="*{doctor}" type="hidden">
           <input th:field="*{medicCenter}" type="hidden">
-          <input th:field="*{medicalService}" type="hidden">
+          <input th:field="*{serviceType}" type="hidden">
           <div class="col-md-12">
             <label class="form-label">Doctor</label>
             <label class="form-control" th:text="*{doctor.name}"></label>
@@ -29,7 +29,7 @@
           </div>
           <div class="col-md-12">
             <label class="form-label">Servicio</label>
-            <label class="form-control" th:text="*{medicalService.description}"></label>
+            <label class="form-control" th:text="*{serviceType.name}"></label>
           </div>
           <div class="col-md-6">
             <label class="form-label" for="inputPercentage">Porcentaje</label>

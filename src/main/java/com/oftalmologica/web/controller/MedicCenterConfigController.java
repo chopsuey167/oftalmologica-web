@@ -74,7 +74,7 @@ public class MedicCenterConfigController {
     return "redirect:/mediccentersconfig";
   }
 
-  @GetMapping("/mediccentersconfig/{medicCenterId}/{medicalServiceId}/{healthInsuranceId}/edit")
+  @GetMapping("/mediccentersconfig/{medicCenterId}/{serviceTypeId}/{healthInsuranceId}/edit")
   public String editMedicCenterConfigForm(MedicCenterConfigId medicCenterConfigId,
       Model model) {
     MedicCenterConfigDto medicCenterConfig = medicCenterConfigService.findById(medicCenterConfigId);
@@ -88,7 +88,7 @@ public class MedicCenterConfigController {
     return "config/mediccenter/mediccentersconfig-edit";
   }
 
-  @PostMapping("/mediccentersconfig/{medicCenterId}/{medicalServiceId}/{healthInsuranceId}/edit")
+  @PostMapping("/mediccentersconfig/{medicCenterId}/{serviceTypeId}/{healthInsuranceId}/edit")
   public String updateMedicCenterConfig(MedicCenterConfigId medicCenterConfigId,
       @Valid @ModelAttribute("mediccenterconfig") MedicCenterConfigDto medicCenterConfig,
       BindingResult result, Model model) {
@@ -107,7 +107,7 @@ public class MedicCenterConfigController {
     return "redirect:/mediccentersconfig";
   }
 
-  @GetMapping("/mediccentersconfig/{medicCenterId}/{medicalServiceId}/{healthInsuranceId}/delete")
+  @GetMapping("/mediccentersconfig/{medicCenterId}/{serviceTypeId}/{healthInsuranceId}/delete")
   public String deleteMedicCenter(MedicCenterConfigId medicCenterConfigId) {
     medicCenterConfigService.delete(medicCenterConfigId);
     return "redirect:/mediccentersconfig";

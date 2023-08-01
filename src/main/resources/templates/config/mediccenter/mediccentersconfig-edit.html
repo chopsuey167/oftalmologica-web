@@ -17,15 +17,15 @@
           <input th:field="*{id.medicalServiceId}" type="hidden">
           <input th:field="*{id.healthInsuranceId}" type="hidden">
           <input th:field="*{medicCenter}" type="hidden">
-          <input th:field="*{medicalService}" type="hidden">
+          <input th:field="*{serviceType}" type="hidden">
           <input th:field="*{healthInsurance}" type="hidden">
           <div class="col-md-12">
             <label class="form-label">Centro médico</label>
             <label class="form-control" th:text="*{medicCenter.name}"></label>
           </div>
           <div class="col-md-12">
-            <label class="form-label">Servicio</label>
-            <label class="form-control" th:text="*{medicalService.description}"></label>
+            <label class="form-label">Tipo de servicio</label>
+            <label class="form-control" th:text="*{serviceType.name}"></label>
           </div>
           <div class="col-md-12">
             <label class="form-label">Servicio</label>

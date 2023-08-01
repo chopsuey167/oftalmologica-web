@@ -9,15 +9,9 @@
       "createdOn": null,
       "updatedOn": null
     },
-    "medicalService": {
+    "serviceType": {
       "id": 2,
-      "description": "1ª Visita oftalmo Infantil/ Chequeo / Control anual",
-      "serviceType": {
-        "id": 1,
-        "name": "Consulta",
-        "createdOn": null,
-        "updatedOn": null
-      },
+      "name": "Prueba AO",
       "createdOn": null,
       "updatedOn": null
     },

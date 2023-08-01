@@ -16,7 +16,7 @@
           <thead>
           <tr>
             <th>Centro médico</th>
-            <th>Servicio</th>
+            <th>Tipo de servico</th>
             <th>Porcentaje</th>
             <th>M.</th>
             <th>E.</th>
@@ -25,7 +25,7 @@
           <tfoot>
           <tr>
             <th>Centro médico</th>
-            <th>Servicio</th>
+            <th>Tipo de servico</th>
             <th>Porcentaje</th>
             <th>M.</th>
             <th>E.</th>
@@ -34,13 +34,13 @@
           <tbody>
           <tr th:each="mediccenterconfig: ${medicCentersConfig}">
             <td><p th:text="${mediccenterconfig.medicCenter.name}"></p></td>
-            <td><p th:text="${mediccenterconfig.medicalService.description}"></p></td>
+            <td><p th:text="${mediccenterconfig.serviceType.name}"></p></td>
             <td><p th:text="${mediccenterconfig.percentage}"></p></td>
             <td><a
-                th:href="@{/mediccentersconfig/{medicCenterId}/{medicalServiceId}/{healthInsuranceId}/edit(medicCenterId=${mediccenterconfig.id.medicCenterId},medicalServiceId=${mediccenterconfig.id.medicalServiceId}, healthInsuranceId=${mediccenterconfig.id.healthInsuranceId})}"><i
+                th:href="@{/mediccentersconfig/{medicCenterId}/{serviceTypeId}/{healthInsuranceId}/edit(medicCenterId=${mediccenterconfig.id.medicCenterId},serviceTypeId=${mediccenterconfig.id.serviceTypeId}, healthInsuranceId=${mediccenterconfig.id.healthInsuranceId})}"><i
                 class="fa-solid fa-pen-to-square fa-xl"></i></a></td>
             <td><a
-                th:href="@{/mediccentersconfig/{medicCenterId}/{medicalServiceId}/{healthInsuranceId}/delete(medicCenterId=${mediccenterconfig.id.medicCenterId},medicalServiceId=${mediccenterconfig.id.medicalServiceId}, healthInsuranceId=${mediccenterconfig.id.healthInsuranceId})}"><i
+                th:href="@{/mediccentersconfig/{medicCenterId}/{serviceTypeId}/{healthInsuranceId}/delete(medicCenterId=${mediccenterconfig.id.medicCenterId},serviceTypeId=${mediccenterconfig.id.serviceTypeId}, healthInsuranceId=${mediccenterconfig.id.healthInsuranceId})}"><i
                 class="fa-solid fa-trash fa-xl"></i></a></td>
           </tr>
           </tbody>
