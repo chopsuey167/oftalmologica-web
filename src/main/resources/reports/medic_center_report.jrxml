@@ -22,11 +22,12 @@
 	<field name="healthInsuranceDescription" class="java.lang.String"/>
 	<field name="patientName" class="java.lang.String"/>
 	<field name="issueDate" class="java.time.LocalDateTime"/>
-	<field name="medicalService" class="com.oftalmologica.web.models.MedicalService"/>
+	<field name="serviceType" class="com.oftalmologica.web.models.ServiceType"/>
 	<field name="basePrice" class="java.lang.Float"/>
 	<field name="oculisPercentage" class="java.lang.Float"/>
 	<field name="oculisIncome" class="java.lang.Float"/>
 	<field name="reportGroup" class="com.oftalmologica.web.util.ReportGroup"/>
+	<field name="medicalServiceDescription" class="java.lang.String"/>
 	<variable name="totalIncome" class="java.lang.Float" resetType="Group" resetGroup="Category" calculation="Sum">
 		<variableExpression><![CDATA[new BigDecimal($F{oculisIncome}).setScale(2, RoundingMode.HALF_UP)]]></variableExpression>
 	</variable>
@@ -354,7 +355,7 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{medicalService}.getDescription()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{medicalServiceDescription}]]></textFieldExpression>
 			</textField>
 			<textField pattern=",##0.00">
 				<reportElement x="900" y="0" width="100" height="20" uuid="f57fbfdf-50cd-41cc-bf16-4dee0733df3d">
@@ -399,7 +400,7 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{medicalService}.getServiceType().getName()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{serviceType}.getName()]]></textFieldExpression>
 			</textField>
 			<textField pattern=",##0.00%">
 				<reportElement x="1000" y="0" width="100" height="20" uuid="34a2af34-4375-4c12-9e7d-2529f4145686">
@@ -439,7 +440,7 @@
 				</textElement>
 				<text><![CDATA[TOTAL A COBRAR]]></text>
 			</staticText>
-			<textField pattern=",##0.00">
+			<textField evaluationTime="Report" pattern=",##0.00">
 				<reportElement x="1100" y="20" width="100" height="20" uuid="d9b19575-a0d6-41de-bf99-56b657d484d2"/>
 				<box>
 					<pen lineWidth="0.5"/>

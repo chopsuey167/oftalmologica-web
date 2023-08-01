@@ -23,11 +23,12 @@
 	<field name="healthInsuranceDescription" class="java.lang.String"/>
 	<field name="patientName" class="java.lang.String"/>
 	<field name="issueDate" class="java.time.LocalDateTime"/>
-	<field name="medicalService" class="com.oftalmologica.web.models.MedicalService"/>
+	<field name="serviceType" class="com.oftalmologica.web.models.ServiceType"/>
 	<field name="basePrice" class="java.lang.Float"/>
 	<field name="doctorPercentage" class="java.lang.Float"/>
 	<field name="doctorIncome" class="java.lang.Float"/>
 	<field name="reportGroup" class="com.oftalmologica.web.util.ReportGroup"/>
+	<field name="medicalServiceDescription" class="java.lang.String"/>
 	<variable name="totalIncome" class="java.lang.Float" resetType="Group" resetGroup="Category" calculation="Sum">
 		<variableExpression><![CDATA[$F{doctorIncome}]]></variableExpression>
 	</variable>
@@ -38,9 +39,7 @@
 		<variableExpression><![CDATA[new BigDecimal($F{doctorIncome}).setScale(2, RoundingMode.HALF_UP)]]></variableExpression>
 	</variable>
 	<variable name="doctorRetention" class="java.math.BigDecimal" resetType="Column">
-		<variableExpression><![CDATA[($P{doctorInfo}.getIsSelfEmployed() ? $V{doctorIncomeHead}.multiply(new BigDecimal("0.15")).setScale(2, RoundingMode.HALF_UP) : new BigDecimal("0.0") )
-
-]]></variableExpression>
+		<variableExpression><![CDATA[($P{doctorInfo}.getIsSelfEmployed() ? $V{doctorIncomeHead}.multiply(new BigDecimal("0.15")).setScale(2, RoundingMode.HALF_UP) : new BigDecimal("0.0") )]]></variableExpression>
 	</variable>
 	<variable name="doctorNetIncome" class="java.math.BigDecimal" resetType="Column">
 		<variableExpression><![CDATA[$V{doctorIncomeHead}.subtract($V{doctorRetention})]]></variableExpression>
@@ -301,9 +300,7 @@
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{doctorIncomeHead}
-
-]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{doctorIncomeHead}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="20" width="1100" height="20" uuid="f20ec02f-7016-4d7d-a585-0e2825d7ca1c"/>
@@ -345,9 +342,7 @@
 				<textElement verticalAlignment="Middle">
 					<font isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{doctorRetention}
-
-]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{doctorRetention}]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report" pattern=",##0.00">
 				<reportElement x="1100" y="40" width="100" height="20" uuid="777a0c4e-6cdc-4868-a68a-519a601877d1"/>
@@ -361,8 +356,7 @@
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{doctorNetIncome}
-]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{doctorNetIncome}]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnHeader>
@@ -442,7 +436,7 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{medicalService}.getDescription()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{medicalServiceDescription}]]></textFieldExpression>
 			</textField>
 			<textField pattern=",##0.00">
 				<reportElement x="900" y="0" width="100" height="20" uuid="f57fbfdf-50cd-41cc-bf16-4dee0733df3d">
@@ -487,7 +481,7 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{medicalService}.getServiceType().getName()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{serviceType}.getName()]]></textFieldExpression>
 			</textField>
 			<textField pattern=",##0.00%">
 				<reportElement x="1000" y="0" width="100" height="20" uuid="34a2af34-4375-4c12-9e7d-2529f4145686">
