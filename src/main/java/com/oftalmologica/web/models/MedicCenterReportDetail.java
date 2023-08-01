@@ -33,11 +33,12 @@ public class MedicCenterReportDetail {
   @JoinColumn(name = "doctor_id", referencedColumnName = "id")
   private Doctor doctor;
   @OneToOne
-  @JoinColumn(name = "medical_service_id", referencedColumnName = "id")
-  private MedicalService medicalService;
+  @JoinColumn(name = "service_type_id", referencedColumnName = "id")
+  private ServiceType serviceType;
   @OneToOne
   @JoinColumn(name = "health_insurance_id", referencedColumnName = "id")
   private HealthInsurance healthInsurance;
+  private String medicalServiceDescription;
   private String healthInsuranceDescription;
   private String patientName;
   private LocalDateTime issueDate;

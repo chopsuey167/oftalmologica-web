@@ -1,7 +1,7 @@
 package com.oftalmologica.web.util;
 
 import com.oftalmologica.web.models.Doctor;
-import com.oftalmologica.web.models.MedicalService;
+import com.oftalmologica.web.models.ServiceType;
 import java.util.Objects;
 import lombok.Builder;
 import lombok.Data;
@@ -11,7 +11,7 @@ import lombok.Data;
 public class MedicalServiceDoctor {
 
   private Doctor doctor;
-  private MedicalService medicalService;
+  private ServiceType serviceType;
 
   @Override
   public boolean equals(Object o) {
@@ -22,12 +22,12 @@ public class MedicalServiceDoctor {
       return false;
     }
     MedicalServiceDoctor that = (MedicalServiceDoctor) o;
-    return Objects.equals(doctor.getId(), that.doctor.getId()) && Objects.equals(medicalService.getId(),
-        that.medicalService.getId());
+    return Objects.equals(doctor.getId(), that.doctor.getId()) && Objects.equals(serviceType.getId(),
+        that.serviceType.getId());
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(doctor.getId(), medicalService.getId());
+    return Objects.hash(doctor.getId(), serviceType.getId());
   }
 }

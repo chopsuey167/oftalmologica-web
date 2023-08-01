@@ -3,13 +3,13 @@ package com.oftalmologica.web.controller;
 import com.oftalmologica.web.dto.DoctorConfigDto;
 import com.oftalmologica.web.dto.DoctorDto;
 import com.oftalmologica.web.dto.MedicCenterDto;
-import com.oftalmologica.web.dto.MedicalServiceDto;
+import com.oftalmologica.web.dto.ServiceTypeDto;
 import com.oftalmologica.web.models.DoctorConfig;
 import com.oftalmologica.web.models.DoctorConfigId;
 import com.oftalmologica.web.service.DoctorConfigService;
 import com.oftalmologica.web.service.DoctorService;
 import com.oftalmologica.web.service.MedicCenterService;
-import com.oftalmologica.web.service.MedicalServiceService;
+import com.oftalmologica.web.service.ServiceTypeService;
 import java.util.List;
 import javax.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -26,7 +26,7 @@ public class DoctorConfigController {
 
   private final DoctorConfigService doctorConfigService;
   private final MedicCenterService medicCenterService;
-  private final MedicalServiceService medicalServiceService;
+  private final ServiceTypeService serviceTypeService;
   private final DoctorService doctorService;
 
   @GetMapping("/doctorsconfig")
@@ -41,11 +41,11 @@ public class DoctorConfigController {
     DoctorConfig doctorConfig = new DoctorConfig();
     List<DoctorDto> doctors = doctorService.findAll();
     List<MedicCenterDto> medicCenters = medicCenterService.findAll();
-    List<MedicalServiceDto> medicalServices = medicalServiceService.findAll();
+    List<ServiceTypeDto> serviceTypes = serviceTypeService.findAll();
     model.addAttribute("doctorconfig", doctorConfig);
     model.addAttribute("doctors", doctors);
     model.addAttribute("mediccenters", medicCenters);
-    model.addAttribute("medicalservices", medicalServices);
+    model.addAttribute("servicetypes", serviceTypes);
     return "config/doctor/doctorsconfig-create";
   }
 
@@ -56,16 +56,16 @@ public class DoctorConfigController {
     if (result.hasErrors()) {
       List<DoctorDto> doctors = doctorService.findAll();
       List<MedicCenterDto> medicCenters = medicCenterService.findAll();
-      List<MedicalServiceDto> medicalServices = medicalServiceService.findAll();
+      List<ServiceTypeDto> serviceTypes = serviceTypeService.findAll();
       model.addAttribute("doctorconfig", doctorConfig);
       model.addAttribute("doctors", doctors);
       model.addAttribute("mediccenters", medicCenters);
-      model.addAttribute("medicalservices", medicalServices);
+      model.addAttribute("servicetypes", serviceTypes);
       return "config/doctor/doctorsconfig-create";
     }
     DoctorConfigId doctorConfigId = new DoctorConfigId();
     doctorConfigId.setMedicCenterId(doctorConfig.getMedicCenter().getId());
-    doctorConfigId.setMedicalServiceId(doctorConfig.getMedicalService().getId());
+    doctorConfigId.setServiceTypeId(doctorConfig.getServiceType().getId());
     doctorConfig.setId(doctorConfigId);
     doctorConfigService.save(doctorConfig);
     return "redirect:/doctorsconfig";
@@ -77,11 +77,11 @@ public class DoctorConfigController {
     DoctorConfigDto doctorConfig = doctorConfigService.findById(doctorConfigId);
     List<DoctorDto> doctors = doctorService.findAll();
     List<MedicCenterDto> medicCenters = medicCenterService.findAll();
-    List<MedicalServiceDto> medicalServices = medicalServiceService.findAll();
+    List<ServiceTypeDto> serviceTypes = serviceTypeService.findAll();
     model.addAttribute("doctorconfig", doctorConfig);
     model.addAttribute("doctors", doctors);
     model.addAttribute("mediccenters", medicCenters);
-    model.addAttribute("medicalservices", medicalServices);
+    model.addAttribute("servicetypes", serviceTypes);
     return "config/doctor/doctorsconfig-edit";
   }
 
@@ -92,11 +92,11 @@ public class DoctorConfigController {
     if (result.hasErrors()) {
       List<DoctorDto> doctors = doctorService.findAll();
       List<MedicCenterDto> medicCenters = medicCenterService.findAll();
-      List<MedicalServiceDto> medicalServices = medicalServiceService.findAll();
+      List<ServiceTypeDto> serviceTypes = serviceTypeService.findAll();
       model.addAttribute("doctorconfig", doctorConfig);
       model.addAttribute("doctors", doctors);
       model.addAttribute("mediccenters", medicCenters);
-      model.addAttribute("medicalservices", medicalServices);
+      model.addAttribute("servicetypes", serviceTypes);
       return "config/doctor/doctorsconfig-edit";
     }
     doctorConfig.setId(doctorConfigId);

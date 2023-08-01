@@ -4,12 +4,12 @@ import com.oftalmologica.web.dto.DoctorDto;
 import com.oftalmologica.web.dto.HealthInsuranceDto;
 import com.oftalmologica.web.dto.ImportedDataDto;
 import com.oftalmologica.web.dto.ImportedDataDto.ImportedDataDtoBuilder;
-import com.oftalmologica.web.dto.MedicalServiceDto;
+import com.oftalmologica.web.dto.ServiceTypeDto;
 import com.oftalmologica.web.exception.FileUploadIdsNotFoundException;
 import com.oftalmologica.web.service.DoctorService;
 import com.oftalmologica.web.service.FileDataService;
 import com.oftalmologica.web.service.HealthInsuranceService;
-import com.oftalmologica.web.service.MedicalServiceService;
+import com.oftalmologica.web.service.ServiceTypeService;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileDataServiceImpl implements FileDataService {
 
   private final DoctorService doctorService;
-  private final MedicalServiceService medicalService;
+  private final ServiceTypeService serviceTypeService;
   private final HealthInsuranceService healthInsuranceService;
 
   @Override
@@ -53,13 +53,13 @@ public class FileDataServiceImpl implements FileDataService {
           issuesList.add("Fila " + i + ": Doctor no existe");
         }
 
-        MedicalServiceDto medicalServiceDto = medicalService.findById(
+        ServiceTypeDto serviceTypeDto = serviceTypeService.findById(
             Long.valueOf(formatter.formatCellValue(row.getCell(2))));
 
-        if (Objects.nonNull(medicalServiceDto)) {
-          importedDataDto.medicalService(medicalServiceDto);
+        if (Objects.nonNull(serviceTypeDto)) {
+          importedDataDto.serviceType(serviceTypeDto);
         } else {
-          issuesList.add("Fila " + i + ": Servicio médico no existe");
+          issuesList.add("Fila " + i + ": Tipo de servicio médico no existe");
         }
 
         HealthInsuranceDto healthInsuranceDto = healthInsuranceService.findById(
@@ -71,9 +71,10 @@ public class FileDataServiceImpl implements FileDataService {
           issuesList.add("Fila " + i + ": Mutua/privado no existe");
         }
 
-        importedDataDto.healthInsuranceDescription(formatter.formatCellValue(row.getCell(4)));
-        importedDataDto.patientName(formatter.formatCellValue(row.getCell(5)));
-        importedDataDto.basePrice((float) row.getCell(6).getNumericCellValue());
+        importedDataDto.medicalServiceDescription(formatter.formatCellValue(row.getCell(4)));
+        importedDataDto.healthInsuranceDescription(formatter.formatCellValue(row.getCell(5)));
+        importedDataDto.patientName(formatter.formatCellValue(row.getCell(6)));
+        importedDataDto.basePrice((float) row.getCell(7).getNumericCellValue());
 
         importedDataDtoList.add(importedDataDto.build());
       }

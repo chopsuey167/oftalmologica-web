@@ -19,8 +19,8 @@ public class DoctorConfigId implements Serializable {
 
   @Column(name = "mediccenter_id")
   private Long medicCenterId;
-  @Column(name = "medicalservice_id")
-  private Long medicalServiceId;
+  @Column(name = "servicetype_id")
+  private Long serviceTypeId;
   @Column(name = "doctor_id")
   private Long doctorId;
 }

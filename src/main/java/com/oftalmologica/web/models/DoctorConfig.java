@@ -31,9 +31,9 @@ public class DoctorConfig {
   @JoinColumn(name = "mediccenter_id")
   private MedicCenter medicCenter;
   @ManyToOne
-  @MapsId("medicalServiceId")
-  @JoinColumn(name = "medicalservice_id")
-  private MedicalService medicalService;
+  @MapsId("serviceTypeId")
+  @JoinColumn(name = "servicetype_id")
+  private ServiceType serviceType;
   @ManyToOne
   @MapsId("doctorId")
   @JoinColumn(name = "doctor_id")

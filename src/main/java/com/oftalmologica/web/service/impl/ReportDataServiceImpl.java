@@ -6,7 +6,7 @@ import com.oftalmologica.web.dto.ImportedDataDto;
 import com.oftalmologica.web.exception.DataProcessConfigNotFoundException;
 import com.oftalmologica.web.mapper.DoctorDtoMapper;
 import com.oftalmologica.web.mapper.HealthInsuranceDtoMapper;
-import com.oftalmologica.web.mapper.MedicalServiceDtoMapper;
+import com.oftalmologica.web.mapper.ServiceTypeDtoMapper;
 import com.oftalmologica.web.models.Doctor;
 import com.oftalmologica.web.models.DoctorConfig;
 import com.oftalmologica.web.models.HealthInsurance;
@@ -15,7 +15,7 @@ import com.oftalmologica.web.models.MedicCenterConfig;
 import com.oftalmologica.web.models.MedicCenterReport;
 import com.oftalmologica.web.models.MedicCenterReportDetail;
 import com.oftalmologica.web.models.MedicCenterReportDetail.MedicCenterReportDetailBuilder;
-import com.oftalmologica.web.models.MedicalService;
+import com.oftalmologica.web.models.ServiceType;
 import com.oftalmologica.web.repository.DoctorConfigRepository;
 import com.oftalmologica.web.repository.MedicCenterConfigRepository;
 import com.oftalmologica.web.repository.MedicCenterReportDetailRepository;
@@ -41,7 +41,7 @@ public class ReportDataServiceImpl implements ReportDataService {
 
   public static final int HEALTH_INSURANCE_PRIVADO_CODE = 2;
   private final DoctorDtoMapper doctorDtoMapper;
-  private final MedicalServiceDtoMapper medicalServiceDtoMapper;
+  private final ServiceTypeDtoMapper serviceTypeDtoMapper;
   private final HealthInsuranceDtoMapper healthInsuranceDtoMapper;
   private final MedicCenterReportRepository medicCenterReportRepository;
   private final MedicCenterReportDetailRepository medicCenterReportDetailRepository;
@@ -50,14 +50,14 @@ public class ReportDataServiceImpl implements ReportDataService {
 
   private static MedicalServiceHealthInsurance buildMedicalServiceHealthInsurance(MedicCenterConfig medicCenterConfig) {
     return MedicalServiceHealthInsurance.builder()
-        .medicalService(medicCenterConfig.getMedicalService())
+        .serviceType(medicCenterConfig.getServiceType())
         .healthInsurance(medicCenterConfig.getHealthInsurance())
         .build();
   }
 
   private static MedicalServiceDoctor buildMedicalServiceDoctor(DoctorConfig doctorConfig) {
     return MedicalServiceDoctor.builder()
-        .medicalService(doctorConfig.getMedicalService())
+        .serviceType(doctorConfig.getServiceType())
         .doctor(doctorConfig.getDoctor())
         .build();
   }
@@ -104,23 +104,24 @@ public class ReportDataServiceImpl implements ReportDataService {
 
               medicCenterReportDetailBuilder.medicCenterReport(medicCenterReport);
               medicCenterReportDetailBuilder.doctor(doctorDtoMapper.toDoctor(d.getDoctor()));
-              medicCenterReportDetailBuilder.medicalService(
-                  medicalServiceDtoMapper.toMedicalService(d.getMedicalService()));
+              medicCenterReportDetailBuilder.serviceType(
+                  serviceTypeDtoMapper.toServiceType(d.getServiceType()));
               medicCenterReportDetailBuilder.healthInsurance(
                   healthInsuranceDtoMapper.toHeathInsurance(d.getHealthInsurance()));
+              medicCenterReportDetailBuilder.medicalServiceDescription(d.getMedicalServiceDescription());
               medicCenterReportDetailBuilder.healthInsuranceDescription(d.getHealthInsuranceDescription());
               medicCenterReportDetailBuilder.patientName(d.getPatientName());
               medicCenterReportDetailBuilder.issueDate(d.getIssueDate());
               medicCenterReportDetailBuilder.basePrice(d.getBasePrice());
 
-              setOculisIncomeValues(medicalServiceDtoMapper.toMedicalService(d.getMedicalService()),
+              setOculisIncomeValues(serviceTypeDtoMapper.toServiceType(d.getServiceType()),
                   healthInsuranceDtoMapper.toHeathInsurance(d.getHealthInsurance()),
                   d.getBasePrice(),
                   medicalServiceConfigByMedicCenter,
                   medicCenterReportDetailBuilder,
                   issuesList);
 
-              setDoctorIncomeValues(medicalServiceDtoMapper.toMedicalService(d.getMedicalService()),
+              setDoctorIncomeValues(serviceTypeDtoMapper.toServiceType(d.getServiceType()),
                   doctorDtoMapper.toDoctor(d.getDoctor()),
                   d.getBasePrice(),
                   medicalServiceConfigByDoctor,
@@ -128,7 +129,7 @@ public class ReportDataServiceImpl implements ReportDataService {
                   issuesList);
 
               if (d.getHealthInsurance().getId() != HEALTH_INSURANCE_PRIVADO_CODE) {
-                medicCenterReportDetailBuilder.reportGroup(d.getMedicalService().getServiceType().getReportGroup());
+                medicCenterReportDetailBuilder.reportGroup(d.getServiceType().getReportGroup());
               } else {
                 medicCenterReportDetailBuilder.reportGroup(PRIVADOS);
               }
@@ -144,20 +145,20 @@ public class ReportDataServiceImpl implements ReportDataService {
         medicCenterReportDetails);
   }
 
-  private void setOculisIncomeValues(MedicalService medicalService, HealthInsurance healthInsurance, Float basePrice,
+  private void setOculisIncomeValues(ServiceType serviceType, HealthInsurance healthInsurance, Float basePrice,
       Map<MedicalServiceHealthInsurance, Float> medicalServiceConfigByMedicCenter,
       MedicCenterReportDetailBuilder medicCenterReportDetailBuilder, List<String> issuesList) {
 
     Float percentageMedicCenter = medicalServiceConfigByMedicCenter.get(MedicalServiceHealthInsurance.builder()
-        .medicalService(medicalService)
+        .serviceType(serviceType)
         .healthInsurance(healthInsurance)
         .build());
 
     if (Objects.isNull(percentageMedicCenter)) {
       issuesList.add("Config centro médico - Seguro: " + healthInsurance.getName() + "(" + healthInsurance.getId()
-          + ") - Servicio: "
-          + medicalService.getDescription()
-          + "(" + medicalService.getId() + ")");
+          + ") - Tipo de servicio: "
+          + serviceType.getName()
+          + "(" + serviceType.getId() + ")");
       return;
     }
 
@@ -166,19 +167,19 @@ public class ReportDataServiceImpl implements ReportDataService {
 
   }
 
-  private void setDoctorIncomeValues(MedicalService medicalService, Doctor doctor, Float basePrice,
+  private void setDoctorIncomeValues(ServiceType serviceType, Doctor doctor, Float basePrice,
       Map<MedicalServiceDoctor, Float> medicalServiceConfigByDoctor,
       MedicCenterReportDetailBuilder medicCenterReportDetailBuilder, List<String> issuesList) {
     Float percentageDoctor = medicalServiceConfigByDoctor.get(MedicalServiceDoctor.builder()
-        .medicalService(medicalService)
+        .serviceType(serviceType)
         .doctor(doctor)
         .build());
 
     if (Objects.isNull(percentageDoctor)) {
       issuesList.add(
-          "Config doctor - Doctor: " + doctor.getName() + "(" + doctor.getId() + ") - Servicio: "
-              + medicalService.getDescription()
-              + "(" + medicalService.getId() + ")");
+          "Config doctor - Doctor: " + doctor.getName() + "(" + doctor.getId() + ") - Tipo de servicio: "
+              + serviceType.getName()
+              + "(" + serviceType.getId() + ")");
       return;
     }
     medicCenterReportDetailBuilder.doctorIncome(percentageDoctor * basePrice / 100);

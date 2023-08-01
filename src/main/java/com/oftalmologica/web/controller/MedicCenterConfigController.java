@@ -3,13 +3,13 @@ package com.oftalmologica.web.controller;
 import com.oftalmologica.web.dto.HealthInsuranceDto;
 import com.oftalmologica.web.dto.MedicCenterConfigDto;
 import com.oftalmologica.web.dto.MedicCenterDto;
-import com.oftalmologica.web.dto.MedicalServiceDto;
+import com.oftalmologica.web.dto.ServiceTypeDto;
 import com.oftalmologica.web.models.MedicCenterConfig;
 import com.oftalmologica.web.models.MedicCenterConfigId;
 import com.oftalmologica.web.service.HealthInsuranceService;
 import com.oftalmologica.web.service.MedicCenterConfigService;
 import com.oftalmologica.web.service.MedicCenterService;
-import com.oftalmologica.web.service.MedicalServiceService;
+import com.oftalmologica.web.service.ServiceTypeService;
 import java.util.List;
 import javax.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -26,7 +26,7 @@ public class MedicCenterConfigController {
 
   private final MedicCenterConfigService medicCenterConfigService;
   private final MedicCenterService medicCenterService;
-  private final MedicalServiceService medicalServiceService;
+  private final ServiceTypeService serviceTypeService;
   private final HealthInsuranceService healthInsuranceService;
 
   @GetMapping("/mediccentersconfig")
@@ -40,12 +40,12 @@ public class MedicCenterConfigController {
   public String createMedicCenterConfigForm(Model model) {
     MedicCenterConfig medicCenterConfig = new MedicCenterConfig();
     List<MedicCenterDto> medicCenters = medicCenterService.findAll();
-    List<MedicalServiceDto> medicalServices = medicalServiceService.findAll();
+    List<ServiceTypeDto> serviceTypes = serviceTypeService.findAll();
     List<HealthInsuranceDto> healthInsurances = healthInsuranceService.findAll();
 
     model.addAttribute("mediccenterconfig", medicCenterConfig);
     model.addAttribute("mediccenters", medicCenters);
-    model.addAttribute("medicalservices", medicalServices);
+    model.addAttribute("servicetypes", serviceTypes);
     model.addAttribute("healthinsurances", healthInsurances);
     return "config/mediccenter/mediccentersconfig-create";
   }
@@ -57,17 +57,17 @@ public class MedicCenterConfigController {
       Model model) {
     if (result.hasErrors()) {
       List<MedicCenterDto> medicCenters = medicCenterService.findAll();
-      List<MedicalServiceDto> medicalServices = medicalServiceService.findAll();
+      List<ServiceTypeDto> serviceTypes = serviceTypeService.findAll();
       List<HealthInsuranceDto> healthInsurances = healthInsuranceService.findAll();
       model.addAttribute("mediccenterconfig", medicCenterConfig);
       model.addAttribute("mediccenters", medicCenters);
-      model.addAttribute("medicalservices", medicalServices);
+      model.addAttribute("servicetypes", serviceTypes);
       model.addAttribute("healthinsurances", healthInsurances);
       return "config/mediccenter/mediccentersconfig-create";
     }
     MedicCenterConfigId medicCenterConfigId = new MedicCenterConfigId();
     medicCenterConfigId.setMedicCenterId(medicCenterConfig.getMedicCenter().getId());
-    medicCenterConfigId.setMedicalServiceId(medicCenterConfig.getMedicalService().getId());
+    medicCenterConfigId.setServiceTypeId(medicCenterConfig.getServiceType().getId());
     medicCenterConfigId.setHealthInsuranceId(medicCenterConfig.getHealthInsurance().getId());
     medicCenterConfig.setId(medicCenterConfigId);
     medicCenterConfigService.save(medicCenterConfig);
@@ -79,11 +79,11 @@ public class MedicCenterConfigController {
       Model model) {
     MedicCenterConfigDto medicCenterConfig = medicCenterConfigService.findById(medicCenterConfigId);
     List<MedicCenterDto> medicCenters = medicCenterService.findAll();
-    List<MedicalServiceDto> medicalServices = medicalServiceService.findAll();
+    List<ServiceTypeDto> serviceTypes = serviceTypeService.findAll();
     List<HealthInsuranceDto> healthInsurances = healthInsuranceService.findAll();
     model.addAttribute("mediccenterconfig", medicCenterConfig);
     model.addAttribute("mediccenters", medicCenters);
-    model.addAttribute("medicalservices", medicalServices);
+    model.addAttribute("servicetypes", serviceTypes);
     model.addAttribute("healthinsurances", healthInsurances);
     return "config/mediccenter/mediccentersconfig-edit";
   }
@@ -94,11 +94,11 @@ public class MedicCenterConfigController {
       BindingResult result, Model model) {
     if (result.hasErrors()) {
       List<MedicCenterDto> medicCenters = medicCenterService.findAll();
-      List<MedicalServiceDto> medicalServices = medicalServiceService.findAll();
+      List<ServiceTypeDto> serviceTypes = serviceTypeService.findAll();
       List<HealthInsuranceDto> healthInsurances = healthInsuranceService.findAll();
       model.addAttribute("mediccenterconfig", medicCenterConfig);
       model.addAttribute("mediccenters", medicCenters);
-      model.addAttribute("medicalservices", medicalServices);
+      model.addAttribute("servicetypes", serviceTypes);
       model.addAttribute("healthinsurances", healthInsurances);
       return "config/mediccenter/mediccentersconfig-edit";
     }

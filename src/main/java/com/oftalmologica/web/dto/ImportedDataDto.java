@@ -14,8 +14,9 @@ public class ImportedDataDto {
 
   private LocalDateTime issueDate;
   private DoctorDto doctor;
-  private MedicalServiceDto medicalService;
+  private ServiceTypeDto serviceType;
   private HealthInsuranceDto healthInsurance;
+  private String medicalServiceDescription;
   private String healthInsuranceDescription;
   private String patientName;
   private Float basePrice;
