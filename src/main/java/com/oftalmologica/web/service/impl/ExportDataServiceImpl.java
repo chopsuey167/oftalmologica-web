@@ -98,7 +98,8 @@ public class ExportDataServiceImpl implements ExportDataService {
     OutputStream outStream = response.getOutputStream();
     response.setContentType("application/vnd.ms-excel");
     response.setHeader("Content-Disposition",
-        "attachment; filename=Informe " + doctor.getName().replace(",", "") + " - " + medicCenterReport.getPeriod()
+        "attachment; filename=Informe " + doctor.getName().replace(",", "") + " - " + medicCenterReport.getMedicCenter()
+            .getName() + " - " + medicCenterReport.getPeriod()
             + " .xlsx");
     exportToXlsFile(jasperPrint, outStream, doctor.getName().replace(",", ""));
     outStream.close();

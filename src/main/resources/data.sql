@@ -25,7 +25,7 @@ VALUES ('Prueba AO', null, null, 2);
 INSERT INTO service_types (name, created_on, updated_on, report_group)
 VALUES ('Consulta', null, null, 2);
 INSERT INTO service_types (name, created_on, updated_on, report_group)
-VALUES ('Ayudantia', null, null, 2);
+VALUES ('Ayudantia', null, null, 3);
 INSERT INTO service_types (name, created_on, updated_on, report_group)
 VALUES ('Tratamiento', null, null, 2);
 INSERT INTO service_types (name, created_on, updated_on, report_group)
