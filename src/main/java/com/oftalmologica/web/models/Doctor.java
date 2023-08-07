@@ -1,5 +1,6 @@
 package com.oftalmologica.web.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.LocalDateTime;
 import java.util.Set;
 import javax.persistence.Entity;
@@ -34,6 +35,7 @@ public class Doctor {
   private LocalDateTime createdOn;
   @UpdateTimestamp
   private LocalDateTime updatedOn;
-  @OneToMany(mappedBy = "doctor", fetch = FetchType.EAGER)
+  @OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY)
+  @JsonIgnore
   private Set<DoctorConfig> doctorConfigurations;
 }

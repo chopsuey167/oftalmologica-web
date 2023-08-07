@@ -30,12 +30,12 @@ public class DoctorConfigController {
   private final DoctorService doctorService;
 
   @GetMapping("/doctorsconfig")
-  public String listMedicCentersConfig(Model model) {
+  public String listDoctorsConfig(Model model) {
     List<DoctorConfigDto> doctorsConfig = doctorConfigService.findAll();
     model.addAttribute("doctorsConfig", doctorsConfig);
     return "config/doctor/doctorsconfig-list";
   }
-
+  
   @GetMapping("/doctorsconfig/new")
   public String createDoctorConfigForm(Model model) {
     DoctorConfig doctorConfig = new DoctorConfig();
