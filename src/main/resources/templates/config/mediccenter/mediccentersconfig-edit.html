@@ -11,10 +11,10 @@
     <section class="py-5">
       <div class="container">
         <form class="row g-3" method="post" role="form"
-              th:action="@{/mediccentersconfig/{medicCenterId}/{medicalServiceId}/{healthInsuranceId}/edit(medicCenterId=${mediccenterconfig.id.medicCenterId},medicalServiceId=${mediccenterconfig.id.medicalServiceId},healthInsuranceId=${mediccenterconfig.id.healthInsuranceId})}"
+              th:action="@{/mediccentersconfig/{medicCenterId}/{serviceTypeId}/{healthInsuranceId}/edit(medicCenterId=${mediccenterconfig.id.medicCenterId},medicalServiceId=${mediccenterconfig.id.serviceTypeId},healthInsuranceId=${mediccenterconfig.id.healthInsuranceId})}"
               th:object="${mediccenterconfig}">
           <input th:field="*{id.medicCenterId}" type="hidden">
-          <input th:field="*{id.medicalServiceId}" type="hidden">
+          <input th:field="*{id.serviceTypeId}" type="hidden">
           <input th:field="*{id.healthInsuranceId}" type="hidden">
           <input th:field="*{medicCenter}" type="hidden">
           <input th:field="*{serviceType}" type="hidden">

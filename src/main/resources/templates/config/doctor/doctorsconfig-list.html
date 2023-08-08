@@ -12,58 +12,20 @@
     <a class="btn btn-primary m-3 float-end csv">Exportar CSV</a>
     <div class="card mb-4">
       <div class="card-body">
-        <table id="data-list">
+        <table class="display nowrap" id="data-list">
           <thead>
           <tr>
             <th>Doctor</th>
             <th>Centro médico</th>
-            <th>Tipo de servico</th>
+            <th>Tipo de servicio</th>
             <th>Porcentaje</th>
-            <!--            <th>M.</th>-->
-            <!--            <th>E.</th>-->
+            <th>M.</th>
+            <th>E.</th>
           </tr>
           </thead>
-          <!--          <tbody>-->
-          <!--          <tr th:each="doctorconfig: ${doctorsConfig}">-->
-          <!--            <td><p th:text="${doctorconfig.doctor.name}"></p></td>-->
-          <!--            <td><p th:text="${doctorconfig.medicCenter.name}"></p></td>-->
-          <!--            <td><p th:text="${doctorconfig.serviceType.name}"></p></td>-->
-          <!--            <td><p th:text="${doctorconfig.percentage}"></p></td>-->
-          <!--            <td><a-->
-          <!--                th:href="@{/doctorsconfig/{doctorId}/{medicCenterId}/{serviceTypeId}/edit(doctorId=${doctorconfig.id.doctorId},medicCenterId=${doctorconfig.id.medicCenterId},serviceTypeId=${doctorconfig.id.serviceTypeId})}"><i-->
-          <!--                class="fa-solid fa-pen-to-square fa-xl"></i></a></td>-->
-          <!--            <td><a-->
-          <!--                th:href="@{/doctorsconfig/{doctorId}/{medicCenterId}/{serviceTypeId}/delete(doctorId=${doctorconfig.id.doctorId},medicCenterId=${doctorconfig.id.medicCenterId},serviceTypeId=${doctorconfig.id.serviceTypeId})}"><i-->
-          <!--                class="fa-solid fa-trash fa-xl"></i></a></td>-->
-          <!--          </tr>-->
-          <!--          </tbody>-->
-
         </table>
       </div>
     </div>
-    <script src="https://cdn.datatables.net/v/dt/jq-3.7.0/dt-1.13.6/datatables.min.js"></script>
-    <script>
-      $('#data-list').DataTable({
-        "processing": true,
-        "serverSide": true,
-        "ordering": false,
-        "ajax": {
-          "url": "/doctorsconfig/list",
-          "type": "POST",
-          "dataType": "json",
-          "contentType": "application/json",
-          "data": function (d) {
-            return JSON.stringify(d);
-          }
-        },
-        "columns": [
-          {"data": "doctor.name", "width": "25%"},
-          {"data": "medicCenter.name", "width": "25%"},
-          {"data": "serviceType.name", "width": "25%"},
-          {"data": "percentage", "width": "25%"}
-        ]
-      });
-    </script>
   </div>
 </main>
 </body>
