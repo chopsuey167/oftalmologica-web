@@ -35,10 +35,22 @@ public class FileDataServiceImpl implements FileDataService {
     List<String> issuesList = new ArrayList<>();
     List<ImportedDataDto> importedDataDtoList = new ArrayList<>();
     DataFormatter formatter = new DataFormatter();
+    int i = 1;
+    String[] headers = new String[]{"fecha", "id_doctor", "id_tipo_servicio", "id_seguro", "descripción_servicio",
+        "descripcion_seguro", "nombre_paciente", "base"};
+
     try {
-      int i = 1;
       XSSFWorkbook workbook = new XSSFWorkbook(file.getInputStream());
       XSSFSheet worksheet = workbook.getSheetAt(0);
+
+      // file headers validation
+      XSSFRow headersRow = worksheet.getRow(0);
+      for (int c = 0; c < headers.length; c++) {
+        if (!Objects.equals(headers[c], headersRow.getCell(c).getStringCellValue())) {
+          throw new RuntimeException(
+              "Formato de archivo de importación es inválido. Verificar que las cabeceras del archivo esten correctas.");
+        }
+      }
 
       while (i <= worksheet.getLastRowNum()) {
         XSSFRow row = worksheet.getRow(i++);
@@ -83,8 +95,9 @@ public class FileDataServiceImpl implements FileDataService {
         throw new FileUploadIdsNotFoundException(issuesList);
       }
     } catch (IOException e) {
-      //TODO: Agregar exception handler para que muestre en vista el error
       throw new RuntimeException(e);
+    } catch (IllegalStateException e) {
+      throw new RuntimeException("Tipo de dato en la fila " + i + " no es correcto.");
     }
     return importedDataDtoList;
   }
