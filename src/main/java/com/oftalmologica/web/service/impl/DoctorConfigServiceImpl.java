@@ -23,6 +23,10 @@ public class DoctorConfigServiceImpl implements DoctorConfigService {
   private final DoctorConfigRepository repository;
   private final DoctorConfigDtoMapper mapper;
 
+  private int getLimit(PagingRequest pagingRequest, int totalRecords) {
+    return pagingRequest.getLength() == -1 ? totalRecords : pagingRequest.getLength();
+  }
+
   @Override
   public List<DoctorConfigDto> findAll() {
     List<DoctorConfig> doctorsConfig = repository.findAll();
@@ -45,7 +49,7 @@ public class DoctorConfigServiceImpl implements DoctorConfigService {
     List<DoctorConfigDto> doctorConfigListFiltered = allDoctorConfigDtos.stream()
         .filter(filterDoctorConfigs(pagingRequest))
         .skip(pagingRequest.getStart())
-        .limit(pagingRequest.getLength())
+        .limit(getLimit(pagingRequest, allDoctorConfigDtos.size()))
         .collect(Collectors.toList());
 
     long count = allDoctorConfigDtos.stream()

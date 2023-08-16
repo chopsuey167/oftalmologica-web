@@ -1,5 +1,8 @@
-let languageDataTable = "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json";
-
+const languageDataTable = "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json";
+const exportingOptions = {
+  extend: 'excel',
+  text: 'Exportar'
+};
 window.addEventListener('DOMContentLoaded', event => {
   const datatableConfigDoctor = document.getElementById('data-list');
 
@@ -11,6 +14,11 @@ window.addEventListener('DOMContentLoaded', event => {
       processing: true,
       serverSide: true,
       ordering: false,
+      lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+      dom: '<"container-fluid"<"row"<"col"l><"col"B><"col"f>>>rtip',
+      buttons: [
+        exportingOptions
+      ],
       ajax: {
         url: "/doctorsconfig/list",
         type: "POST",
