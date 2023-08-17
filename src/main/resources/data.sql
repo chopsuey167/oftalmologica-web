@@ -43,27 +43,27 @@ VALUES (null, null, null, 970.2, 'HM Delfos', null);
 INSERT INTO medic_centers (address, created_on, email, management_fee, name, updated_on)
 VALUES (null, null, null, 2001.98, 'HM Sant Jordi', null);
 INSERT INTO medic_centers (address, created_on, email, management_fee, name, updated_on)
-VALUES (null, null, null, null, 'HM Nens', null);
+VALUES (null, null, null, 0, 'HM Nens', null);
 INSERT INTO medic_centers (address, created_on, email, management_fee, name, updated_on)
-VALUES (null, null, null, null, 'HM Sant Andreu', null);
+VALUES (null, null, null, 0, 'HM Sant Andreu', null);
 INSERT INTO medic_centers (address, created_on, email, management_fee, name, updated_on)
-VALUES (null, null, null, null, 'HM Collblanc', null);
+VALUES (null, null, null, 0, 'HM Collblanc', null);
 INSERT INTO medic_centers (address, created_on, email, management_fee, name, updated_on)
-VALUES (null, null, null, null, 'HM Viladecans', null);
+VALUES (null, null, null, 0, 'HM Viladecans', null);
 INSERT INTO medic_centers (address, created_on, email, management_fee, name, updated_on)
-VALUES (null, null, null, null, 'CM Vic', null);
+VALUES (null, null, null, 0, 'CM Vic', null);
 INSERT INTO medic_centers (address, created_on, email, management_fee, name, updated_on)
-VALUES (null, null, null, null, 'CM Manlleu', null);
+VALUES (null, null, null, 0, 'CM Manlleu', null);
 INSERT INTO medic_centers (address, created_on, email, management_fee, name, updated_on)
-VALUES (null, null, null, null, 'Figueras', null);
+VALUES (null, null, null, 0, 'Figueras', null);
 INSERT INTO medic_centers (address, created_on, email, management_fee, name, updated_on)
-VALUES (null, null, null, null, 'Sils', null);
+VALUES (null, null, null, 0, 'Sils', null);
 INSERT INTO medic_centers (address, created_on, email, management_fee, name, updated_on)
-VALUES (null, null, null, null, 'Can Mora adultos', null);
+VALUES (null, null, null, 0, 'Can Mora adultos', null);
 INSERT INTO medic_centers (address, created_on, email, management_fee, name, updated_on)
-VALUES (null, null, null, null, 'Can Mora niños', null);
+VALUES (null, null, null, 0, 'Can Mora niños', null);
 INSERT INTO medic_centers (address, created_on, email, management_fee, name, updated_on)
-VALUES (null, null, null, null, 'Badamedic', null);
+VALUES (null, null, null, 0, 'Badamedic', null);
 COMMIT;
 
 /* HEALTH INSURANCE*/
