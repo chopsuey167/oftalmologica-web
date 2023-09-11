@@ -12,17 +12,16 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Getter
-@Setter
 @Entity
 @Table(name = "doctors")
 public class Doctor {
@@ -38,6 +37,7 @@ public class Doctor {
   @UpdateTimestamp
   private LocalDateTime updatedOn;
   @OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY)
+  @ToString.Exclude
   @JsonIgnore
   private Set<DoctorConfig> doctorConfigurations;
 }
